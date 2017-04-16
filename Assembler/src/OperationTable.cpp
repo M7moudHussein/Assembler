@@ -6,17 +6,21 @@
  */
 
 #include "OperationTable.h"
+OperationTable *instance;
 
 OperationTable::OperationTable() {
 	initialize();
 }
 
-static OperationTable OperationTable::getInstance() {
+OperationTable *OperationTable::getInstance() {
+	if (instance == NULL) {
+		instance = new OperationTable();
+	}
 	return instance;
 }
 
 void OperationTable::initialize() {
-
+	// TODO Auto-generated destructor stub
 }
 
 OperationTable::~OperationTable() {
