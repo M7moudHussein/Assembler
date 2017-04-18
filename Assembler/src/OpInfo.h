@@ -10,13 +10,13 @@
 
 class OpInfo {
 public:
-	OpInfo(short format, short code);
+	OpInfo(int format, int code);
 	virtual ~OpInfo();
-	short getFormat();
-	short getCode();
+	int getFormat();
+	int getCode();
 private:
-	short format;
-	short code;
+	int format;
+	int code;
 };
 
 #endif /* OPINFO_H_ */

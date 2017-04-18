@@ -7,18 +7,17 @@
 
 #include "OpInfo.h"
 
-OpInfo::OpInfo(short format, short code) :
-		format(format), code(code) {
+OpInfo::OpInfo(int format, int code) : format(format), code(code) {
 }
 
-short OpInfo::getFormat() {
+int OpInfo::getFormat() {
 	return format;
 }
-short OpInfo::getCode() {
+int OpInfo::getCode() {
 	return code;
 }
 
 OpInfo::~OpInfo() {
-	// TODO Auto-generated destructor stub
+
 }
 

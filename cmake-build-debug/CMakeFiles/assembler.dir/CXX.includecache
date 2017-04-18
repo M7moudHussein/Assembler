@@ -1,0 +1,74 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Assembler.cpp
+iostream
+-
+OperationTable.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Error.cpp
+Error.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Error.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Error.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Label.cpp
+Label.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Label.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Label.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Line.cpp
+Line.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Line.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Line.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/ListingFile.cpp
+ListingFile.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/ListingFile.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/ListingFile.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Machine.cpp
+Machine.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Machine.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Machine.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.cpp
+OpInfo.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.cpp
+OperationTable.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.h
+fstream
+-
+algorithm
+-
+assert.h
+-
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.h
+OpInfo.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.h
+unordered_map
+-
+string
+-
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.cpp
+SymbolTable.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.h
+

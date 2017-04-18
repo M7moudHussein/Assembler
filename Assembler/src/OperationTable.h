@@ -10,17 +10,24 @@
 
 #include "OpInfo.h"
 #include <unordered_map>
-#include <bits/stdc++.h>
-using namespace std;
+#include <string>
+
 
 class OperationTable {
 public:
 	static OperationTable *getInstance();
+    bool hasOperation(std::string inst);
+	int getFormat(std::string inst);
+    int getOpCode(std::string inst);
+
+
 private:
-	std::unordered_map<std::string, OpInfo> opTable;
+	std::unordered_map<std::string, OpInfo*> opTable;
+    const char* INSTRUCTION_FILE = "instructions.txt";
+
 	OperationTable();
-	void initialize();
 	virtual ~OperationTable();
+	void buildTable();
 };
 
 #endif /* OPERATIONTABLE_H_ */

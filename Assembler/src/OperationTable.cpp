@@ -1,15 +1,12 @@
-/*
- * OperationTable.cpp
- *
- *  Created on: Apr 16, 2017
- *      Author: mahmoud
- */
-
 #include "OperationTable.h"
+#include <fstream>
+#include <algorithm>
+#include <assert.h>
+
 OperationTable *instance;
 
 OperationTable::OperationTable() {
-	initialize();
+	buildTable();
 }
 
 OperationTable *OperationTable::getInstance() {
@@ -19,11 +16,35 @@ OperationTable *OperationTable::getInstance() {
 	return instance;
 }
 
-void OperationTable::initialize() {
-	// TODO Auto-generated destructor stub
-}
-
 OperationTable::~OperationTable() {
-	// TODO Auto-generated destructor stub
 }
 
+void OperationTable::buildTable() {
+	std::ifstream is(INSTRUCTION_FILE);
+	std::string inst;
+	int format, opCode;
+	while(is >> inst){
+		is >> opCode >> format;
+		std::transform(inst.begin(), inst.end(), inst.begin(), ::tolower);
+		opTable[inst] = new OpInfo(format, opCode);
+	}
+	assert(is.eof());
+	is.close();
+}
+
+int OperationTable::getFormat(std::string inst) {
+	std::transform(inst.begin(), inst.end(), inst.begin(), ::tolower);
+	assert(opTable.count(inst));
+	return opTable[inst]->getFormat();
+}
+
+int OperationTable::getOpCode(std::string inst) {
+	std::transform(inst.begin(), inst.end(), inst.begin(), ::tolower);
+	assert(opTable.count(inst));
+	return opTable[inst]->getCode();
+}
+
+bool OperationTable::hasOperation(std::string inst) {
+	std::transform(inst.begin(), inst.end(), inst.begin(), ::tolower);
+	return opTable.count(inst);
+}
