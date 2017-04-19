@@ -3,8 +3,8 @@
 
 CMakeFiles/assembler.dir/Assembler/src/Assembler.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Assembler.cpp
- C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.h
- C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Machine.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.h
 CMakeFiles/assembler.dir/Assembler/src/Error.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Error.cpp
  C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Error.h
@@ -14,12 +14,18 @@ CMakeFiles/assembler.dir/Assembler/src/Label.cpp.obj
 CMakeFiles/assembler.dir/Assembler/src/Line.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Line.cpp
  C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Line.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.h
 CMakeFiles/assembler.dir/Assembler/src/ListingFile.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/ListingFile.cpp
  C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/ListingFile.h
 CMakeFiles/assembler.dir/Assembler/src/Machine.cpp.obj
+ C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Line.h
  C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Machine.cpp
  C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Machine.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.h
 CMakeFiles/assembler.dir/Assembler/src/OpInfo.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.cpp
  C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.h

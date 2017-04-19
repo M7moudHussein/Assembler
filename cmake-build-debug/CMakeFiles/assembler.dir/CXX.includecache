@@ -9,8 +9,8 @@
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Assembler.cpp
 iostream
 -
-OperationTable.h
-C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.h
+Machine.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Machine.h
 
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Error.cpp
 Error.h
@@ -27,8 +27,14 @@ C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Label.h
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Line.cpp
 Line.h
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Line.h
+OperationTable.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.h
+iostream
+-
 
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Line.h
+string
+-
 
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/ListingFile.cpp
 ListingFile.h
@@ -39,8 +45,24 @@ C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/ListingFile.h
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Machine.cpp
 Machine.h
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Machine.h
+Line.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Line.h
+OperationTable.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.h
+assert.h
+-
+fstream
+-
+iostream
+-
+string
+-
 
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Machine.h
+SymbolTable.h
+C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.h
+string
+-
 
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.cpp
 OpInfo.h
@@ -69,6 +91,12 @@ string
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.cpp
 SymbolTable.h
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.h
+unordered_map
+-
 
 C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.h
+string
+-
+unordered_map
+-
 

@@ -1,0 +1,7 @@
+EX3      start 1000
+         lda mado
+         add dida
+         rsub
+mado	word	15
+dida	resw	16
+         end EX3

@@ -1,8 +1,8 @@
 #include <iostream>
-#include "OperationTable.h"
+#include "Machine.h"
 
 int main(int argc, char** argv){
-    OperationTable* op = OperationTable::getInstance();
-    std::cout << op->getOpCode("add") << "  EEEE" << std::endl;
+    Machine machine("input.txt");
+    machine.assemble();
     return 0;
 }

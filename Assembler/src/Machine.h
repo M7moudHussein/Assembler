@@ -11,6 +11,8 @@
 #include "SymbolTable.h"
 #include <string>
 
+enum class ProgramState{ START, PROGRAM, END};
+
 class Machine {
 public:
 	Machine(std::string);
@@ -21,6 +23,7 @@ private:
 	std::string pass1(std::string);
 	void pass2(std::string);
 	SymbolTable* readIntermediateFile();
+	bool addLabel(std::string, int);
 
 	SymbolTable* symbolTable;
 	std::string inputFile;
