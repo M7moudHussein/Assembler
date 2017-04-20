@@ -8,7 +8,7 @@ Line::Line(std::string line) {
     parseLine(line);
 }
 
-Line::Line(){
+Line::Line() {
 
 }
 
@@ -17,9 +17,9 @@ Line::~Line() {
 }
 
 std::ostream &operator<<(std::ostream &os, const Line &line) {
-    if(!line.isEnd()){
+    if (!line.isEnd()) {
         os << std::hex << line.address << std::dec << "\t";
-    }else{
+    } else {
         os << " ";
     }
     os << (line.hasLabel() ? line.label : " ") << '\t'
@@ -29,19 +29,21 @@ std::ostream &operator<<(std::ostream &os, const Line &line) {
     return os;
 }
 
-std::istream& operator >> (std::istream& is, Line& c)
-{
+std::istream &operator>>(std::istream &is, Line &c) {
     std::string firstWord;
     is >> firstWord;
-    if(!c.equalsIgnoreCase(firstWord, "end")){
+    if (!c.equalsIgnoreCase(firstWord, "end")) {
         c.address = stoi(firstWord, nullptr, 16);
         is >> c.label;
-    }else{
-        c.label = firstWord;
+        is >> c.operation;
+    } else {
+        c.operation = firstWord;
     }
-    is >> c.operation >> c.operand >> c.comment;
+    is >> c.operand >> c.comment;
+    c.reformData();
     return is;
 }
+
 void Line::parseLine(std::string line) {
     ReadState state = ReadState::LABEL;
     int pos = 0;
@@ -100,7 +102,7 @@ ReadState Line::getNextState(ReadState curState) {
     }
 }
 
-bool Line::hasLabel() const{
+bool Line::hasLabel() const {
     return label.length() != 0;
 }
 
@@ -108,7 +110,7 @@ bool Line::hasOperand() const {
     return operand.length() != 0;
 }
 
-bool Line::hasComment() const{
+bool Line::hasComment() const {
     return comment.length() != 0;
 }
 
@@ -124,7 +126,7 @@ std::string Line::getOperand() {
     return operand;
 }
 
-int Line::getAddress(){
+int Line::getAddress() {
     return address;
 }
 
@@ -136,18 +138,18 @@ void Line::setAddress(int address) {
     this->address = address;
 }
 
-bool Line::isValid(){
-    if(operation == "resw" || operation == "resb" || operation == "word")
+bool Line::isValid() {
+    if (operation == "resw" || operation == "resb" || operation == "word")
         return validInteger(operand);
-    if(operation == "byte")
+    if (operation == "byte")
         return validByte(operand);
     return true;
 }
 
 bool Line::validInteger(std::string integer) {
-    for(int i = 0; i < integer.length(); i++){
+    for (int i = 0; i < integer.length(); i++) {
         int curVal = integer[i] - '0';
-        if(curVal < 0 || curVal > 9)
+        if (curVal < 0 || curVal > 9)
             return false;
     }
     return true;
@@ -176,7 +178,7 @@ std::string Line::getError() {
 int Line::getNextAddress(int locCtr) {
     if (equalsIgnoreCase(operation, "start")) {
         return std::stoi(operand, nullptr, 16);
-    }else if(equalsIgnoreCase(operation, "end")){
+    } else if (equalsIgnoreCase(operation, "end")) {
         return locCtr;
     }
     if (!isValid()) {
@@ -200,6 +202,7 @@ int Line::getConstSize() {
         return operand.length() - 3;
     return (operand.length() - 3 + 1) / 2;
 }
+
 bool Line::equalsIgnoreCase(const std::string &str1, const char *str2) const {
     if (str1.length() != std::strlen(str2)) {
         return false;
@@ -212,6 +215,6 @@ bool Line::equalsIgnoreCase(const std::string &str1, const char *str2) const {
     return true;
 }
 
-bool Line::isEnd() const{
+bool Line::isEnd() const {
     return equalsIgnoreCase(operation, "end");
 }

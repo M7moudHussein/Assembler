@@ -14,6 +14,7 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <cstring>
 
 Machine::Machine(std::string inputFile) : inputFile(inputFile) {
     symbolTable = new SymbolTable;
@@ -80,30 +81,28 @@ void Machine::pass2() {
     std::string outputFile = "objectcode.txt";
     std::ifstream inputStream(INTER_FILE);
     std::ofstream outputStream(outputFile);
-    std::string inputLine, firstInstructionAddress;
-    getline(inputStream, inputLine);
-    std::vector<std::string> line = parseLine(inputLine);
-    firstInstructionAddress = line[0];
-
-    outputStream << "H^" << line[1] << "\t" << formalize(firstInstructionAddress, 6) << "^"
+    Line line;
+    std::string firstInstructionAddress;
+    inputStream >> line;
+    firstInstructionAddress = line.getAddress();
+    outputStream << "H^" << line.getOperand() << "\t" << formalize(firstInstructionAddress, 6) << "^"
                  << to_hexadecimal(programLength)
                  << std::endl;
     TextRecord textRecord;
-    while (getline(inputStream, inputLine)) {
+    while (inputStream >> line) {
         int opCode;
         std::string operandAddress;
         std::string objectCode;
-        line = parseLine(inputLine);
-        if (line[2] == "end") {
+        if (line.isEnd()) {
             break;
         }
         //TODO check if no a comment line. (i don't now how a comment will be in intermediate file).
         {
-            if (OperationTable::getInstance()->hasOperation(line[2])) { //line has a valid operation.
-                opCode = OperationTable::getInstance()->getOpCode(line[2]);
-                if (!line[3].empty()) { //has an operand
-                    if (symbolTable->hasLabel(line[3])) { //a valid operand
-                        operandAddress = to_hexadecimal(symbolTable->getAddress(line[3]));
+            if (OperationTable::getInstance()->hasOperation(line.getOperation())) { //line has a valid operation.
+                opCode = OperationTable::getInstance()->getOpCode(line.getOperation());
+                if (line.hasOperand()) { //has an operand
+                    if (symbolTable->hasLabel(line.getOperand())) { //a valid operand
+                        operandAddress = to_hexadecimal(symbolTable->getAddress(line.getOperand()));
                     } else {
                         operandAddress = "0";
                         //TODO Error handling (undefined symbol).
@@ -112,11 +111,12 @@ void Machine::pass2() {
                     operandAddress = "0";
                 }
                 objectCode = formalize(to_hexadecimal(opCode), 2) + formalize(operandAddress, 4);
-            } else if (line[2] == "byte" || line[2] == "word") { //if byte or word
-                if (line[2] == "byte") {
-                    objectCode = line[3].substr(2, line[3].length() - 3);
+            } else if (equalsIgnoreCase(line.getOperation(), "byte") ||
+                       equalsIgnoreCase(line.getOperation(), "word")) { //if byte or word
+                if (equalsIgnoreCase(line.getOperation(), "byte")) {
+                    objectCode = line.getOperand().substr(2, line.getOperand().length() - 3);
                 } else {
-                    objectCode = formalize(to_hexadecimal(line[3]), 6);
+                    objectCode = formalize(to_hexadecimal(line.getOperand()), 6);
                 }
             } else {
                 //TODO Error handling un supported operation.
@@ -126,7 +126,7 @@ void Machine::pass2() {
                 outputStream << textRecord.to_string();
                 textRecord = TextRecord();
             } else {
-                textRecord.append(objectCode, line[0]);
+                textRecord.append(objectCode, to_hexadecimal(line.getAddress()));
             }
         }
     }
@@ -143,29 +143,34 @@ bool Machine::addLabel(std::string label, int address) {
     return true;
 }
 
-std::vector<std::string> Machine::parseLine(std::string &line) {
-    std::vector<std::string> lineParts;
-    lineParts.push_back(line.substr(0, 4));
-    int it = 5;
-    if (isspace(line[it])) {
-        lineParts.push_back(std::string());
-    } else {
-        while (it < line.length() && !isspace(line[it]))it++;
-        lineParts.push_back(line.substr(5, it - 5));
-    }
-    while (it < line.length() && isspace(line[it]))it++;
-    int temp = it;
-    while (it < line.length() && !isspace(line[it]))it++;
-    lineParts.push_back(line.substr(temp, it - temp));
-    while (it < line.length() && isspace(line[it]))it++;
-    temp = it;
-    while (it < line.length() && !isspace(line[it]))it++;
-    lineParts.push_back(line.substr(temp, it - temp));
-    for (int i = 0; i < (int) lineParts.size(); i++) {
-        std::transform(lineParts[i].begin(), lineParts[i].end(), lineParts[i].begin(), ::tolower);
-    }
-    return lineParts;
-}
+//std::vector<std::string> Machine::parseLine(std::string &line) {
+//    std::vector<std::string> lineParts;
+//    int it = 0;
+//    if (!isspace(line[it])) {
+//        lineParts.push_back(line.substr(0, 4));
+//        it = 5;
+//    } else {
+//        lineParts.push_back(std::string());
+//    }
+//    if (isspace(line[it])) {
+//        lineParts.push_back(std::string());
+//    } else {
+//        while (it < line.length() && !isspace(line[it]))it++;
+//        lineParts.push_back(line.substr(5, it - 5));
+//    }
+//    while (it < line.length() && isspace(line[it]))it++;
+//    int temp = it;
+//    while (it < line.length() && !isspace(line[it]))it++;
+//    lineParts.push_back(line.substr(temp, it - temp));
+//    while (it < line.length() && isspace(line[it]))it++;
+//    temp = it;
+//    while (it < line.length() && !isspace(line[it]))it++;
+//    lineParts.push_back(line.substr(temp, it - temp));
+//    for (int i = 0; i < (int) lineParts.size(); i++) {
+//        std::transform(lineParts[i].begin(), lineParts[i].end(), lineParts[i].begin(), ::tolower);
+//    }
+//    return lineParts;
+//}
 
 std::string Machine::to_hexadecimal(int number) {
     std::stringstream stream;
@@ -182,4 +187,16 @@ std::string Machine::formalize(std::string code, int len) {
         code = "0" + code;
     }
     return code;
+}
+
+bool Machine::equalsIgnoreCase(const std::string &str1, const char *str2) const {
+    if (str1.length() != std::strlen(str2)) {
+        return false;
+    }
+    for (int i = 0; i < str1.length(); i++) {
+        if (tolower(str1[i]) != tolower(str2[i])) {
+            return false;
+        }
+    }
+    return true;
 }

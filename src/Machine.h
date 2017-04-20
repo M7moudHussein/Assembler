@@ -44,6 +44,8 @@ private:
     std::string to_hexadecimal(int number);
 
     std::string formalize(std::string code, int len);
+
+    bool equalsIgnoreCase(const std::string &str1, const char *str2) const;
 };
 
 #endif /* MACHINE_H_ */
