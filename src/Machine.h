@@ -25,27 +25,26 @@ public:
     void assemble();
 
 private:
-	int pass1(std::string);
-	void pass2();
-	SymbolTable* readIntermediateFile();
-	bool addLabel(std::string, int);
+    int pass1(std::string);
 
-	SymbolTable* symbolTable;
-	std::string inputFile;
-	int programLength, startingAddress;
-	const std::string INTER_FILE = "inter_file.txt";
+    void pass2();
+
+    bool addLabel(std::string, int);
+
+    SymbolTable *symbolTable;
+    std::string inputFile;
+    int programLength, startingAddress;
+    const std::string INTER_FILE = "inter_file.txt";
 
     std::vector<std::string> parseLine(std::string &line);
 
-    void pass2(std::string);
-
-
-    std::string getProgramLength(std::string line);
-
     std::string to_hexadecimal(std::string number);
 
-
     SymbolTable *readIntermediateFile(std::string intermedFile);
+
+    std::string to_hexadecimal(int number);
+
+    std::string formalize(std::string code, int len);
 };
 
 #endif /* MACHINE_H_ */

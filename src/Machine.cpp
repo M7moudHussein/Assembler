@@ -86,14 +86,16 @@ void Machine::pass2() {
     getline(inputStream, inputLine);
     std::vector<std::string> line = parseLine(inputLine);
     firstInstructionAddress = line[0];
-    outputStream << "H^" << line[1] << "\t" << "^00" << firstInstructionAddress << "^" << programLength << std::endl;
+    outputStream << "H^" << line[1] << "\t" << formalize(firstInstructionAddress, 6) << "^"
+                 << to_hexadecimal(programLength)
+                 << std::endl;
     TextRecord textRecord;
     while (getline(inputStream, inputLine)) {
         int opCode;
         std::string operandAddress;
         std::string objectCode;
         line = parseLine(inputLine);
-        if (line[3] == "end") {
+        if (line[2] == "end") {
             break;
         }
         //TODO check if no a comment line. (i don't now how a comment will be in intermediate file).
@@ -102,7 +104,7 @@ void Machine::pass2() {
                 opCode = OperationTable::getInstance()->getOpCode(line[2]);
                 if (!line[3].empty()) { //has an operand
                     if (symbolTable->hasLabel(line[3])) { //a valid operand
-                        operandAddress = symbolTable->getAddress(line[3]);
+                        operandAddress = to_hexadecimal(symbolTable->getAddress(line[3]));
                     } else {
                         operandAddress = "0";
                         //TODO Error handling (undefined symbol).
@@ -110,13 +112,16 @@ void Machine::pass2() {
                 } else {
                     operandAddress = "0";
                 }
-                objectCode = std::to_string(opCode / 16) + std::to_string(opCode % 16) + operandAddress;
+                objectCode = formalize(to_hexadecimal(opCode), 2) + formalize(operandAddress, 4);
             } else if (line[2] == "byte" || line[2] == "word") { //if byte or word
                 if (line[2] == "byte") {
-                    objectCode = line[3].substr(1, line[3].length() - 1);
+                    objectCode = line[3].substr(2, line[3].length() - 3);
                 } else {
-                    objectCode = "00" + to_hexadecimal(line[3]);
+                    objectCode = formalize(to_hexadecimal(line[3]), 6);
                 }
+            } else {
+                //TODO Error handling un supported operation.
+                objectCode = "XXXXXX";
             }
             if (!textRecord.fits(objectCode)) {
                 outputStream << textRecord.to_string();
@@ -129,7 +134,7 @@ void Machine::pass2() {
     if (!textRecord.empty()) {
         outputStream << textRecord.to_string();
     }
-    outputStream << "E^" << firstInstructionAddress << std::endl;
+    outputStream << "E^" << formalize(firstInstructionAddress, 6) << std::endl;
 }
 
 bool Machine::addLabel(std::string label, int address) {
@@ -157,8 +162,8 @@ std::vector<std::string> Machine::parseLine(std::string &line) {
     temp = it;
     while (it < line.length() && !isspace(line[it]))it++;
     lineParts.push_back(line.substr(temp, it - temp));
-    for (auto line : lineParts) {
-        std::transform(line.begin(), line.end(), line.begin(), ::tolower);
+    for (int i = 0; i < (int) lineParts.size(); i++) {
+        std::transform(lineParts[i].begin(), lineParts[i].end(), lineParts[i].begin(), ::tolower);
     }
     return lineParts;
 }
@@ -167,6 +172,10 @@ std::string Machine::to_hexadecimal(std::string number) {
     std::stringstream stream;
     stream << std::hex << number;
     return stream.str();
+}
+
+std::string Machine::to_hexadecimal(int number) {
+    return to_hexadecimal(std::to_string(number));
 }
 
 SymbolTable *Machine::readIntermediateFile(std::string intermedFile) {
@@ -184,4 +193,11 @@ SymbolTable *Machine::readIntermediateFile(std::string intermedFile) {
         }
     }
     return newSymbolTable;
+}
+
+std::string Machine::formalize(std::string code, int len) {
+    while (code.length() < len) {
+        code = "0" + code;
+    }
+    return code;
 }
