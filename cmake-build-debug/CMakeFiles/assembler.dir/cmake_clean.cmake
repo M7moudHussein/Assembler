@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/assembler.dir/Assembler/src/OperationTable.cpp.obj"
   "CMakeFiles/assembler.dir/Assembler/src/OpInfo.cpp.obj"
   "CMakeFiles/assembler.dir/Assembler/src/SymbolTable.cpp.obj"
+  "CMakeFiles/assembler.dir/Assembler/src/TextRecord.cpp.obj"
   "assembler.pdb"
   "assembler.exe"
   "assembler.exe.manifest"

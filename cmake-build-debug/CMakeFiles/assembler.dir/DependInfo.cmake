@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.cpp" "C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/CMakeFiles/assembler.dir/Assembler/src/OpInfo.cpp.obj"
   "C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.cpp" "C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/CMakeFiles/assembler.dir/Assembler/src/OperationTable.cpp.obj"
   "C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.cpp" "C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/CMakeFiles/assembler.dir/Assembler/src/SymbolTable.cpp.obj"
+  "C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/TextRecord.cpp" "C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/CMakeFiles/assembler.dir/Assembler/src/TextRecord.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

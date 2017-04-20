@@ -20,6 +20,7 @@ set(SOURCE_FILES
         Assembler/src/OpInfo.cpp
         Assembler/src/OpInfo.h
         Assembler/src/SymbolTable.cpp
-        Assembler/src/SymbolTable.h)
+        Assembler/src/SymbolTable.h
+        Assembler/CMakeLists.txt Assembler/src/TextRecord.cpp Assembler/src/TextRecord.h)
 
 add_executable(assembler ${SOURCE_FILES})

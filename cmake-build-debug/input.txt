@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 EX3      start 1000
          lda mado
          add dida
@@ -6,3 +7,13 @@ mado	word	15
 dida	resw	16
 nancy	byte	c'hllo-world'
          end EX3
+=======
+PROG1	START	1000
+	LDA	BETA
+	MUL	GAMMA
+	STA	ALPHA
+ALPHA	RESW	1
+BETA	WORD	4
+GAMMA	WORD	12
+	END	PROG1
+>>>>>>> 3d3d1d5279d28dbe7d94f4c1e17f3a4845da3506

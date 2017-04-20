@@ -80,6 +80,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/CMakeLists.txt">
+			<Option target="assembler"/>
+		</Unit>
 		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Assembler.cpp">
 			<Option target="assembler"/>
 		</Unit>
@@ -129,6 +132,12 @@
 			<Option target="assembler"/>
 		</Unit>
 		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.h">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/TextRecord.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/TextRecord.h">
 			<Option target="assembler"/>
 		</Unit>
 		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/CMakeLists.txt">

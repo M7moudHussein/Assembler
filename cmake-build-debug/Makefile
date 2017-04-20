@@ -365,6 +365,33 @@ Assembler/src/SymbolTable.cpp.s:
 	$(MAKE) -f CMakeFiles\assembler.dir\build.make CMakeFiles/assembler.dir/Assembler/src/SymbolTable.cpp.s
 .PHONY : Assembler/src/SymbolTable.cpp.s
 
+Assembler/src/TextRecord.obj: Assembler/src/TextRecord.cpp.obj
+
+.PHONY : Assembler/src/TextRecord.obj
+
+# target to build an object file
+Assembler/src/TextRecord.cpp.obj:
+	$(MAKE) -f CMakeFiles\assembler.dir\build.make CMakeFiles/assembler.dir/Assembler/src/TextRecord.cpp.obj
+.PHONY : Assembler/src/TextRecord.cpp.obj
+
+Assembler/src/TextRecord.i: Assembler/src/TextRecord.cpp.i
+
+.PHONY : Assembler/src/TextRecord.i
+
+# target to preprocess a source file
+Assembler/src/TextRecord.cpp.i:
+	$(MAKE) -f CMakeFiles\assembler.dir\build.make CMakeFiles/assembler.dir/Assembler/src/TextRecord.cpp.i
+.PHONY : Assembler/src/TextRecord.cpp.i
+
+Assembler/src/TextRecord.s: Assembler/src/TextRecord.cpp.s
+
+.PHONY : Assembler/src/TextRecord.s
+
+# target to generate assembly for a file
+Assembler/src/TextRecord.cpp.s:
+	$(MAKE) -f CMakeFiles\assembler.dir\build.make CMakeFiles/assembler.dir/Assembler/src/TextRecord.cpp.s
+.PHONY : Assembler/src/TextRecord.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -401,6 +428,9 @@ help:
 	@echo ... Assembler/src/SymbolTable.obj
 	@echo ... Assembler/src/SymbolTable.i
 	@echo ... Assembler/src/SymbolTable.s
+	@echo ... Assembler/src/TextRecord.obj
+	@echo ... Assembler/src/TextRecord.i
+	@echo ... Assembler/src/TextRecord.s
 .PHONY : help
 
 

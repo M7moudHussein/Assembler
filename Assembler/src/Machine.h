@@ -10,14 +10,19 @@
 
 #include "SymbolTable.h"
 #include <string>
+#include <vector>
 
-enum class ProgramState{ START, PROGRAM, END};
+enum class ProgramState {
+    START, PROGRAM, END
+};
 
 class Machine {
 public:
-	Machine(std::string);
-	virtual ~Machine();
-	void assemble();
+    Machine(std::string);
+
+    virtual ~Machine();
+
+    void assemble();
 
 private:
 	int pass1(std::string);
@@ -29,6 +34,18 @@ private:
 	std::string inputFile;
 	int programLength, startingAddress;
 	const std::string INTER_FILE = "inter_file.txt";
+
+    std::vector<std::string> parseLine(std::string &line);
+
+    void pass2(std::string);
+
+
+    std::string getProgramLength(std::string line);
+
+    std::string to_hexadecimal(std::string number);
+
+
+    SymbolTable *readIntermediateFile(std::string intermedFile);
 };
 
 #endif /* MACHINE_H_ */
