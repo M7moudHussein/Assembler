@@ -1,7 +1,8 @@
-EX3      start 1000
-         lda mado
-         add dida
-         rsub
-mado	word	15
-dida	resw	16
-         end EX3
+PROG1	START	1000
+	LDA	BETA
+	MUL	GAMMA
+	STA	ALPHA
+ALPHA	RESW	1
+BETA	WORD	4
+GAMMA	WORD	12
+	END	PROG1

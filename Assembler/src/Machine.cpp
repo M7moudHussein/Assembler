@@ -25,7 +25,7 @@ Machine::~Machine() {
 
 void Machine::assemble() {
     std::string intermedFile = pass1(inputFile);
-//    pass2(intermedFile);
+    pass2(intermedFile);
 }
 
 std::string Machine::pass1(std::string inputFile) {
@@ -47,7 +47,9 @@ std::string Machine::pass1(std::string inputFile) {
             case ProgramState::START:
                 if (lineCommand.getOperation() != "start") {
                     state = ProgramState::PROGRAM;
-                    locCtr = 0;
+                    std::stringstream ss;
+                    ss << std::hex << lineCommand.getOperand();
+                    ss >> locCtr;
                 } else {
                     locCtr = lineCommand.getNextAddress(locCtr);
                     lineCommand.setAddress(locCtr);

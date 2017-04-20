@@ -8,130 +8,143 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug"/>
+				<Option working_dir="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="assembler">
-				<Option output="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/assembler.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++"/>
-					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/mingw32"/>
-					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/backward"/>
-					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include"/>
-					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/../../../../include"/>
-					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include-fixed"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 assembler"/>
-					<CompileFile command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="assembler/fast">
-				<Option output="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/assembler.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++"/>
-					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/mingw32"/>
-					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/backward"/>
-					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include"/>
-					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/../../../../include"/>
-					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include-fixed"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 assembler/fast"/>
-					<CompileFile command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="edit_cache">
-				<Option working_dir="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug"/>
+				<Option working_dir="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="assembler">
+				<Option output="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/cmake-build-debug/assembler" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 assembler"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="assembler/fast">
+				<Option output="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/cmake-build-debug/assembler" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 assembler/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/media/Data/Google\ Drive/Study/Second_Yead/Second_Semester/Systems\ Programming/Assembler/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Assembler.cpp">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/CMakeLists.txt">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Error.cpp">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/Assembler.cpp">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Error.h">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/Error.cpp">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Label.cpp">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/Error.h">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Label.h">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/Label.cpp">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Line.cpp">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/Label.h">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Line.h">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/Line.cpp">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/ListingFile.cpp">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/Line.h">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/ListingFile.h">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/ListingFile.cpp">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Machine.cpp">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/ListingFile.h">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/Machine.h">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/Machine.cpp">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.cpp">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/Machine.h">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OpInfo.h">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/OpInfo.cpp">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.cpp">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/OpInfo.h">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/OperationTable.h">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/OperationTable.cpp">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.cpp">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/OperationTable.h">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/Assembler/src/SymbolTable.h">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/SymbolTable.cpp">
 			<Option target="assembler"/>
 		</Unit>
-		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/CMakeLists.txt">
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/SymbolTable.h">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/TextRecord.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/Assembler/src/TextRecord.h">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="/media/Data/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/Assembler/assembler/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

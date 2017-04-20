@@ -1,14 +1,16 @@
-1000	EX3	start	1000	
+1000	PROG1	START	1000	
 
-1000		lda	mado	
+1000		LDA	BETA	
 
-1003		add	dida	
+1003		MUL	GAMMA	
 
-1006		rsub		
+1006		STA	ALPHA	
 
-1009	mado	word	15	
+1009	ALPHA	RESW	1	
 
-100c	dida	resw	16	
+100c	BETA	WORD	4	
 
-103c		end	EX3	
+100f	GAMMA	WORD	12	
+
+1012		END	PROG1	
 
