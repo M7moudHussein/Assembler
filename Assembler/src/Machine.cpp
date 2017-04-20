@@ -77,16 +77,16 @@ int Machine::pass1(std::string inputFile) {
 }
 
 
-void Machine::pass2(std::string intermedFile) {
-    symbolTable = readIntermediateFile(intermedFile);
+void Machine::pass2() {
+    symbolTable = readIntermediateFile(INTER_FILE);
     std::string outputFile = "objectcode.txt";
-    std::ifstream inputStream(intermedFile);
+    std::ifstream inputStream(INTER_FILE);
     std::ofstream outputStream(outputFile);
     std::string inputLine, firstInstructionAddress;
     getline(inputStream, inputLine);
     std::vector<std::string> line = parseLine(inputLine);
     firstInstructionAddress = line[0];
-    outputStream << "H^" << line[1] << "\n" << "^00" << firstInstructionAddress << "^" << getProgramLength(intermedFile)
+    outputStream << "H^" << line[1] << "\n" << "^00" << firstInstructionAddress << "^" << getProgramLength(INTER_FILE)
                  << std::endl;
     TextRecord textRecord;
     while (getline(inputStream, inputLine)) {
