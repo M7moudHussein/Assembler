@@ -126,7 +126,7 @@ void Machine::pass2() {
                 outputStream << textRecord.to_string();
                 textRecord = TextRecord();
             } else {
-                textRecord.append(objectCode);
+                textRecord.append(objectCode, line[0]);
             }
         }
     }

@@ -17,10 +17,11 @@ bool TextRecord::fits(std::string objectcode) {
     return size + objectcode.length() / 2 <= 30;
 }
 
-void TextRecord::append(std::string objectCode) {
-    if (!textRecord.empty()) {
-        size += objectCode.length() / 2;
+void TextRecord::append(std::string objectCode, std::string instructionAddress) {
+    if (startingAddress.empty()) {
+        startingAddress = instructionAddress;
     }
+    size += objectCode.length() / 2;
     textRecord.push_back(objectCode);
 }
 
@@ -30,10 +31,10 @@ bool TextRecord::empty() {
 
 std::string TextRecord::to_string() {
     std::string record = "T^";
-    record.append(textRecord[0]);
+    record.append("00" + startingAddress);
     record.append("^");
     record.append(to_hexadecimal(size));
-    for (int i = 1; i < (int) textRecord.size(); i++) {
+    for (int i = 0; i < (int) textRecord.size(); i++) {
         record.append("^");
         record.append(textRecord[i]);
     }

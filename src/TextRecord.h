@@ -16,7 +16,7 @@ public:
 
     bool fits(std::string objectcode);
 
-    void append(std::string objectCode);
+    void append(std::string objectCode, std::string instructionAddress);
 
     bool empty();
 
@@ -25,6 +25,7 @@ public:
 private:
     std::vector<std::string> textRecord;
     int size;
+    std::string startingAddress;
 
     std::string to_hexadecimal(int size);
 };
