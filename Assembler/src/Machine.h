@@ -20,13 +20,15 @@ public:
 	void assemble();
 
 private:
-	std::string pass1(std::string);
-	void pass2(std::string);
+	int pass1(std::string);
+	void pass2();
 	SymbolTable* readIntermediateFile();
 	bool addLabel(std::string, int);
 
 	SymbolTable* symbolTable;
 	std::string inputFile;
+	int programLength, startingAddress;
+	const std::string INTER_FILE = "inter_file.txt";
 };
 
 #endif /* MACHINE_H_ */

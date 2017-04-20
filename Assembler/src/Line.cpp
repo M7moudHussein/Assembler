@@ -20,7 +20,7 @@ Line::~Line() {
 std::ostream& operator<<(std::ostream& os, const Line& line)
 {
     os << std::hex << line.address << std::dec << '\t' << line.label << '\t' << line.operation
-                << '\t' << line.operand << '\t' << line.comment << '\n';
+                << '\t' << line.operand << '\t' << line.comment;
     return os;
 }
 
@@ -119,6 +119,36 @@ void Line::setAddress(int address)  {
 }
 
 bool Line::isValid(){
+    if(operation == "resw" || operation == "resb" || operation == "word")
+        return validInteger(operand);
+    if(operation == "byte")
+        return validByte(operand);
+    return true;
+}
+
+bool Line::validInteger(std::string integer) {
+    for(int i = 0; i < integer.length(); i++){
+        int curVal = integer[i] - '0';
+        if(curVal < 0 || curVal > 9)
+            return false;
+    }
+    return true;
+}
+
+bool Line::validByte(std::string charSeq) {
+    if(charSeq.length() < 3) return false;
+    char firstChar = tolower(charSeq[0]);
+    if(firstChar != 'c' && firstChar != 'f') return false;
+    if(charSeq[1] != '\'' || charSeq[charSeq.length() - 1] != '\'') return false;
+    if(firstChar == 'f'){
+        for(int i = 2; i < charSeq.length() - 1; i++){
+            int value = charSeq[i] - '0';
+            int alphaVal = charSeq[i] - 'a';
+            if((value >= 0 & value <= 9) || (alphaVal >= 0 && alphaVal <= 5))
+                continue;
+            return false;
+        }
+    }
     return true;
 }
 
@@ -145,5 +175,8 @@ int Line::getNextAddress(int locCtr){
 }
 
 int Line::getConstSize(){
-    return 0;
+    char firstChar = tolower(operand[0]);
+    if(firstChar == 'c')
+        return operand.length() - 3;
+    return (operand.length() - 3 + 1) / 2;
 }

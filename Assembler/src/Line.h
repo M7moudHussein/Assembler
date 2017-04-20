@@ -35,6 +35,8 @@ private:
 	int getConstSize();
     void reformData();
     void reformLabel();
+    bool validInteger(std::string);
+    bool validByte(std::string);
 };
 
 #endif /* LINE_H_ */

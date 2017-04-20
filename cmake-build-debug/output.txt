@@ -1,14 +1,8 @@
 1000	EX3	start	1000	
-
 1000		lda	mado	
-
 1003		add	dida	
-
 1006		rsub		
-
 1009	mado	word	15	
-
 100c	dida	resw	16	
-
-103c		end	EX3	
-
+103c	nancy	byte	c'hllo-world'	
+1046		end	EX3	

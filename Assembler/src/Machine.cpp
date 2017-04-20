@@ -15,6 +15,7 @@
 
 Machine::Machine(std::string inputFile) : inputFile(inputFile) {
 	symbolTable = new SymbolTable;
+    startingAddress = 0;
 }
 
 Machine::~Machine() {
@@ -22,15 +23,14 @@ Machine::~Machine() {
 }
 
 void Machine::assemble() {
-    std::string intermedFile = pass1(inputFile);
-    //pass2(intermedFile);
+    int errorMask = pass1(inputFile);
+    pass2();
 }
 
-std::string Machine::pass1(std::string inputFile) {
+int Machine::pass1(std::string inputFile) {
     int locCtr = 0;
-    std::string outputFile = "output.txt";
     std::ifstream inputStream(inputFile);
-    std::ofstream outputStream(outputFile);
+    std::ofstream outputStream(INTER_FILE);
     std::string stringInput;
     ProgramState state = ProgramState::START;
     while(std::getline(inputStream, stringInput)){
@@ -50,6 +50,7 @@ std::string Machine::pass1(std::string inputFile) {
                     locCtr = lineCommand.getNextAddress(locCtr);
                     lineCommand.setAddress(locCtr);
                     state = ProgramState::PROGRAM;
+                    startingAddress = locCtr;
                     break;
                 }
             case ProgramState::PROGRAM:
@@ -68,11 +69,10 @@ std::string Machine::pass1(std::string inputFile) {
     }
     assert(inputStream.eof());
     inputStream.close();
-    return outputFile;
+    programLength = locCtr - startingAddress;
 }
 
-void Machine::pass2(std::string intermedFile) {
-//    symbolTable = readIntermediateFile();
+void Machine::pass2() {
 
 }
 
