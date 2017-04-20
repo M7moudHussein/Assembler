@@ -10,23 +10,37 @@
 
 #include "SymbolTable.h"
 #include <string>
+#include <vector>
 
-enum class ProgramState{ START, PROGRAM, END};
+enum class ProgramState {
+    START, PROGRAM, END
+};
 
 class Machine {
 public:
-	Machine(std::string);
-	virtual ~Machine();
-	void assemble();
+    Machine(std::string);
+
+    virtual ~Machine();
+
+    void assemble();
 
 private:
-	std::string pass1(std::string);
-	void pass2(std::string);
-	SymbolTable* readIntermediateFile();
-	bool addLabel(std::string, int);
+    std::string pass1(std::string);
 
-	SymbolTable* symbolTable;
-	std::string inputFile;
+    std::vector<std::string> parseLine(std::string &line);
+
+    void pass2(std::string);
+
+    bool addLabel(std::string, int);
+
+    std::string getProgramLength(std::string line);
+
+    std::string to_hexadecimal(std::string number);
+
+    SymbolTable *symbolTable;
+    std::string inputFile;
+
+    SymbolTable *readIntermediateFile(std::string intermedFile);
 };
 
 #endif /* MACHINE_H_ */
