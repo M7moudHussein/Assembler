@@ -167,14 +167,14 @@ std::vector<std::string> Machine::parseLine(std::string &line) {
     return lineParts;
 }
 
-std::string Machine::to_hexadecimal(std::string number) {
+std::string Machine::to_hexadecimal(int number) {
     std::stringstream stream;
     stream << std::hex << number;
     return stream.str();
 }
 
-std::string Machine::to_hexadecimal(int number) {
-    return to_hexadecimal(std::to_string(number));
+std::string Machine::to_hexadecimal(std::string number) {
+    return to_hexadecimal(stoi(number));
 }
 
 std::string Machine::formalize(std::string code, int len) {
