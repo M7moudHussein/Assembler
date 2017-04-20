@@ -1,1 +1,7 @@
 /Debug/
+.idea
+.settings
+cmake-build-debug
+.cproject
+.project
+CMakeLists.txt
