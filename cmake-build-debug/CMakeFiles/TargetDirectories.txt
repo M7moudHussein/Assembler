@@ -1,3 +1,0 @@
-C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/CMakeFiles/assembler.dir
-C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/CMakeFiles/rebuild_cache.dir
