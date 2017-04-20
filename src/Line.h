@@ -2,6 +2,7 @@
 #define LINE_H_
 
 #include <string>
+#include <vector>
 
 enum class ReadState {
     LABEL, OPERATION, OPERAND, COMMENT, INVALID
@@ -17,6 +18,7 @@ public:
     friend std::ostream &operator<<(std::ostream &, const Line &);
     friend std::istream& operator >> (std::istream& is, Line& c);
 
+    bool hasAddress() const;
 
     bool hasLabel() const;
 
@@ -24,8 +26,7 @@ public:
 
     bool hasComment() const;
 
-    int getAddress();
-    void setAddress(int);
+    int setAddress(int);
 
     int getNextAddress(int);
 
@@ -33,20 +34,24 @@ public:
 
     std::string getError();
 
-    std::string getLabel();
+    std::string getAddress() const;
 
-    std::string getOperation();
+    std::string getHexAddress() const;
 
-    std::string getOperand();
+    int getIntAddress() const;
 
-    std::string getComment();
+    std::string getLabel() const;
+
+    std::string getOperation() const;
+
+    std::string getOperand() const;
+
+    std::string getComment() const;
 
     bool isEnd() const;
 
 private:
-    std::string label, operation, operand, comment;
-    bool readLabel, readOperation, readOperand, readComment;
-    int address;
+    std::string address, label, operation, operand, comment;
 
     void parseLine(std::string line);
 
@@ -56,10 +61,9 @@ private:
 
     void reformData();
 
-    void reformLabel();
     bool validInteger(std::string);
     bool validByte(std::string);
-
+    std::vector<std::string> split(std::string, char) const;
     bool equalsIgnoreCase(const std::string &str1, const char *str2) const;
 };
 

@@ -26,7 +26,9 @@ Machine::~Machine() {
 }
 
 void Machine::assemble() {
+    std::cout << "BAD";
     int errorMask = pass1(inputFile);
+    std::cout << "HERE";
     pass2();
 }
 
@@ -39,22 +41,18 @@ int Machine::pass1(std::string inputFile) {
     while (std::getline(inputStream, stringInput)) {
         Line lineCommand(stringInput);
         if (!lineCommand.isValid()) {
-            outputStream << lineCommand.getError();
+//            outputStream << lineCommand.getError();
         }
         if (lineCommand.getOperand() == "end") {
-            state = ProgramState::END;
+            break;
         }
         switch (state) {
             case ProgramState::START:
-                if (lineCommand.getOperation() != "start") {
-                    state = ProgramState::PROGRAM;
-                    std::stringstream ss;
-                    ss << std::hex << lineCommand.getOperand();
-                    ss >> locCtr;
+                state = ProgramState::PROGRAM;
+                if (lineCommand.getOperation() != "start" || !lineCommand.hasOperand()) {
+                    //print error
                 } else {
-                    locCtr = lineCommand.getNextAddress(locCtr);
-                    lineCommand.setAddress(locCtr);
-                    state = ProgramState::PROGRAM;
+                    locCtr = lineCommand.setAddress(locCtr);
                     startingAddress = locCtr;
                     break;
                 }
@@ -64,10 +62,7 @@ int Machine::pass1(std::string inputFile) {
                         outputStream << "Duplicate Label has appeared, Error\n";
                     }
                 }
-                lineCommand.setAddress(locCtr);
-                locCtr = lineCommand.getNextAddress(locCtr);
-                break;
-            case ProgramState::END:
+                locCtr = lineCommand.setAddress(locCtr);
                 break;
         }
         outputStream << lineCommand << std::endl;
