@@ -16,7 +16,7 @@
 #include <algorithm>
 
 Machine::Machine(std::string inputFile) : inputFile(inputFile) {
-	symbolTable = new SymbolTable;
+    symbolTable = new SymbolTable;
     startingAddress = 0;
 }
 
@@ -86,8 +86,7 @@ void Machine::pass2() {
     getline(inputStream, inputLine);
     std::vector<std::string> line = parseLine(inputLine);
     firstInstructionAddress = line[0];
-    outputStream << "H^" << line[1] << "\n" << "^00" << firstInstructionAddress << "^" << getProgramLength(INTER_FILE)
-                 << std::endl;
+    outputStream << "H^" << line[1] << "\t" << "^00" << firstInstructionAddress << "^" << programLength << std::endl;
     TextRecord textRecord;
     while (getline(inputStream, inputLine)) {
         int opCode;
@@ -140,25 +139,6 @@ bool Machine::addLabel(std::string label, int address) {
     return true;
 }
 
-std::string Machine::getProgramLength(std::string intermedFile) {
-    std::ifstream inputStream(intermedFile);
-    std::string inputLine;
-    std::string start, end;
-    getline(inputStream, inputLine);
-    start = inputLine.substr(0, 4);
-    while (getline(inputStream, inputLine));
-    end = inputLine.substr(0, 4);
-    int startLoc = std::stoi(start, nullptr, 16);
-    int endLoc = std::stoi(start, nullptr, 16);
-    std::stringstream stream;
-    stream << std::hex << (endLoc - startLoc + 1);
-    std::string result(stream.str());
-    while (result.length() < 6) {
-        result = "0" + result;
-    }
-    return result;
-}
-
 std::vector<std::string> Machine::parseLine(std::string &line) {
     std::vector<std::string> lineParts;
     lineParts.push_back(line.substr(0, 4));
@@ -166,16 +146,16 @@ std::vector<std::string> Machine::parseLine(std::string &line) {
     if (isspace(line[it])) {
         lineParts.push_back(std::string());
     } else {
-        while (it < line.length() && !isspace(line[it++]));
+        while (it < line.length() && !isspace(line[it]))it++;
         lineParts.push_back(line.substr(5, it - 5));
     }
-    while (it < line.length() && isspace(line[it++]));
+    while (it < line.length() && isspace(line[it]))it++;
     int temp = it;
-    while (it < line.length() && !isspace(line[it++]));
+    while (it < line.length() && !isspace(line[it]))it++;
     lineParts.push_back(line.substr(temp, it - temp));
-    while (it < line.length() && isspace(line[it++]));
+    while (it < line.length() && isspace(line[it]))it++;
     temp = it;
-    while (it < line.length() && !isspace(line[it++]));
+    while (it < line.length() && !isspace(line[it]))it++;
     lineParts.push_back(line.substr(temp, it - temp));
     for (auto line : lineParts) {
         std::transform(line.begin(), line.end(), line.begin(), ::tolower);
@@ -196,7 +176,11 @@ SymbolTable *Machine::readIntermediateFile(std::string intermedFile) {
     while (getline(inputStream, inputLine)) {
         auto line = parseLine(inputLine);
         if (!line[1].empty()) {
-            newSymbolTable->addLabel(line[1], stoi(line[0]));
+            int temp;
+            std::stringstream ss;
+            ss << std::hex << line[0];
+            ss >> temp;
+            newSymbolTable->addLabel(line[1], temp);
         }
     }
     return newSymbolTable;
