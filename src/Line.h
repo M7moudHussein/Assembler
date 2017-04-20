@@ -9,21 +9,22 @@ enum class ReadState {
 
 class Line {
 public:
+    Line();
     Line(std::string line);
 
     virtual ~Line();
 
     friend std::ostream &operator<<(std::ostream &, const Line &);
+    friend std::istream& operator >> (std::istream& is, Line& c);
 
 
-    bool hasLabel();
+    bool hasLabel() const;
 
-    bool hasOperation();
+    bool hasOperand() const;
 
-    bool hasOperand();
+    bool hasComment() const;
 
-    bool hasComment();
-
+    int getAddress();
     void setAddress(int);
 
     int getNextAddress(int);
@@ -39,6 +40,8 @@ public:
     std::string getOperand();
 
     std::string getComment();
+
+    bool isEnd() const;
 
 private:
     std::string label, operation, operand, comment;
@@ -57,7 +60,7 @@ private:
     bool validInteger(std::string);
     bool validByte(std::string);
 
-    bool equalsIgnoreCase(std::string &str1, const char *str2);
+    bool equalsIgnoreCase(const std::string &str1, const char *str2) const;
 };
 
 #endif /* LINE_H_ */

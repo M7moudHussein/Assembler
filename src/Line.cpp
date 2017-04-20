@@ -1,9 +1,3 @@
-/*
- * Line.cpp
- *
- *  Created on: Apr 16, 2017
- *      Author: mahmoud
- */
 
 #include "Line.h"
 #include "OperationTable.h"
@@ -14,16 +8,40 @@ Line::Line(std::string line) {
     parseLine(line);
 }
 
+Line::Line(){
+
+}
+
 Line::~Line() {
 
 }
 
 std::ostream &operator<<(std::ostream &os, const Line &line) {
-    os << std::hex << line.address << std::dec << '\t' << line.label << '\t' << line.operation
-                << '\t' << line.operand << '\t' << line.comment;
+    if(!line.isEnd()){
+        os << std::hex << line.address << std::dec << "\t";
+    }else{
+        os << " ";
+    }
+    os << (line.hasLabel() ? line.label : " ") << '\t'
+       << line.operation << '\t'
+       << (line.hasOperand() ? line.operand : " ") << '\t'
+       << (line.hasComment() ? line.comment : " ");
     return os;
 }
 
+std::istream& operator >> (std::istream& is, Line& c)
+{
+    std::string firstWord;
+    is >> firstWord;
+    if(!c.equalsIgnoreCase(firstWord, "end")){
+        c.address = stoi(firstWord, nullptr, 16);
+        is >> c.label;
+    }else{
+        c.label = firstWord;
+    }
+    is >> c.operation >> c.operand >> c.comment;
+    return is;
+}
 void Line::parseLine(std::string line) {
     ReadState state = ReadState::LABEL;
     int pos = 0;
@@ -82,20 +100,16 @@ ReadState Line::getNextState(ReadState curState) {
     }
 }
 
-bool Line::hasLabel() {
-    return readLabel;
+bool Line::hasLabel() const{
+    return label.length() != 0;
 }
 
-bool Line::hasOperation() {
-    return readOperation;
+bool Line::hasOperand() const {
+    return operand.length() != 0;
 }
 
-bool Line::hasOperand() {
-    return readOperand;
-}
-
-bool Line::hasComment() {
-    return readComment;
+bool Line::hasComment() const{
+    return comment.length() != 0;
 }
 
 std::string Line::getLabel() {
@@ -108,6 +122,10 @@ std::string Line::getOperation() {
 
 std::string Line::getOperand() {
     return operand;
+}
+
+int Line::getAddress(){
+    return address;
 }
 
 std::string Line::getComment() {
@@ -158,6 +176,8 @@ std::string Line::getError() {
 int Line::getNextAddress(int locCtr) {
     if (equalsIgnoreCase(operation, "start")) {
         return std::stoi(operand, nullptr, 16);
+    }else if(equalsIgnoreCase(operation, "end")){
+        return locCtr;
     }
     if (!isValid()) {
         return locCtr;
@@ -180,7 +200,7 @@ int Line::getConstSize() {
         return operand.length() - 3;
     return (operand.length() - 3 + 1) / 2;
 }
-bool Line::equalsIgnoreCase(std::string &str1, const char *str2) {
+bool Line::equalsIgnoreCase(const std::string &str1, const char *str2) const {
     if (str1.length() != std::strlen(str2)) {
         return false;
     }
@@ -190,4 +210,9 @@ bool Line::equalsIgnoreCase(std::string &str1, const char *str2) {
         }
     }
     return true;
+}
+
+bool Line::isEnd() const{
+    std::cout << operation << std::endl;
+    return equalsIgnoreCase(operation, "end");
 }

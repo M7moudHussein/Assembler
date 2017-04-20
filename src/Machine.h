@@ -25,10 +25,7 @@ public:
     void assemble();
 
 private:
-	int pass1(std::string);
-	void pass2();
-	SymbolTable* readIntermediateFile();
-	bool addLabel(std::string, int);
+
 
 	SymbolTable* symbolTable;
 	std::string inputFile;
@@ -37,15 +34,11 @@ private:
 
     std::vector<std::string> parseLine(std::string &line);
 
-    void pass2(std::string);
 
-
-    std::string getProgramLength(std::string line);
-
+	int pass1(std::string);
+	void pass2();
+	bool addLabel(std::string, int);
     std::string to_hexadecimal(std::string number);
-
-
-    SymbolTable *readIntermediateFile(std::string intermedFile);
 };
 
 #endif /* MACHINE_H_ */

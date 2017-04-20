@@ -76,9 +76,7 @@ int Machine::pass1(std::string inputFile) {
     programLength = locCtr - startingAddress;
 }
 
-
 void Machine::pass2() {
-    symbolTable = readIntermediateFile(INTER_FILE);
     std::string outputFile = "objectcode.txt";
     std::ifstream inputStream(INTER_FILE);
     std::ofstream outputStream(outputFile);
@@ -86,7 +84,7 @@ void Machine::pass2() {
     getline(inputStream, inputLine);
     std::vector<std::string> line = parseLine(inputLine);
     firstInstructionAddress = line[0];
-    outputStream << "H^" << line[1] << "\n" << "^00" << firstInstructionAddress << "^" << getProgramLength(INTER_FILE)
+    outputStream << "H^" << line[1] << "\n" << "^00" << firstInstructionAddress << "^" << programLength
                  << std::endl;
     TextRecord textRecord;
     while (getline(inputStream, inputLine)) {
@@ -140,25 +138,6 @@ bool Machine::addLabel(std::string label, int address) {
     return true;
 }
 
-std::string Machine::getProgramLength(std::string intermedFile) {
-    std::ifstream inputStream(intermedFile);
-    std::string inputLine;
-    std::string start, end;
-    getline(inputStream, inputLine);
-    start = inputLine.substr(0, 4);
-    while (getline(inputStream, inputLine));
-    end = inputLine.substr(0, 4);
-    int startLoc = std::stoi(start, nullptr, 16);
-    int endLoc = std::stoi(start, nullptr, 16);
-    std::stringstream stream;
-    stream << std::hex << (endLoc - startLoc + 1);
-    std::string result(stream.str());
-    while (result.length() < 6) {
-        result = "0" + result;
-    }
-    return result;
-}
-
 std::vector<std::string> Machine::parseLine(std::string &line) {
     std::vector<std::string> lineParts;
     lineParts.push_back(line.substr(0, 4));
@@ -187,17 +166,4 @@ std::string Machine::to_hexadecimal(std::string number) {
     std::stringstream stream;
     stream << std::hex << number;
     return stream.str();
-}
-
-SymbolTable *Machine::readIntermediateFile(std::string intermedFile) {
-    SymbolTable *newSymbolTable = new SymbolTable;
-    std::ifstream inputStream(intermedFile);
-    std::string inputLine;
-    while (getline(inputStream, inputLine)) {
-        auto line = parseLine(inputLine);
-        if (!line[1].empty()) {
-            newSymbolTable->addLabel(line[1], stoi(line[0]));
-        }
-    }
-    return newSymbolTable;
 }
