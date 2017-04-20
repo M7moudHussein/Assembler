@@ -2,6 +2,7 @@
 // Created by mahmoud on 4/19/17.
 //
 
+#include <sstream>
 #include "TextRecord.h"
 
 TextRecord::TextRecord() {
@@ -32,8 +33,7 @@ std::string TextRecord::to_string() {
     record.append(textRecord[0]);
     record.append("^");
     record.append(to_hexadecimal(size));
-    int i = 1;
-    for (; i < (int) textRecord.size(); i++) {
+    for (int i = 1; i < (int) textRecord.size(); i++) {
         record.append("^");
         record.append(textRecord[i]);
     }
@@ -41,6 +41,8 @@ std::string TextRecord::to_string() {
     return record;
 }
 
-std::string TextRecord::to_hexadecimal(int size) {
-    return std::to_string(size / 16) + std::to_string(size % 16);
+std::string TextRecord::to_hexadecimal(int number) {
+    std::stringstream stream;
+    stream << std::hex << number;
+    return stream.str();
 }

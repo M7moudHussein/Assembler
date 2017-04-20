@@ -25,20 +25,25 @@ public:
     void assemble();
 
 private:
+    int pass1(std::string);
 
+    void pass2();
 
-	SymbolTable* symbolTable;
-	std::string inputFile;
-	int programLength, startingAddress;
-	const std::string INTER_FILE = "inter_file.txt";
+    bool addLabel(std::string, int);
+
+    SymbolTable *symbolTable;
+    std::string inputFile;
+    int programLength, startingAddress;
+    const std::string INTER_FILE = "inter_file.txt";
 
     std::vector<std::string> parseLine(std::string &line);
 
-
-	int pass1(std::string);
-	void pass2();
-	bool addLabel(std::string, int);
     std::string to_hexadecimal(std::string number);
+
+
+    std::string to_hexadecimal(int number);
+
+    std::string formalize(std::string code, int len);
 };
 
 #endif /* MACHINE_H_ */
