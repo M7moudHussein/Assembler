@@ -213,6 +213,5 @@ bool Line::equalsIgnoreCase(const std::string &str1, const char *str2) const {
 }
 
 bool Line::isEnd() const{
-    std::cout << operation << std::endl;
     return equalsIgnoreCase(operation, "end");
 }
