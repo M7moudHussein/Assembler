@@ -78,7 +78,7 @@ void Machine::pass2() {
     std::string firstInstructionAddress;
     inputStream >> line;
     firstInstructionAddress = line.getHexAddress();
-    outputStream << "H^" << line.getOperand() << "\t" << formalize(firstInstructionAddress, 6) << "^"
+    outputStream << "H^" << line.getOperation() << "\t" << formalize(firstInstructionAddress, 6) << "^"
                  << to_hexadecimal(programLength)
                  << std::endl;
     TextRecord textRecord;
@@ -119,7 +119,7 @@ void Machine::pass2() {
                 outputStream << textRecord.to_string();
                 textRecord = TextRecord();
             } else {
-                textRecord.append(objectCode, to_hexadecimal(line.getAddress()));
+                textRecord.append(objectCode, line.getHexAddress());
             }
         }
     }
