@@ -26,9 +26,7 @@ Machine::~Machine() {
 }
 
 void Machine::assemble() {
-    std::cout << "BAD";
     int errorMask = pass1(inputFile);
-    std::cout << "HERE";
     pass2();
 }
 

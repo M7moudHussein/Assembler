@@ -46,7 +46,7 @@ std::vector<std::string> Line::split(std::string input, char breaker) const{
         curStr += input[i];
         if(i + 1 < input.length() && input[i + 1] == breaker){
             result.push_back(curStr);
-            while(i + 1 < input.length() && input[i + 1] != breaker) i++;
+            while(i + 1 < input.length() && input[i + 1] == breaker) i++;
             curStr = std::string();
         }
     }
@@ -236,4 +236,3 @@ bool Line::equalsIgnoreCase(const std::string &str1, const char *str2) const {
 bool Line::isEnd() const{
     return equalsIgnoreCase(operation, "end");
 }
-0
