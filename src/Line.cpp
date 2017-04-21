@@ -62,7 +62,7 @@ void Line::parseLine(std::string line) {
         char curChar = line[pos];
         if (isspace(curChar)) {
             state = getNextState(state);
-            while (pos < len - 1 && isspace(line[pos])) pos++;
+            while (pos < len && isspace(line[pos])) pos++;
             continue;
         }
         switch (state) {
