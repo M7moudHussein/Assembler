@@ -31,7 +31,7 @@ std::istream& operator >> (std::istream& is, Line& c)
     std::string input;
     getline(is, input);
     std::vector<std::string> args = c.split(input, '\t');
-    c.address = args[0];
+    c.address = args[0] == " " ? " " : std::to_string(stoi(args[0], nullptr, 16));
     c.label = args[1];
     c.operation = args[2];
     c.operand = args[3];

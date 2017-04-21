@@ -47,7 +47,7 @@ int Machine::pass1(std::string inputFile) {
         switch (state) {
             case ProgramState::START:
                 state = ProgramState::PROGRAM;
-                if (lineCommand.getOperation() != "start" || !lineCommand.hasOperand()) {
+                if ((!equalsIgnoreCase(lineCommand.getOperation(), "start")) || !lineCommand.hasOperand()) {
                     //print error
                 } else {
                     locCtr = lineCommand.setAddress(locCtr);
@@ -77,7 +77,7 @@ void Machine::pass2() {
     Line line;
     std::string firstInstructionAddress;
     inputStream >> line;
-    firstInstructionAddress = line.getAddress();
+    firstInstructionAddress = line.getHexAddress();
     outputStream << "H^" << line.getOperand() << "\t" << formalize(firstInstructionAddress, 6) << "^"
                  << to_hexadecimal(programLength)
                  << std::endl;
