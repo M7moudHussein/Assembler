@@ -14,20 +14,20 @@ public:
 
     ~TextRecord();
 
+    friend std::ostream &operator<<(std::ostream &, const TextRecord &);
+
     bool fits(std::string objectcode);
 
     void append(std::string objectCode, std::string instructionAddress);
 
     bool empty();
 
-    std::string to_string();
-
 private:
     std::vector<std::string> textRecord;
     int size;
     std::string startingAddress;
 
-    std::string to_hexadecimal(int size);
+    std::string to_hexadecimal(int size) const;
 };
 
 

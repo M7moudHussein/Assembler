@@ -13,6 +13,14 @@ TextRecord::~TextRecord() {
 
 }
 
+std::ostream &operator<<(std::ostream &os, const TextRecord &record) {
+    os << "T^" << "00" << record.startingAddress << "^" << record.to_hexadecimal(record.size);
+    for (int i = 0; i < (int) record.textRecord.size(); i++) {
+        os << "^" << record.textRecord[i];
+    }
+    return os;
+}
+
 bool TextRecord::fits(std::string objectcode) {
     return size + objectcode.length() / 2 <= 30;
 }
@@ -29,20 +37,7 @@ bool TextRecord::empty() {
     textRecord.empty();
 }
 
-std::string TextRecord::to_string() {
-    std::string record = "T^";
-    record.append("00" + startingAddress);
-    record.append("^");
-    record.append(to_hexadecimal(size));
-    for (int i = 0; i < (int) textRecord.size(); i++) {
-        record.append("^");
-        record.append(textRecord[i]);
-    }
-    record.append("\n");
-    return record;
-}
-
-std::string TextRecord::to_hexadecimal(int number) {
+std::string TextRecord::to_hexadecimal(int number) const {
     std::stringstream stream;
     stream << std::hex << number;
     return stream.str();

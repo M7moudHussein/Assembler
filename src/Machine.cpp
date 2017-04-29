@@ -116,7 +116,7 @@ void Machine::pass2() {
                 objectCode = "XXXXXX";
             }
             if (!textRecord.fits(objectCode)) {
-                outputStream << textRecord.to_string();
+                outputStream << textRecord << std::endl;
                 textRecord = TextRecord();
             } else {
                 textRecord.append(objectCode, line.getHexAddress());
@@ -124,7 +124,7 @@ void Machine::pass2() {
         }
     }
     if (!textRecord.empty()) {
-        outputStream << textRecord.to_string();
+        outputStream << textRecord << std::endl;
     }
     outputStream << "E^" << formalize(firstInstructionAddress, 6) << std::endl;
 }
