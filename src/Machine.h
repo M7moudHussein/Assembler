@@ -1,10 +1,3 @@
-/*
- * Machine.h
- *
- *  Created on: Apr 16, 2017
- *      Author: mahmoud
- */
-
 #ifndef MACHINE_H_
 #define MACHINE_H_
 
@@ -36,16 +29,6 @@ private:
     int programLength, startingAddress;
     const std::string INTER_FILE = "inter_file.txt";
 
-    std::vector<std::string> parseLine(std::string &line);
-
-    std::string to_hexadecimal(std::string number);
-
-
-    std::string to_hexadecimal(int number);
-
-    std::string formalize(std::string code, int len);
-
-    bool equalsIgnoreCase(const std::string &str1, const char *str2) const;
 };
 
 #endif /* MACHINE_H_ */

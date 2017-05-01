@@ -1,10 +1,3 @@
-/*
- * Machine.cpp
- *
- *  Created on: Apr 16, 2017
- *      Author: mahmoud
- */
-
 #include "Machine.h"
 #include "Line.h"
 #include "TextRecord.h"
@@ -15,6 +8,7 @@
 #include <sstream>
 #include <algorithm>
 #include <cstring>
+#include "Util.hpp"
 
 Machine::Machine(std::string inputFile) : inputFile(inputFile) {
     symbolTable = new SymbolTable;
@@ -47,7 +41,7 @@ int Machine::pass1(std::string inputFile) {
         switch (state) {
             case ProgramState::START:
                 state = ProgramState::PROGRAM;
-                if ((!equalsIgnoreCase(lineCommand.getOperation(), "start")) || !lineCommand.hasOperand()) {
+                if ((!Util::equalsIgnoreCase(lineCommand.getOperation(), "start")) || !lineCommand.hasOperand()) {
                     //print error
                 } else {
                     locCtr = lineCommand.setAddress(locCtr);
@@ -78,8 +72,8 @@ void Machine::pass2() {
     std::string firstInstructionAddress;
     inputStream >> line;
     firstInstructionAddress = line.getHexAddress();
-    outputStream << "H^" << line.getLabel() << "\t" << formalize(firstInstructionAddress, 6) << "^"
-                 << to_hexadecimal(programLength)
+    outputStream << "H^" << line.getLabel() << "\t" << Util::formalize(firstInstructionAddress, 6) << "^"
+                 << Util::to_hexadecimal(programLength)
                  << std::endl;
     TextRecord textRecord;
     while (inputStream >> line) {
@@ -95,7 +89,7 @@ void Machine::pass2() {
                 opCode = OperationTable::getInstance()->getOpCode(line.getOperation());
                 if (line.hasOperand()) { //has an operand
                     if (symbolTable->hasLabel(line.getOperand())) { //a valid operand
-                        operandAddress = to_hexadecimal(symbolTable->getAddress(line.getOperand()));
+                        operandAddress = Util::to_hexadecimal(symbolTable->getAddress(line.getOperand()));
                     } else {
                         operandAddress = "0";
                         //TODO Error handling (undefined symbol).
@@ -103,13 +97,13 @@ void Machine::pass2() {
                 } else {
                     operandAddress = "0";
                 }
-                objectCode = formalize(to_hexadecimal(opCode), 2) + formalize(operandAddress, 4);
-            } else if (equalsIgnoreCase(line.getOperation(), "byte") ||
-                       equalsIgnoreCase(line.getOperation(), "word")) { //if byte or word
-                if (equalsIgnoreCase(line.getOperation(), "byte")) {
+                objectCode = Util::formalize(Util::to_hexadecimal(opCode), 2) + Util::formalize(operandAddress, 4);
+            } else if (Util::equalsIgnoreCase(line.getOperation(), "byte") ||
+                       Util::equalsIgnoreCase(line.getOperation(), "word")) { //if byte or word
+                if (Util::equalsIgnoreCase(line.getOperation(), "byte")) {
                     objectCode = line.getOperand().substr(2, line.getOperand().length() - 3);
                 } else {
-                    objectCode = formalize(to_hexadecimal(line.getOperand()), 6);
+                    objectCode = Util::formalize(Util::to_hexadecimal(line.getOperand()), 6);
                 }
             } else {
                 //TODO Error handling un supported operation.
@@ -126,70 +120,12 @@ void Machine::pass2() {
     if (!textRecord.empty()) {
         outputStream << textRecord << std::endl;
     }
-    outputStream << "E^" << formalize(firstInstructionAddress, 6) << std::endl;
+    outputStream << "E^" << Util::formalize(firstInstructionAddress, 6) << std::endl;
 }
 
 bool Machine::addLabel(std::string label, int address) {
     if (symbolTable->hasLabel(label))
         return false;
     symbolTable->addLabel(label, address);
-    return true;
-}
-
-//std::vector<std::string> Machine::parseLine(std::string &line) {
-//    std::vector<std::string> lineParts;
-//    int it = 0;
-//    if (!isspace(line[it])) {
-//        lineParts.push_back(line.substr(0, 4));
-//        it = 5;
-//    } else {
-//        lineParts.push_back(std::string());
-//    }
-//    if (isspace(line[it])) {
-//        lineParts.push_back(std::string());
-//    } else {
-//        while (it < line.length() && !isspace(line[it]))it++;
-//        lineParts.push_back(line.substr(5, it - 5));
-//    }
-//    while (it < line.length() && isspace(line[it]))it++;
-//    int temp = it;
-//    while (it < line.length() && !isspace(line[it]))it++;
-//    lineParts.push_back(line.substr(temp, it - temp));
-//    while (it < line.length() && isspace(line[it]))it++;
-//    temp = it;
-//    while (it < line.length() && !isspace(line[it]))it++;
-//    lineParts.push_back(line.substr(temp, it - temp));
-//    for (int i = 0; i < (int) lineParts.size(); i++) {
-//        std::transform(lineParts[i].begin(), lineParts[i].end(), lineParts[i].begin(), ::tolower);
-//    }
-//    return lineParts;
-//}
-
-std::string Machine::to_hexadecimal(int number) {
-    std::stringstream stream;
-    stream << std::hex << number;
-    return stream.str();
-}
-
-std::string Machine::to_hexadecimal(std::string number) {
-    return to_hexadecimal(stoi(number));
-}
-
-std::string Machine::formalize(std::string code, int len) {
-    while (code.length() < len) {
-        code = "0" + code;
-    }
-    return code;
-}
-
-bool Machine::equalsIgnoreCase(const std::string &str1, const char *str2) const {
-    if (str1.length() != std::strlen(str2)) {
-        return false;
-    }
-    for (int i = 0; i < str1.length(); i++) {
-        if (tolower(str1[i]) != tolower(str2[i])) {
-            return false;
-        }
-    }
     return true;
 }
