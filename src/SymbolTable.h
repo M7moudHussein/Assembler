@@ -10,6 +10,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 class SymbolTable {
 public:
@@ -18,6 +19,7 @@ public:
 	bool hasLabel(std::string);
 	void addLabel(std::string, int);
 	int getAddress(std::string);
+	std::vector<std::pair<std::string, int> > getData();
 
 private:
 	std::unordered_map<std::string, int> table;

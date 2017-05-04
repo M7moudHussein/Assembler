@@ -1,6 +1,7 @@
 #include "SymbolTable.h"
 #include <unordered_map>
 #include <algorithm>
+
 SymbolTable::SymbolTable() {
 
 }
@@ -24,3 +25,12 @@ int SymbolTable::getAddress(std::string label){
     return table[label];
 }
 
+std::vector<std::pair<std::string, int> > SymbolTable::getData(){
+    std::vector<std::pair<std::string, int> > vec;
+    for(auto it : table){
+        std::pair<std::string, int> entry = it;
+        std::transform(entry.first.begin(), entry.first.end(), entry.first.begin(), ::toupper);
+        vec.push_back(entry);
+    }
+    return vec;
+}

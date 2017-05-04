@@ -1,156 +1,130 @@
 #include "Line.h"
 
-
-Line::Line(std::string line) {
-    parseLine(line);
-}
-
-Line::Line(){
-
-}
-
-Line::~Line() {
-
-}
-
-std::ostream &operator<<(std::ostream &os, const Line &line) {
-    os << line.getHexAddress() << "\t";
-    os << line.getLabel() << '\t'
-       << line.getOperation() << '\t'
-       << line.getOperand()  << '\t'
-       << line.getComment();
-    return os;
-}
-
-std::istream& operator >> (std::istream& is, Line& c)
-{
-    std::string input;
-    getline(is, input);
-    std::vector<std::string> args = Util::split(input, '\t');
-    c.address = args[0] == " " ? " " : std::to_string(stoi(args[0], nullptr, 16));
-    c.label = args[1];
-    c.operation = args[2];
-    c.operand = args[3];
-    c.comment = args[4];
-    return is;
-}
-
 void Line::parseLine(std::string line) {
-    ReadState state = ReadState::LABEL;
-    int pos = 0;
-    int len = line.length();
-    while (pos < len) {
-        char curChar = line[pos];
-        if (isspace(curChar)) {
-            state = getNextState(state);
-            while (pos < len && isspace(line[pos])) pos++;
-            continue;
-        }
-        switch (state) {
-            case ReadState::LABEL:
-                label += curChar;
-                pos++;
-                break;
-            case ReadState::OPERATION:
-                operation += curChar;
-                pos++;
-                break;
-            case ReadState::OPERAND:
-                operand += curChar;
-                pos++;
-                break;
-            case ReadState::COMMENT:
-                for (; pos < len; pos++)
-                    comment += line[pos];
+    if(checkComment(line)){
+        _isComment = true;
+        _comment = line;
+    }else {
+        std::vector<std::string> words = Util::split(line, '\t');
+        if(words.size() < 3 || words.size() > 4){
+            _isFail = true;
+            _errorMessage = "Invalid input format.";
+        }else{
+            _label = words[0];
+            _operation = words[1];
+            _operand = words[2];
+            if(words.size() == 4)
+                _comment = words[3];
         }
     }
-    reformData();
 }
 
-void Line::reformData() {
-    if(label.length() == 0)
-        label = " ";
-    if(address.length() == 0)
-        address = " ";
-}
-
-ReadState Line::getNextState(ReadState curState) {
-    switch (curState) {
-        case ReadState::LABEL:
-            return ReadState::OPERATION;
-        case ReadState::OPERATION:
-            return ReadState::OPERAND;
-        case ReadState::OPERAND:
-            return ReadState::COMMENT;
-        default:
-            return ReadState::INVALID;
+bool Line::checkComment(std::string line) {
+    for(int i = 0; i < line.length(); i++){
+        if(line[i] == '.')
+            return true;
+        if(isalpha(line[i]))
+            return false;
     }
+    return false;
 }
 
-std::string Line::getAddress() const {
-    return address;
+void Line::checkData() {
+    checkLabel() && checkOperation() && checkOperand();
 }
 
-int Line::getIntAddress() const {
-    return std::stoi(address);
-}
-
-std::string Line::getHexAddress() const {
-    int dec = getIntAddress();
-    std::stringstream ss;
-    ss << std::hex << dec;
-    return ss.str();
-}
-
-std::string Line::getLabel() const {
-    return label;
-}
-
-std::string Line::getOperation() const{
-    return operation;
-}
-std::string Line::getOperand() const {
-    return operand;
-}
-
-std::string Line::getComment() const{
-    return comment;
-}
-
-int Line::getNextAddress()() {
-    if (Util::equalsIgnoreCase(operation, "start")) {
-        if(hasOperand())
-            address = std::to_string(std::stoi(operand, nullptr, 16));
-        else
-            address = "0";
-        return getIntAddress();
-    }else if(Util::equalsIgnoreCase(operation, "end")){
-        return locCtr;
+bool Line::checkLabel() {
+    if(hasLabel() && !validLabel(_label)){
+        _isFail = true;
+        _errorMessage = "Invalid Label name\n";
+        return false;
     }
-    address = std::to_string(locCtr);
-    if (fail()) {
-        return locCtr;
-    }
-    OperationTable *opTable = OperationTable::getInstance();
-    if (opTable->hasOperation(operation) || Util::equalsIgnoreCase(operation, "word")) {
-        return 3 + locCtr;
-    } else if (Util::equalsIgnoreCase(operation, "resw")) {
-        return 3 * std::stoi(operand) + locCtr;
-    } else if (Util::equalsIgnoreCase(operation, "resb")) {
-        return std::stoi(operand) + locCtr;
-    } else if (Util::equalsIgnoreCase(operation, "byte")) {
-        return Util::getConstSize(operand) + locCtr;
-    }
-}
-bool Line::fail(){
-    if(operation == "resw" || operation == "resb" || operation == "word")
-        return Util::validInteger(operand);
-    if(operation == "byte")
-        return Util::validByte(operand);
     return true;
 }
 
+bool Line::checkOperation() {
+    if(!hasOperation()){
+        _isFail = true;
+        _errorMessage = _errorMessage + "No Operation Specified\n";
+        return false;
+    }else if((!OperationTable::getInstance()->hasOperation(_operation)) && !checkDirective()){
+        _isFail = true;
+        _errorMessage = _errorMessage + "Operation not in the Opt Table.\n";
+        return false;
+    }
+    return true;
+}
 
-bool Line::isEnd() const{
-    return Util::equalsIgnoreCase(operation, "end");
+bool Line::checkOperand() {
+    if(!hasOperand()){
+        _isFail = true;
+        _errorMessage = _errorMessage + "No Operand Specified\n";
+        return false;
+    }else if(!validOperand(_operand)){
+        _isFail = true;
+        _errorMessage = _errorMessage + "Operand is invalid.";
+        return false;
+    }
+    return true;
+}
+
+bool Line::validLabel(std::string label) const{
+    bool firstLetter = false;
+    for(int i = 0; i < label.length(); i++){
+        if(isalpha(label[i]))
+            firstLetter = true;
+        if((!firstLetter) && (isspace(label[i]) ||
+                ((isalnum(label[i])) && (!isalpha(label[i])))))
+            return false;
+    }
+    return true;
+}
+
+bool Line::validOperand(std::string operand) const{
+    return validLabel(operand) || Util::validInteger(operand);
+}
+
+int Line::getNextAddress() {
+    if (Util::equalsIgnoreCase(_operation, "start")) {
+        if(hasOperand())
+            _address = std::to_string(std::stoi(_operand, nullptr, 16));
+        else
+            _address = "0";
+        return getIntAddress();
+    }else if(Util::equalsIgnoreCase(_operation, "end")){
+        _address = std::to_string(_locCtr);
+        return _locCtr;
+    }
+    _address = std::to_string(_locCtr);
+    if (fail()) {
+        return _locCtr;
+    }
+    OperationTable *opTable = OperationTable::getInstance();
+    if (opTable->hasOperation(_operation) || Util::equalsIgnoreCase(_operation, "word")) {
+        return 3 + _locCtr;
+    } else if (Util::equalsIgnoreCase(_operation, "resw")) {
+        return 3 * std::stoi(_operand) + _locCtr;
+    } else if (Util::equalsIgnoreCase(_operation, "resb")) {
+        return std::stoi(_operand) + _locCtr;
+    } else if (Util::equalsIgnoreCase(_operation, "byte")) {
+        return Util::getConstSize(_operand) + _locCtr;
+    }
+    return -1;
+}
+
+bool Line::checkDirective(){
+    if(Util::equalsIgnoreCase(_operation, "start") && hasOperand() && Util::validInteger(_operand))
+        return true;
+    else if(Util::equalsIgnoreCase(_operation, "end") && hasOperand() &&
+            (Util::validInteger(_operand) || validLabel(_operand)))
+        return true;
+    else if((Util::equalsIgnoreCase(_operation, "resw") || Util::equalsIgnoreCase(_operation,"resb"))
+        &&  hasOperand() && Util::validInteger(_operand))
+        return true;
+    else if(Util::equalsIgnoreCase(_operation, "word") && hasOperand() && Util::validInteger(_operand))
+        return true;
+    else if(Util::equalsIgnoreCase(_operand, "byte") && hasOperand() &&
+            Util::validByte(_operand) && Util::getConstSize(_operand))
+        return true;
+    return false;
 }

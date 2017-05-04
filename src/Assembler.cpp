@@ -1,8 +1,9 @@
 #include <iostream>
 #include "Machine.h"
+#include "Pass1.hpp"
 
 int main(int argc, char **argv) {
-    Machine machine("input.txt");
-    machine.assemble();
+    Pass1 pass1("input.txt");
+    pass1.printLisaFile();
     return 0;
 }
