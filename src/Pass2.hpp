@@ -10,13 +10,14 @@
 
 class Pass2 {
 public:
-    Pass2(SymbolTable*, std::string, int);
+    Pass2(SymbolTable*, std::string, int, std::vector<Line>);
     void generateObjFile(std::string);
 private:
     void compute(std::string);
     std::string _interFile;
     int _programLength;
     SymbolTable* symbolTable;
+    std::vector<Line> programCode;
 };
 
 

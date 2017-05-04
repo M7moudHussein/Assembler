@@ -14,6 +14,7 @@ public:
     int getStartingAddress();
     void printLisaFile();
     bool fail();
+    std::vector<Line> getProgramCode();
 
 private:
     void compute();
@@ -23,11 +24,12 @@ private:
     const std::string INTER_FILE = "inter_file.txt";
     const std::string LISA_FILE = "lisa_file.txt";
     SymbolTable *symbolTable;
-    std::string inputFile;
-    int programLength, startingAddress, locCtr;
+    std::string _inputFile;
+    int _programLength, _startingAddress, _locCtr;
+    std::vector<Line> _programCode;
 
-    std::string stringInput;
-    bool hasError;
+    std::string _stringInput;
+    bool _hasError;
 };
 
 

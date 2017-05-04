@@ -9,10 +9,10 @@
 #include <cstring>
 #include "Util.hpp"
 
-Pass1::Pass1(std::string inputFile): inputFile(inputFile){
+Pass1::Pass1(std::string inputFile): _inputFile(inputFile){
     symbolTable = new SymbolTable;
-    startingAddress = 0;
-    hasError = false;
+    _startingAddress = 0;
+    _hasError = false;
     compute();
 };
 
@@ -25,24 +25,28 @@ std::string Pass1::getInterFile(){
 }
 
 int Pass1::getStartingAddress() {
-    return startingAddress;
+    return _startingAddress;
 }
 
 int Pass1::getProgramLength() {
-    return programLength;
+    return _programLength;
+}
+
+std::vector<Line> Pass1::getProgramCode() {
+    return _programCode;
 }
 
 bool Pass1::fail(){
-    return hasError;
+    return _hasError;
 }
 
 void Pass1::compute() {
-    locCtr = 0;
-    std::ifstream inputStream(inputFile);
+    _locCtr = 0;
+    std::ifstream inputStream(_inputFile);
     std::ofstream outputStream(INTER_FILE);
-    while (std::getline(inputStream, stringInput)) {
-        Line lineCommand(stringInput, locCtr);
-        hasError = handleLine(lineCommand, outputStream) || hasError;
+    while (std::getline(inputStream, _stringInput)) {
+        Line lineCommand(_stringInput, _locCtr);
+        _hasError = handleLine(lineCommand, outputStream) || _hasError;
         outputStream << lineCommand << std::endl;
         if (lineCommand.isEnd())
             break;
@@ -50,11 +54,12 @@ void Pass1::compute() {
     assert(inputStream.eof());
     inputStream.close();
     outputStream.close();
-    programLength = locCtr - startingAddress;
+    _programLength = _locCtr - _startingAddress;
 }
 
 bool Pass1::handleLine(Line lineCommand, std::ofstream& outputStream){
     if(!lineCommand.isComment()){
+        _programCode.push_back(lineCommand);
         if (lineCommand.fail()) {
             outputStream << lineCommand.getError() << "\n";
             return true;
@@ -66,10 +71,11 @@ bool Pass1::handleLine(Line lineCommand, std::ofstream& outputStream){
                 }
             }
         }
-        locCtr = lineCommand.getNextAddress();
+        _locCtr = lineCommand.getNextAddress();
     }
     return false;
 }
+
 void Pass1::printLisaFile() {
     std::ofstream outputStream(LISA_FILE);
     std::vector<std::pair<std::string, int> > vec = symbolTable->getData();

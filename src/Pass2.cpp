@@ -4,8 +4,8 @@
 
 #include "Pass2.hpp"
 
-Pass2::Pass2(SymbolTable* symbolTable, std::string interFile, int programLength):
-        symbolTable(symbolTable), _interFile(interFile), _programLength(programLength){
+Pass2::Pass2(SymbolTable* symbolTable, std::string interFile, int programLength, std::vector<Line> programCode):
+        symbolTable(symbolTable), _interFile(interFile), _programLength(programLength), programCode(programCode){
 
 }
 
