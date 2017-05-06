@@ -32,28 +32,28 @@ bool Line::checkComment(std::string line) {
 }
 
 void Line::checkData() {
-    if(hasLabel() && (!Util::validLabel(_label))){
+    if (hasLabel() && (!Util::validLabel(_label))) {
         _isFail = true;
         _errorMessage = "Invalid Label specified";
-    }else if((!hasOperation())){
+    } else if ((!hasOperation())) {
         _isFail = true;
         _errorMessage = "Unspecified Operation.";
-    }else if((!Util::isDirective(_operation)) && (!Util::validOperation(_operation))){
+    } else if ((!Util::isDirective(_operation)) && (!Util::validOperation(_operation))) {
         _isFail = true;
         _errorMessage = "The specified operation is invalid";
-    }else{
-        if(Util::isDirective(_operation))
+    } else {
+        if (Util::isDirective(_operation))
             _isDirective = true;
-        if(Util::hasCharacter(_operand, ','))
+        if (Util::hasCharacter(_operand, ','))
             _isIndexed = true;
-        if(_isIndexed && (!Util::validIndexed(_operand))){
+        if (_isIndexed && (!Util::validIndexed(_operand))) {
             _isFail = true;
             _errorMessage = "Wrong Usage of Indexed Mode";
-        }else if(!Util::validOperand(_operand)){
+        } else if (!Util::validOperand(_operand)) {
             _isFail = true;
             _errorMessage = "Invalid Operand used";
         }
-        if(_isIndexed && (!_isFail)){
+        if (_isIndexed && (!_isFail)) {
             std::vector<std::string> vec = Util::split(_operand, ',');
             _operand = vec[0];
             _extraAddress = vec[1];
@@ -111,9 +111,6 @@ bool Line::checkDirective() {
 std::string Line::getObjectCode(SymbolTable symbolTable) {
     std::stringstream objectCode;
     if (Util::equalsIgnoreCase(_operation, "RSUB")) {
-        if (hasOperand()) {
-            throw "RSUB must have no operand";
-        }
         objectCode << buildCode("4C", std::string());
     } else if (Util::equalsIgnoreCase(_operation, "WORD")) {
         objectCode << buildCode(std::string(), Util::to_hexadecimal(_operand));
@@ -128,13 +125,12 @@ std::string Line::getObjectCode(SymbolTable symbolTable) {
     } else if (Util::equalsIgnoreCase(_operation, "RESW") || Util::equalsIgnoreCase(_operation, "RESB")) {
         objectCode << std::string();
     } else {
-        if (!OperationTable::getInstance()->hasOperation(_operation)) {
-            throw "Operation Code Not Found!";
-        } else if (!symbolTable.hasLabel(_operand)) {
-            throw "Invalid operand no such a label!";
+        if (!symbolTable.hasLabel(_operand)) {
+            throw "Invalid Operand..No Such A Label!";
         }
-        objectCode << buildCode(Util::to_hexadecimal(OperationTable::getInstance()->getOpCode(_operation)),
-                                Util::to_hexadecimal(symbolTable.getAddress(_operand)));
+        std::string opCode = Util::to_hexadecimal(OperationTable::getInstance()->getOpCode(_operation));
+        std::string labelCode = Util::to_hexadecimal(symbolTable.getAddress(_operand) + _isIndexed ? 8000 : 0);
+        objectCode << buildCode(opCode, labelCode);
     }
     return objectCode.str();
 }
