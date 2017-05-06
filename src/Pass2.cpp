@@ -1,11 +1,7 @@
-//
-// Created by Mohamed Ayman on 5/3/2017.
-//
-
 #include "Pass2.hpp"
 
-Pass2::Pass2(SymbolTable *symbolTable, std::string interFile, int programLength, std::vector<Line> programCode) :
-		symbolTable(symbolTable), _interFile(interFile), _programLength(programLength), programCode(programCode) {
+Pass2::Pass2(SymbolTable *symbolTable, std::string interFile, int programLength) :
+		symbolTable(symbolTable), _interFile(interFile), _programLength(programLength) {
 }
 
 void Pass2::generateObjFile(std::string output) {
@@ -14,9 +10,11 @@ void Pass2::generateObjFile(std::string output) {
 
 void Pass2::compute(std::string output) {
 	std::ofstream outputStream(output);
+	std::ifstream interStream(_interFile);
 	TextRecord textRecord;
 	std::string startAddress;
-	for (Line line : programCode) {
+	while (!interStream.eof()) {
+		Line line;
 		if (line.isStart()) {
 			outputStream << buildHeader(line, startAddress) << std::endl;
 			textRecord = TextRecord(startAddress);
@@ -35,6 +33,7 @@ void Pass2::compute(std::string output) {
 			textRecord.append(objectCode);
 		}
 	}
+	interStream.close();
 	outputStream.close();
 }
 
