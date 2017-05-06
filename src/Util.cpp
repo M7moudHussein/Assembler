@@ -1,4 +1,5 @@
 #include "Util.hpp"
+#include "OperationTable.h"
 
 namespace Util {
     bool validInteger(const std::string integer) {
@@ -9,6 +10,7 @@ namespace Util {
         }
         return true;
     }
+
 
     bool validByte(const std::string charSeq) {
         if (charSeq.length() < 3) return false;
@@ -91,5 +93,60 @@ namespace Util {
                 return true;
         }
         return false;
+    }
+
+
+    bool isDirective(std::string arg1){
+        for(int i = 0; i < DIR_SIZE; i++){
+            if(equalsIgnoreCase(arg1, DIRECTIVES[i]))
+                return true;
+        }
+        return false;
+    }
+
+    bool validLabel(std::string arg1) {
+        bool firstLetter = false;
+        for (int i = 0; i < arg1.length(); i++) {
+            if (isalpha(arg1[i]))
+                firstLetter = true;
+            if ((!firstLetter) && (isspace(arg1[i]) ||
+                                   ((isalnum(arg1[i])) && (!isalpha(arg1[i])))))
+                return false;
+        }
+        return true;
+    }
+
+    bool validOperation(std::string arg1) {
+        if ((!OperationTable::getInstance()->hasOperation(arg1))) {
+            return false;
+        }
+        return true;
+    }
+
+    bool validOperand(std::string arg1){
+        if(validLabel(arg1))
+            return true;
+        if(arg1.size() > 2 && arg1.substr(0, 2) == "0X" && validHexa(arg1.substr(2, arg1.length() - 2)))
+            return true;
+        return false;
+    }
+
+    bool validIndexed(std::string arg1){
+        if(!hasCharacter(arg1, ','))
+            return false;
+        std::vector<std::string> vec = split(arg1, ',');
+        if(vec.size() != 2)
+            return false;
+        return validOperand(vec[0]) && validOperand(vec[1]);
+    }
+
+    bool validHexa(std::string arg1){
+        for(int i = 0; i < arg1.length(); i++){
+            if(!isalnum(arg1[i]))
+                return false;
+            if(isalpha(arg1[i]) && tolower(arg1[i]) > 'f')
+                return false;
+        }
+        return true;
     }
 };

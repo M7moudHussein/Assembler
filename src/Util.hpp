@@ -17,6 +17,12 @@
 
 namespace Util {
 
+    const static char* DIRECTIVES[] = {"start", "end", "resw", "resb", "word", "byte"};
+    const static int DIR_SIZE = 6;
+
+    /**
+     * Separator used to object code to enhance readability.
+     */
     const std::string SEPARATOR = "^";
 
     /**
@@ -92,6 +98,41 @@ namespace Util {
      * @return true if the character exists in this string.
      */
     bool hasCharacter(std::string, char);
+
+    /**
+     * Checks if a given string represents a directive or not.
+     * @return true in case if the given string represents the directive.
+     */
+    bool isDirective(std::string);
+
+    /**
+     * Checks if a given string represents a valid label.
+     * @return true in case the string can represent a label
+     */
+    bool validLabel(std::string);
+
+    /**
+     * Checks if a given string represents a valid operation.
+     * @return true in case the string represents an operation.
+     */
+    bool validOperation(std::string);
+
+    /**
+     * @return true in case if the string represents a valid operand
+     */
+    bool validOperand(std::string);
+
+    /**
+     * Checks if an operand is in an indexed mode.
+     * @return true if it can represents an indexed mode
+     */
+    bool validIndexed(std::string);
+
+    /**
+     * Checks if a string represents a valid Hexadecimal number
+     * @return true in case of valid hexa decimal number
+     */
+    bool validHexa(std::string);
 };
 
 #endif //ASSEMBLER_UTIL_HPP

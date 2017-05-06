@@ -56,7 +56,7 @@ private:
 	/**
 	 * The name of the file containing the instructions.
 	 */
-    const char* INSTRUCTION_FILE = "instructions.txt";
+    const char* INSTRUCTION_FILE = "data/instructions.txt";
     static OperationTable *instance;
 
     OperationTable();

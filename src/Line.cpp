@@ -31,71 +31,33 @@ bool Line::checkComment(std::string line) {
 }
 
 void Line::checkData() {
-    checkLabel() && checkOperation() && checkOperand();
-}
-
-bool Line::checkLabel() {
-    if (hasLabel() && !validLabel(_label)) {
+    if (hasLabel() && (!Util::validLabel(_label))) {
         _isFail = true;
-        _errorMessage = "Invalid Label name\n";
-        return false;
+        _errorMessage = "Invalid Label specified";
+    } else if ((!hasOperation())) {
+        _isFail = true;
+        _errorMessage = "Unspecified Operation.";
+    } else if ((!Util::isDirective(_operation)) && (!Util::validOperation(_operation))) {
+        _isFail = true;
+        _errorMessage = "The specified operation is invalid";
+    } else {
+        if (Util::isDirective(_operation))
+            _isDirective = true;
+        if (Util::hasCharacter(_operand, ','))
+            _isIndexed = true;
+        if (_isIndexed && (!Util::validIndexed(_operand))) {
+            _isFail = true;
+            _errorMessage = "Wrong Usage of Indexed Mode";
+        } else if (!Util::validOperand(_operand)) {
+            _isFail = true;
+            _errorMessage = "Invalid Operand used";
+        }
+        if (_isIndexed && (!_isFail)) {
+            std::vector<std::string> vec = Util::split(_operand, ',');
+            _operand = vec[0];
+            _extraAddress = vec[1];
+        }
     }
-    return true;
-}
-
-bool Line::checkOperation() {
-    if (!hasOperation()) {
-        _isFail = true;
-        _errorMessage = _errorMessage + "No Operation Specified\n";
-        return false;
-    } else if ((!OperationTable::getInstance()->hasOperation(_operation)) && !checkDirective()) {
-        _isFail = true;
-        _errorMessage = _errorMessage + "Operation not in the Opt Table.\n";
-        return false;
-    }
-    return true;
-}
-
-bool Line::checkOperand() {
-    if (!hasOperand()) {
-        _isFail = true;
-        _errorMessage = _errorMessage + "No Operand Specified\n";
-        return false;
-    } else if (!validOperand(_operand)) {
-        _isFail = true;
-        _errorMessage = _errorMessage + "Operand is invalid.";
-        return false;
-    }
-    return true;
-}
-
-bool Line::checkIndexedAddressing() {
-    std::vector<std::string> vec = Util::split(_operand, ',');
-    if (vec.size() != 2)
-        return false;
-    if ((validLabel(vec[0]) || Util::validInteger(vec[0]))
-        && (validLabel(vec[1]) || Util::validInteger(vec[1])))
-        _isIndexed = true;
-    return _isIndexed;
-}
-
-bool Line::validLabel(std::string label) const {
-    bool firstLetter = false;
-    for (int i = 0; i < label.length(); i++) {
-        if (isalpha(label[i]))
-            firstLetter = true;
-        if ((!firstLetter) && (isspace(label[i]) ||
-                               ((isalnum(label[i])) && (!isalpha(label[i])))))
-            return false;
-    }
-    return true;
-}
-
-bool Line::validOperand(std::string operand) const {
-    if (Util::hasCharacter(operand, ','))
-        return checkIndexedAddressing();
-    else
-        return validLabel(operand) || Util::validInteger(operand);
 }
 
 int Line::getNextAddress() {
@@ -126,6 +88,7 @@ int Line::getNextAddress() {
     return -1;
 }
 
+/**
 bool Line::checkDirective() {
     if (Util::equalsIgnoreCase(_operation, "start") && hasOperand() && Util::validInteger(_operand))
         return true;
@@ -142,6 +105,7 @@ bool Line::checkDirective() {
         return true;
     return false;
 }
+*/
 
 std::string Line::getObjectCode(SymbolTable symbolTable) {
     std::stringstream objectCode;
