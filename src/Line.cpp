@@ -13,7 +13,7 @@ void Line::parseLine(std::string line) {
         } else {
             _label = words[0];
             _operation = words[1];
-            if(words.size() > 2)
+            if (words.size() > 2)
                 _operand = words[2];
             if (words.size() > 3)
                 _comment = words[3];

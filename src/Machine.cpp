@@ -14,7 +14,11 @@ void Machine::assemble() {
         std::cout << "The program will stop and not execute Pass2";
     } else {
         Pass2 pass2(pass1.getSymbolTable(), pass1.getInterFile(), pass1.getProgramLength(), pass1.getProgramCode());
-        pass2.generateObjFile(outputFile);
+        try {
+            pass2.generateObjFile(outputFile);
+        } catch (char *message) {
+            std::cout << message << std::endl;
+        }
         std::cout << "Program Finished Successfully";
     }
 }

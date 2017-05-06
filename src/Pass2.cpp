@@ -12,6 +12,8 @@ void Pass2::generateObjFile(std::string output) {
     compute(output);
 }
 
+#include <iostream>
+
 void Pass2::compute(std::string output) {
     std::ofstream outputStream(output);
     TextRecord textRecord;
@@ -36,6 +38,7 @@ void Pass2::compute(std::string output) {
             textRecord.append(objectCode);
         }
     }
+    std::cout << "OUT";
     outputStream.close();
 }
 
