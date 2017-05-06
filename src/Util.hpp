@@ -85,6 +85,13 @@ namespace Util {
      * @return
      */
     int getConstSize(std::string);
+
+    /**
+     * Checks for the existance of a certain character
+     * in a string.
+     * @return true if the character exists in this string.
+     */
+    bool hasCharacter(std::string, char);
 };
 
 #endif //ASSEMBLER_UTIL_HPP

@@ -61,11 +61,11 @@ public:
 	std::string getObjectCode(SymbolTable symbolTable);
 
 private:
-	std::string _address, _label, _operation, _operand, _comment;
+	std::string _address, _extraAddress, _label, _operation, _operand, _comment;
 	std::string _nextAddress, _errorMessage;
 	int _locCtr;
 
-	bool _isComment, _isFail;
+	bool _isComment, _isFail, _isIndexed;
 
 	void parseLine(std::string line);
 
@@ -80,6 +80,8 @@ private:
 	bool checkOperand();
 
 	bool checkDirective();
+
+	bool checkIndexedAddressing();
 
 	bool validLabel(std::string) const;
 

@@ -63,5 +63,4 @@ private:
     virtual ~OperationTable();
     void buildTable();
 };
-
 #endif /* OPERATIONTABLE_H_ */

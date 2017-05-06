@@ -69,6 +69,16 @@ bool Line::checkOperand() {
     return true;
 }
 
+bool Line::checkIndexedAddressing(){
+    std::vector<std::string> vec = Util::split(_operand, ',');
+    if(vec.size() != 2)
+        return false;
+    if((validLabel(vec[0]) || Util::validInteger(vec[0]))
+        && (validLabel(vec[1]) || Util::validInteger(vec[1])))
+        _isIndexed = true;
+    return _isIndexed;
+}
+
 bool Line::validLabel(std::string label) const {
     bool firstLetter = false;
     for (int i = 0; i < label.length(); i++) {
@@ -82,7 +92,10 @@ bool Line::validLabel(std::string label) const {
 }
 
 bool Line::validOperand(std::string operand) const {
-    return validLabel(operand) || Util::validInteger(operand);
+    if(Util::hasCharacter(operand, ','))
+        return checkIndexedAddressing();
+    else
+        return validLabel(operand) || Util::validInteger(operand);
 }
 
 int Line::getNextAddress() {

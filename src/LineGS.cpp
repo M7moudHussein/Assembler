@@ -4,6 +4,7 @@
 Line::Line(std::string line, int locCtr) : _locCtr(locCtr) {
     _isFail = false;
     _isComment = false;
+    _isIndexed = false;
     parseLine(line);
     if ((!_isFail) && (!_isComment))
         checkData();

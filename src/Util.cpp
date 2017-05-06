@@ -84,4 +84,12 @@ namespace Util {
         ss >> number;
         return number;
     }
+
+    bool hasCharacter(std::string str, char reqChar){
+        for(int i = 0; i < str.length(); i++){
+            if(str[i] == reqChar)
+                return true;
+        }
+        return false;
+    }
 };
