@@ -16,7 +16,7 @@ void Machine::assemble() {
         Pass2 pass2(pass1.getSymbolTable(), pass1.getInterFile(), pass1.getProgramLength());
         try {
             pass2.generateObjFile(outputFile);
-        } catch (char *message) {
+        } catch (const char *message) {
             std::cout << message << std::endl;
         }
         std::cout << "Program Finished Successfully";
