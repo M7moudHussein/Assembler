@@ -9,6 +9,7 @@
 #define OPERATIONTABLE_H_
 
 #include "OpInfo.h"
+#include "Util.hpp"
 #include <unordered_map>
 #include <string>
 
@@ -21,46 +22,56 @@
  */
 class OperationTable {
 public:
-	static OperationTable *getInstance();
+    static OperationTable *getInstance();
 
-	/**
-	 * @param inst a string representing an instruction.
-	 * @return returns true in case of containing the instruction name
-	 * in the table.
-	 * In case of not containing the instruction it returns the c++
-	 * default initialization value which is '0'.
-	 */
+    /**
+     * @param inst a string representing an instruction.
+     * @return returns true in case of containing the instruction name
+     * in the table.
+     * In case of not containing the instruction it returns the c++
+     * default initialization value which is '0'.
+     */
     bool hasOperation(std::string inst);
 
-	/**
-	 * @param inst a string representing an instruction.
-	 * @return the format of the specified instruction.
-	 */
-	int getFormat(std::string inst);
+    /**
+     * @param inst a string representing an instruction.
+     * @return the format of the specified instruction.
+     */
+    int getFormat(std::string inst);
 
-	/**
-	 * @param inst a string representing an instruction.
-	 * @return the operation code for this specified instruction.
-	 * In case of not containing the instruction it returns the c++
-	 * default initialization value which is '0'.
-	 */
+    /**
+     * @param inst a string representing an instruction.
+     * @return the operation code for this specified instruction.
+     * In case of not containing the instruction it returns the c++
+     * default initialization value which is '0'.
+     */
     int getOpCode(std::string inst);
 
 
 private:
-	/**
-	 * unordered_map which acts as a hashing based dictionary
-	 * that contains the operations and the info assisted with them.
-	 */
-	std::unordered_map<std::string, OpInfo*> opTable;
-	/**
-	 * The name of the file containing the instructions.
-	 */
+    /**
+     * unordered_map which acts as a hashing based dictionary
+     * that contains the operations and the info assisted with them.
+     */
+    std::unordered_map<std::string, OpInfo *> opTable;
+    /**
+     * The name of the file containing the instructions.
+     */
+
+
+#ifdef _WIN32
     const char* INSTRUCTION_FILE = "data/instructions.txt";
+#else
+    const char *INSTRUCTION_FILE = "data\\instructions.txt";
+#endif
+
     static OperationTable *instance;
 
     OperationTable();
+
     virtual ~OperationTable();
+
     void buildTable();
 };
+
 #endif /* OPERATIONTABLE_H_ */

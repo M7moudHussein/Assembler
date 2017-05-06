@@ -87,18 +87,18 @@ namespace Util {
         return number;
     }
 
-    bool hasCharacter(std::string str, char reqChar){
-        for(int i = 0; i < str.length(); i++){
-            if(str[i] == reqChar)
+    bool hasCharacter(std::string str, char reqChar) {
+        for (int i = 0; i < str.length(); i++) {
+            if (str[i] == reqChar)
                 return true;
         }
         return false;
     }
 
 
-    bool isDirective(std::string arg1){
-        for(int i = 0; i < DIR_SIZE; i++){
-            if(equalsIgnoreCase(arg1, DIRECTIVES[i]))
+    bool isDirective(std::string arg1) {
+        for (int i = 0; i < DIR_SIZE; i++) {
+            if (equalsIgnoreCase(arg1, DIRECTIVES[i]))
                 return true;
         }
         return false;
@@ -123,31 +123,39 @@ namespace Util {
         return true;
     }
 
-    bool validOperand(std::string arg1){
-        if(validLabel(arg1))
+    bool validOperand(std::string arg1) {
+        if (validLabel(arg1))
             return true;
-        if((arg1.size() > 2 && arg1.substr(0, 2) == "0X" && validHexa(arg1.substr(2, arg1.length() - 2)))
+        if ((arg1.size() > 2 && arg1.substr(0, 2) == "0X" && validHexa(arg1.substr(2, arg1.length() - 2)))
             || ((!isalpha(arg1[0])) && isalnum(arg1[0]) && validHexa(arg1)))
             return true;
         return false;
     }
 
-    bool validIndexed(std::string arg1){
-        if(!hasCharacter(arg1, ','))
+    bool validIndexed(std::string arg1) {
+        if (!hasCharacter(arg1, ','))
             return false;
         std::vector<std::string> vec = split(arg1, ',');
-        if(vec.size() != 2)
+        if (vec.size() != 2)
             return false;
         return validOperand(vec[0]) && validOperand(vec[1]);
     }
 
-    bool validHexa(std::string arg1){
-        for(int i = 0; i < arg1.length(); i++){
-            if(!isalnum(arg1[i]))
+    bool validHexa(std::string arg1) {
+        for (int i = 0; i < arg1.length(); i++) {
+            if (!isalnum(arg1[i]))
                 return false;
-            if(isalpha(arg1[i]) && tolower(arg1[i]) > 'f')
+            if (isalpha(arg1[i]) && tolower(arg1[i]) > 'f')
                 return false;
         }
         return true;
+    }
+
+    inline std::string separator() {
+#ifdef _WIN32
+        return "\\";
+#else
+        return "/";
+#endif
     }
 };

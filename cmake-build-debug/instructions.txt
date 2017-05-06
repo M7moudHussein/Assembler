@@ -1,0 +1,26 @@
+add 24 3
+and 64 3
+comp 40 3
+div 36 3
+j 60 3
+jeq 48 3
+jgt 52 3
+jlt 56 3
+jsub 72 3
+lda 0 3
+ldch 80 3
+ldl 8 3
+ldx 4 3
+mul 32 3
+or 68 3
+rd 216 3
+rsub 76 3
+sta 12 3
+stch 84 3
+stl 20 3
+stx 16 3
+sub 28 3
+td 224 3
+tix 44 3
+wd 200 3
+

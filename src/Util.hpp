@@ -17,7 +17,7 @@
 
 namespace Util {
 
-    const static char* DIRECTIVES[] = {"start", "end", "resw", "resb", "word", "byte"};
+    const static char *DIRECTIVES[] = {"start", "end", "resw", "resb", "word", "byte"};
     const static int DIR_SIZE = 6;
 
     /**
@@ -133,6 +133,8 @@ namespace Util {
      * @return true in case of valid hexa decimal number
      */
     bool validHexa(std::string);
+
+    std::string separator();
 };
 
 #endif //ASSEMBLER_UTIL_HPP
