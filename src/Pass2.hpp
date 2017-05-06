@@ -10,7 +10,7 @@
 
 class Pass2 {
 public:
-	Pass2(SymbolTable *, std::string, int, std::vector<Line>);
+	Pass2(SymbolTable *, std::string, int);
 
 	void generateObjFile(std::string);
 

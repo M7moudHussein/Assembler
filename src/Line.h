@@ -8,6 +8,7 @@
 #include <cstring>
 #include <vector>
 #include <sstream>
+#include <fstream>
 #include "Util.hpp"
 #include "SymbolTable.h"
 
@@ -22,6 +23,10 @@ public:
 	friend std::ostream &operator<<(std::ostream &, const Line &);
 
 	friend std::istream &operator>>(std::istream &is, Line &c);
+
+	void read(std::ifstream *);
+
+	void write(std::ofstream *);
 
 	int getNextAddress();
 

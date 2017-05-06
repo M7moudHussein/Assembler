@@ -32,10 +32,6 @@ int Pass1::getProgramLength() {
     return _programLength;
 }
 
-std::vector<Line> Pass1::getProgramCode() {
-    return _programCode;
-}
-
 bool Pass1::fail(){
     return _hasError;
 }
@@ -43,10 +39,11 @@ bool Pass1::fail(){
 void Pass1::compute() {
     _locCtr = 0;
     std::ifstream inputStream(_inputFile);
-    std::ofstream outputStream(INTER_FILE);
+    std::ofstream outputStream(LIST_FILE);
+    std::ofstream intermedStream(INTER_FILE);
     while (std::getline(inputStream, _stringInput)) {
         Line lineCommand(_stringInput, _locCtr);
-        _hasError = handleLine(lineCommand, outputStream) || _hasError;
+        _hasError = handleLine(lineCommand, outputStream, intermedStream) || _hasError;
         outputStream << lineCommand << std::endl;
         if (lineCommand.isEnd())
             break;
@@ -54,12 +51,15 @@ void Pass1::compute() {
     assert(inputStream.eof());
     inputStream.close();
     outputStream.close();
+    intermedStream.close();
     _programLength = _locCtr - _startingAddress;
+
+    std::cout << _programLength;
 }
 
-bool Pass1::handleLine(Line lineCommand, std::ofstream& outputStream){
+bool Pass1::handleLine(Line lineCommand, std::ofstream& outputStream, std::ofstream& intermedStream){
+    lineCommand.write(&intermedStream);
     if(!lineCommand.isComment()){
-        _programCode.push_back(lineCommand);
         if (lineCommand.fail()) {
             outputStream << lineCommand.getError() << "\n";
             return true;
@@ -70,14 +70,16 @@ bool Pass1::handleLine(Line lineCommand, std::ofstream& outputStream){
                     return true;
                 }
             }
+            _locCtr = lineCommand.getNextAddress();
+            if(lineCommand.isStart())
+                _startingAddress = _locCtr;
         }
-        _locCtr = lineCommand.getNextAddress();
     }
     return false;
 }
 
 void Pass1::printLisaFile() {
-    std::ofstream outputStream(LISA_FILE);
+    std::ofstream outputStream(LIST_FILE);
     std::vector<std::pair<std::string, int> > vec = symbolTable->getData();
     for(int i = 0; i < vec.size(); i++){
         outputStream << vec[i].first << "\t" << vec[i].second << std::endl;

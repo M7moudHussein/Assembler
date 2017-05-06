@@ -20,6 +20,39 @@ Line::Line() {
 Line::~Line() {
 }
 
+std::ostream &operator<<(std::ostream &os, const Line &line) {
+    if (line.isComment())
+        os << line.getComment();
+    else {
+        os << line.getHexAddress() << "\t";
+        os << line.getLabel() << '\t'
+           << line.getOperation() << '\t'
+           << line.getOperand() << '\t'
+           << line.getComment();
+    }
+    return os;
+}
+
+std::istream &operator>>(std::istream &is, Line &c) {
+    std::string input;
+    getline(is, input);
+    std::vector<std::string> args = Util::split(input, '\t');
+    c._address = args[0] == " " ? " " : std::to_string(stoi(args[0], nullptr, 16));
+    c._label = args[1];
+    c._operation = args[2];
+    c._operand = args[3];
+    c._comment = args[4];
+    return is;
+}
+
+void Line::read(std::ifstream *in)  {
+    in->read((char *) this, sizeof(Line));
+}
+
+void Line::write(std::ofstream *out)  {
+    out->write((char *) this, sizeof(Line));
+}
+
 bool Line::hasLabel() const {
     return _label != " ";
 }
@@ -68,31 +101,6 @@ std::string Line::getIndexAddress() const{
 
 std::string Line::getComment() const {
     return _comment;
-}
-
-std::ostream &operator<<(std::ostream &os, const Line &line) {
-    if (line.isComment())
-        os << line.getComment();
-    else {
-        os << line.getHexAddress() << "\t";
-        os << line.getLabel() << '\t'
-           << line.getOperation() << '\t'
-           << line.getOperand() << '\t'
-           << line.getComment();
-    }
-    return os;
-}
-
-std::istream &operator>>(std::istream &is, Line &c) {
-    std::string input;
-    getline(is, input);
-    std::vector<std::string> args = Util::split(input, '\t');
-    c._address = args[0] == " " ? " " : std::to_string(stoi(args[0], nullptr, 16));
-    c._label = args[1];
-    c._operation = args[2];
-    c._operand = args[3];
-    c._comment = args[4];
-    return is;
 }
 
 bool Line::fail() {
