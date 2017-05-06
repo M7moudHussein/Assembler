@@ -4,17 +4,21 @@ Pass2::Pass2(SymbolTable *symbolTable, std::string interFile, int programLength)
 		symbolTable(symbolTable), _interFile(interFile), _programLength(programLength) {
 }
 
-void Pass2::generateObjFile(std::string output) {
-	compute(output);
+void Pass2::generateObjFile(std::string output, std::string listFile) {
+	compute(output, listFile);
 }
 
-void Pass2::compute(std::string output) {
+void Pass2::compute(std::string output, std::string listFile) {
 	std::ofstream outputStream(output);
+	std::ofstream listStream(listFile);
 	std::ifstream interStream(_interFile);
 	TextRecord textRecord;
 	std::string startAddress;
-	while (!interStream.eof()) {
-		Line line;
+    std::string stringInput;
+    while (!interStream.eof()) {
+        Line line;
+        interStream >> line;
+		listStream << line;
 		if (line.isStart()) {
 			outputStream << buildHeader(line, startAddress) << std::endl;
 			textRecord = TextRecord(startAddress);
@@ -25,6 +29,7 @@ void Pass2::compute(std::string output) {
 			outputStream << buildEnd(startAddress) << std::endl;
 			break;
 		} else {
+			listStream << "\t" << line.getObjectCode(*symbolTable);
 			std::string objectCode = line.getObjectCode(*symbolTable);
 			if (!textRecord.fits(objectCode)) {
 				outputStream << textRecord << std::endl;
@@ -32,7 +37,9 @@ void Pass2::compute(std::string output) {
 			}
 			textRecord.append(objectCode);
 		}
+	listStream << std::endl;
 	}
+	listStream.close();
 	interStream.close();
 	outputStream.close();
 }

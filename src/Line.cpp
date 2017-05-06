@@ -7,14 +7,13 @@ void Line::parseLine(std::string line) {
 		_comment = line;
 	} else {
 		std::vector<std::string> words = Util::split(line, '\t');
-		if (words.size() < 2 || words.size() > 4) {
+		if (words.size() < 3 || words.size() > 4) {
 			_isFail = true;
 			_errorMessage = "Invalid input format.";
 		} else {
 			_label = words[0];
 			_operation = words[1];
-			if (words.size() > 2)
-				_operand = words[2];
+            _operand = words[2];
 			if (words.size() > 3)
 				_comment = words[3];
 		}
@@ -41,7 +40,12 @@ void Line::checkData() {
 	} else if ((!Util::isDirective(_operation)) && (!Util::validOperation(_operation))) {
 		_isFail = true;
 		_errorMessage = "The specified operation is invalid";
-	} else {
+	}else if(Util::equalsIgnoreCase(_operation, "rsub")){
+        if(hasOperand()){
+            _isFail = true;
+            _errorMessage = "No Operand Required here.";
+        }
+    } else {
 		if (Util::isDirective(_operation))
 			_isDirective = true;
 		if (Util::hasCharacter(_operand, ','))

@@ -24,9 +24,9 @@ public:
 
 	friend std::istream &operator>>(std::istream &is, Line &c);
 
-	void read(std::ifstream *);
+	void read(std::ifstream&);
 
-	void write(std::ofstream *);
+	void write(std::ofstream&);
 
 	int getNextAddress();
 

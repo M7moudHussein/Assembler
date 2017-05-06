@@ -45,14 +45,6 @@ std::istream &operator>>(std::istream &is, Line &c) {
     return is;
 }
 
-void Line::read(std::ifstream *in)  {
-    in->read((char *) this, sizeof(Line));
-}
-
-void Line::write(std::ofstream *out)  {
-    out->write((char *) this, sizeof(Line));
-}
-
 bool Line::hasLabel() const {
     return _label != " ";
 }
