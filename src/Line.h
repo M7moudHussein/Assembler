@@ -35,6 +35,8 @@ public:
 
 	std::string getOperand() const;
 
+	std::string getIndexAddress() const;
+
 	std::string getComment() const;
 
 	bool hasLabel() const;
@@ -65,27 +67,13 @@ private:
 	std::string _nextAddress, _errorMessage;
 	int _locCtr;
 
-	bool _isComment, _isFail, _isIndexed;
+	bool _isComment, _isFail, _isIndexed, _isDirective;
 
 	void parseLine(std::string line);
 
 	bool checkComment(std::string);
 
 	void checkData();
-
-	bool checkLabel();
-
-	bool checkOperation();
-
-	bool checkOperand();
-
-	bool checkDirective();
-
-	bool checkIndexedAddressing();
-
-	bool validLabel(std::string) const;
-
-	bool validOperand(std::string) const;
 
 	std::string buildCode(std::string opCode, std::string labelCode);
 

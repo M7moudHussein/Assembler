@@ -6,9 +6,10 @@ Line::Line(std::string line, int locCtr) : _locCtr(locCtr) {
     _isComment = false;
     _isIndexed = false;
     parseLine(line);
-    if ((!_isFail) && (!_isComment))
+    if ((!_isComment)) {
         checkData();
-    getNextAddress();
+        getNextAddress();
+    }
 }
 
 Line::Line() {
@@ -57,6 +58,12 @@ std::string Line::getOperation() const {
 
 std::string Line::getOperand() const {
     return _operand;
+}
+
+std::string Line::getIndexAddress() const{
+    if(_isIndexed)
+        return _extraAddress;
+    return "0";
 }
 
 std::string Line::getComment() const {
