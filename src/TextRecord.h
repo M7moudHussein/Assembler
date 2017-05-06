@@ -12,6 +12,8 @@ class TextRecord {
 public:
 	TextRecord();
 
+	TextRecord(std::string);
+
 	~TextRecord();
 
 	friend std::ostream &operator<<(std::ostream &, const TextRecord &);

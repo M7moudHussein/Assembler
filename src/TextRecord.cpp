@@ -6,7 +6,8 @@
 #include "TextRecord.h"
 #include "Util.hpp"
 
-TextRecord::TextRecord() {
+TextRecord::TextRecord(std::string address) {
+	startingAddress = address;
 	size = 0;
 }
 
@@ -17,6 +18,9 @@ TextRecord::~TextRecord() {
 std::ostream &operator<<(std::ostream &os, const TextRecord &record) {
 	os << 'T' << Util::SEPARATOR << record.startingAddress << Util::SEPARATOR << record.to_hexadecimal(record.size);
 	for (int i = 0; i < (int) record.textRecord.size(); i++) {
+		if (record.textRecord[i].empty()) {
+			continue;
+		}
 		os << Util::SEPARATOR << record.textRecord[i];
 	}
 	return os;
@@ -43,4 +47,8 @@ std::string TextRecord::to_hexadecimal(int number) const {
 	std::stringstream stream;
 	stream << std::hex << number;
 	return stream.str();
+}
+
+TextRecord::TextRecord() {
+
 }
