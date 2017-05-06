@@ -51,7 +51,7 @@ void Pass1::compute() {
         if (lineCommand.isEnd())
             break;
     }
-//    assert(inputStream.eof());
+    assert(inputStream.eof());
     inputStream.close();
     outputStream.close();
     _programLength = _locCtr - _startingAddress;

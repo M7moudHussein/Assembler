@@ -126,7 +126,8 @@ namespace Util {
     bool validOperand(std::string arg1){
         if(validLabel(arg1))
             return true;
-        if(arg1.size() > 2 && arg1.substr(0, 2) == "0X" && validHexa(arg1.substr(2, arg1.length() - 2)))
+        if((arg1.size() > 2 && arg1.substr(0, 2) == "0X" && validHexa(arg1.substr(2, arg1.length() - 2)))
+            || ((!isalpha(arg1[0])) && isalnum(arg1[0]) && validHexa(arg1)))
             return true;
         return false;
     }

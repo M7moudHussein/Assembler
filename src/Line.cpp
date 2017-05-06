@@ -7,14 +7,15 @@ void Line::parseLine(std::string line) {
         _comment = line;
     } else {
         std::vector<std::string> words = Util::split(line, '\t');
-        if (words.size() < 3 || words.size() > 4) {
+        if (words.size() < 2 || words.size() > 4) {
             _isFail = true;
             _errorMessage = "Invalid input format.";
         } else {
             _label = words[0];
             _operation = words[1];
-            _operand = words[2];
-            if (words.size() == 4)
+            if(words.size() > 2)
+                _operand = words[2];
+            if (words.size() > 3)
                 _comment = words[3];
         }
     }
