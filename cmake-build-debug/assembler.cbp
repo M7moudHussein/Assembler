@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="assembler"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="assembler">
+				<Option output="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/assembler.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++"/>
+					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/mingw32"/>
+					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/backward"/>
+					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include"/>
+					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/../../../../include"/>
+					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 assembler"/>
+					<CompileFile command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="assembler/fast">
+				<Option output="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/assembler.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++"/>
+					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/mingw32"/>
+					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include/c++/backward"/>
+					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include"/>
+					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/../../../../include"/>
+					<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/bin/../lib/gcc/mingw32/4.9.2/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 assembler/fast"/>
+					<CompileFile command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/Assembler.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/Line.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/Line.h">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/LineGS.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/Machine.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/Machine.h">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/OpInfo.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/OpInfo.h">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/OperationTable.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/OperationTable.h">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/Pass1.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/Pass1.hpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/Pass2.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/Pass2.hpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/SymbolTable.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/SymbolTable.h">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/TextRecord.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/TextRecord.h">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/Util.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/Util.hpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
