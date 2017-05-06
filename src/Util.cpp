@@ -48,21 +48,14 @@ namespace Util {
         return to_hexadecimal(stoi(number));
     }
 
-    std::string formalize(std::string code, const int len) {
-        while (code.length() < len) {
-            code = "0" + code;
-        }
-        return code;
-    }
-
-    std::vector<std::string> split(std::string input, char breaker) {
+    std::vector<std::string> split(std::string input, char separator) {
         std::vector<std::string> result;
         std::string curStr;
-        for(int i = 0; i < input.length(); i++){
+        for (int i = 0; i < input.length(); i++) {
             curStr += input[i];
-            if(i + 1 < input.length() && input[i + 1] == breaker){
+            if (i + 1 < input.length() && input[i + 1] == separator) {
                 result.push_back(curStr);
-                while(i + 1 < input.length() && input[i + 1] == breaker) i++;
+                while (i + 1 < input.length() && input[i + 1] == separator) i++;
                 curStr = std::string();
             }
         }
@@ -77,4 +70,18 @@ namespace Util {
         return (data.length() - 3 + 1) / 2;
     }
 
+    std::string formalize(std::string code, const int len) {
+        while (code.length() < len) {
+            code = '0' + code;
+        }
+        return code;
+    }
+
+    int to_int(std::string hexadecimal_string) {
+        unsigned int number;
+        std::stringstream ss;
+        ss << std::hex << hexadecimal_string;
+        ss >> number;
+        return number;
+    }
 };

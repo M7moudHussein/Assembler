@@ -17,6 +17,8 @@
 
 namespace Util {
 
+    const std::string SEPARATOR = "^";
+
     /**
      * Validates whether this string represents a valid integer or not
      * Doesn't handle floats or double.

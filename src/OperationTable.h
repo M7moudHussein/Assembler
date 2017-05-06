@@ -57,10 +57,11 @@ private:
 	 * The name of the file containing the instructions.
 	 */
     const char* INSTRUCTION_FILE = "instructions.txt";
+    static OperationTable *instance;
 
-	OperationTable();
-	virtual ~OperationTable();
-	void buildTable();
+    OperationTable();
+    virtual ~OperationTable();
+    void buildTable();
 };
 
 #endif /* OPERATIONTABLE_H_ */

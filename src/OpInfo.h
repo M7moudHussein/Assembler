@@ -1,10 +1,3 @@
-/*
- * OpInfo.h
- *
- *  Created on: Apr 16, 2017
- *      Author: mahmoud
- */
-
 #ifndef OPINFO_H_
 #define OPINFO_H_
 

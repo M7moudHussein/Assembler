@@ -10,24 +10,26 @@
 
 class TextRecord {
 public:
-    TextRecord();
+	TextRecord();
 
-    ~TextRecord();
+	~TextRecord();
 
-    friend std::ostream &operator<<(std::ostream &, const TextRecord &);
+	friend std::ostream &operator<<(std::ostream &, const TextRecord &);
 
-    bool fits(std::string objectcode);
+	bool fits(std::string objectcode);
 
-    void append(std::string objectCode, std::string instructionAddress);
+	void append(std::string objectCode);
 
-    bool empty();
+	bool empty();
+
+	void setStartingAddress(std::string address);
 
 private:
-    std::vector<std::string> textRecord;
-    int size;
-    std::string startingAddress;
+	std::vector<std::string> textRecord;
+	int size;
+	std::string startingAddress;
 
-    std::string to_hexadecimal(int size) const;
+	std::string to_hexadecimal(int size) const;
 };
 
 
