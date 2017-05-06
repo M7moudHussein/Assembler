@@ -15,19 +15,25 @@
 
 class OperationTable {
 public:
-	static OperationTable *getInstance();
+    static OperationTable *getInstance();
+
     bool hasOperation(std::string inst);
-	int getFormat(std::string inst);
+
+    int getFormat(std::string inst);
+
     int getOpCode(std::string inst);
 
 
 private:
-	std::unordered_map<std::string, OpInfo*> opTable;
-    const char* INSTRUCTION_FILE = "instructions.txt";
+    static OperationTable *instance;
+    std::unordered_map<std::string, OpInfo *> opTable;
+    const char *INSTRUCTION_FILE = "instructions.txt";
 
-	OperationTable();
-	virtual ~OperationTable();
-	void buildTable();
+    OperationTable();
+
+    virtual ~OperationTable();
+
+    void buildTable();
 };
 
 #endif /* OPERATIONTABLE_H_ */

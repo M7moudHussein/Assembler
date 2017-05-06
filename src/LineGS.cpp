@@ -1,16 +1,16 @@
 #include "Line.h"
 #include <string>
 
-Line::Line(std::string line, int locCtr) : _locCtr(locCtr){
+Line::Line(std::string line, int locCtr) : _locCtr(locCtr) {
     _isFail = false;
     _isComment = false;
     parseLine(line);
-    if((!_isFail) && (!_isComment))
+    if ((!_isFail) && (!_isComment))
         checkData();
     getNextAddress();
 }
 
-Line::Line(){
+Line::Line() {
     _isFail = false;
     _isComment = false;
 }
@@ -50,19 +50,20 @@ std::string Line::getLabel() const {
     return _label;
 }
 
-std::string Line::getOperation() const{
+std::string Line::getOperation() const {
     return _operation;
 }
+
 std::string Line::getOperand() const {
     return _operand;
 }
 
-std::string Line::getComment() const{
+std::string Line::getComment() const {
     return _comment;
 }
 
 std::ostream &operator<<(std::ostream &os, const Line &line) {
-    if(line.isComment())
+    if (line.isComment())
         os << line.getComment();
     else {
         os << line.getHexAddress() << "\t";
@@ -74,7 +75,7 @@ std::ostream &operator<<(std::ostream &os, const Line &line) {
     return os;
 }
 
-std::istream& operator >> (std::istream& is, Line& c) {
+std::istream &operator>>(std::istream &is, Line &c) {
     std::string input;
     getline(is, input);
     std::vector<std::string> args = Util::split(input, '\t');
@@ -86,11 +87,11 @@ std::istream& operator >> (std::istream& is, Line& c) {
     return is;
 }
 
-bool Line::fail(){
+bool Line::fail() {
     return _isFail;
 }
 
-std::string Line::getError(){
+std::string Line::getError() {
     return _errorMessage;
 }
 
@@ -102,6 +103,6 @@ bool Line::isComment() const {
     return _isComment;
 }
 
-bool Line::isEnd() const{
+bool Line::isEnd() const {
     return Util::equalsIgnoreCase(_operation, "end");
 }

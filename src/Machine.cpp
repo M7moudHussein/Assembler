@@ -9,11 +9,12 @@ Machine::~Machine() {
 
 void Machine::assemble() {
     Pass1 pass1(inputFile);
-    if(pass1.fail()){
+    if (pass1.fail()) {
         std::cout << "Pass1 Failed Check the Lisa and Intermediate Files\n";
         std::cout << "The program will stop and not execute Pass2";
-    }else{
+    } else {
         Pass2 pass2(pass1.getSymbolTable(), pass1.getInterFile(), pass1.getProgramLength(), pass1.getProgramCode());
+        pass2.generateObjFile(outputFile);
         std::cout << "Program Finished Successfully";
     }
 }

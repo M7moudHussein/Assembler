@@ -10,14 +10,20 @@
 
 class Pass2 {
 public:
-    Pass2(SymbolTable*, std::string, int, std::vector<Line>);
-    void generateObjFile(std::string);
+	Pass2(SymbolTable *, std::string, int, std::vector<Line>);
+
+	void generateObjFile(std::string);
+
 private:
-    void compute(std::string);
-    std::string _interFile;
-    int _programLength;
-    SymbolTable* symbolTable;
-    std::vector<Line> programCode;
+	void compute(std::string);
+
+	std::string _interFile;
+	int _programLength;
+	SymbolTable *symbolTable;
+	std::vector<Line> programCode;
+	std::string buildHeader(Line line, std::string &startAddress);
+
+	std::string buildEnd(std::string startAddress);
 };
 
 

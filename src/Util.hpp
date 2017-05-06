@@ -8,13 +8,24 @@
 #include <vector>
 
 namespace Util {
-    bool validInteger(const std::string integer);
-    bool validByte(const std::string charSeq);
-    bool equalsIgnoreCase(const std::string &str1, const char *str2);
-    std::string to_hexadecimal(int number);
-    std::string to_hexadecimal(const std::string number);
-    std::string formalize(std::string code, const int len);
+    const std::string SEPARATOR = "^";
+
+    bool validInteger(const std::string);
+
+    bool validByte(const std::string);
+
+    bool equalsIgnoreCase(const std::string &, const char *);
+
+    std::string to_hexadecimal(int);
+
+    std::string to_hexadecimal(const std::string);
+
+    int to_int(std::string hexadecimal_string);
+
+    std::string formalize(std::string, const int);
+
     std::vector<std::string> split(std::string, char);
+
     int getConstSize(std::string);
 };
 

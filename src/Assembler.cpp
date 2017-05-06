@@ -3,7 +3,6 @@
 #include "Pass1.hpp"
 
 int main(int argc, char **argv) {
-    Pass1 pass1("input.txt");
-    pass1.printLisaFile();
+    Machine("input.txt", "output.txt");
     return 0;
 }
