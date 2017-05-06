@@ -17,6 +17,3 @@ void Machine::assemble() {
         std::cout << "Program Finished Successfully";
     }
 }
-
-
-
