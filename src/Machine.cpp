@@ -1,6 +1,6 @@
 #include "Machine.h"
 
-Machine::Machine(std::string inputFile, std::string outputFile) : inputFile(inputFile), outputFile(outputFile) {
+Machine::Machine(std::string inputFile) : inputFile(inputFile) {
     assemble();
 }
 
@@ -15,7 +15,8 @@ void Machine::assemble() {
     } else {
         Pass2 pass2(pass1.getSymbolTable(), pass1.getInterFile(), pass1.getProgramLength());
         try {
-            pass2.generateObjFile("output/"+outputFile, "output/listing_file.txt");
+            std::string inputName = inputFile.substr(0, inputFile.length() - 4);
+            pass2.generateObjFile("output/" + inputName + "-objectcode.txt", "output/" + inputName + "-listing_file.txt");
         } catch (const char *message) {
             std::cout << message << std::endl;
         }

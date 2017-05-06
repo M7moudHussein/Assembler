@@ -13,7 +13,7 @@
  */
 class Machine {
 public:
-    Machine(std::string, std::string);
+    Machine(std::string);
     virtual ~Machine();
     /**
      * does the whole process of using the two passes to
@@ -22,7 +22,7 @@ public:
     void assemble();
 
 private:
-    std::string inputFile, outputFile;
+    std::string inputFile;
 };
 
 #endif /* MACHINE_H_ */
