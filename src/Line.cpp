@@ -69,11 +69,11 @@ bool Line::checkOperand() {
     return true;
 }
 
-bool Line::checkIndexedAddressing(){
+bool Line::checkIndexedAddressing() {
     std::vector<std::string> vec = Util::split(_operand, ',');
-    if(vec.size() != 2)
+    if (vec.size() != 2)
         return false;
-    if((validLabel(vec[0]) || Util::validInteger(vec[0]))
+    if ((validLabel(vec[0]) || Util::validInteger(vec[0]))
         && (validLabel(vec[1]) || Util::validInteger(vec[1])))
         _isIndexed = true;
     return _isIndexed;
@@ -92,7 +92,7 @@ bool Line::validLabel(std::string label) const {
 }
 
 bool Line::validOperand(std::string operand) const {
-    if(Util::hasCharacter(operand, ','))
+    if (Util::hasCharacter(operand, ','))
         return checkIndexedAddressing();
     else
         return validLabel(operand) || Util::validInteger(operand);
@@ -146,9 +146,6 @@ bool Line::checkDirective() {
 std::string Line::getObjectCode(SymbolTable symbolTable) {
     std::stringstream objectCode;
     if (Util::equalsIgnoreCase(_operation, "RSUB")) {
-        if (hasOperand()) {
-            throw "RSUB must have no operand";
-        }
         objectCode << buildCode("4C", std::string());
     } else if (Util::equalsIgnoreCase(_operation, "WORD")) {
         objectCode << buildCode(std::string(), Util::to_hexadecimal(_operand));
@@ -163,13 +160,12 @@ std::string Line::getObjectCode(SymbolTable symbolTable) {
     } else if (Util::equalsIgnoreCase(_operation, "RESW") || Util::equalsIgnoreCase(_operation, "RESB")) {
         objectCode << std::string();
     } else {
-        if (!OperationTable::getInstance()->hasOperation(_operation)) {
-            throw "Operation Code Not Found!";
-        } else if (!symbolTable.hasLabel(_operand)) {
-            throw "Invalid operand no such a label!";
+        if (!symbolTable.hasLabel(_operand)) {
+            throw "Invalid Operand..No Such A Label!";
         }
-        objectCode << buildCode(Util::to_hexadecimal(OperationTable::getInstance()->getOpCode(_operation)),
-                                Util::to_hexadecimal(symbolTable.getAddress(_operand)));
+        std::string opCode = Util::to_hexadecimal(OperationTable::getInstance()->getOpCode(_operation));
+        std::string labelCode = Util::to_hexadecimal(symbolTable.getAddress(_operand) + _isIndexed ? 8000 : 0);
+        objectCode << buildCode(opCode, labelCode);
     }
     return objectCode.str();
 }
