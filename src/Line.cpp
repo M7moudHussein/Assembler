@@ -13,7 +13,7 @@ void Line::parseLine(std::string line) {
 		} else {
 			_label = words[0];
 			_operation = words[1];
-            _operand = words[2];
+			_operand = words[2];
 			if (words.size() > 3)
 				_comment = words[3];
 		}
@@ -40,12 +40,12 @@ void Line::checkData() {
 	} else if ((!Util::isDirective(_operation)) && (!Util::validOperation(_operation))) {
 		_isFail = true;
 		_errorMessage = "The specified operation is invalid";
-	}else if(Util::equalsIgnoreCase(_operation, "rsub")){
-        if(hasOperand()){
-            _isFail = true;
-            _errorMessage = "No Operand Required here.";
-        }
-    } else {
+	} else if (Util::equalsIgnoreCase(_operation, "rsub")) {
+		if (hasOperand()) {
+			_isFail = true;
+			_errorMessage = "No Operand Required here.";
+		}
+	} else {
 		if (Util::isDirective(_operation))
 			_isDirective = true;
 		if (Util::hasCharacter(_operand, ','))
@@ -121,8 +121,7 @@ std::string Line::getObjectCode(SymbolTable symbolTable) {
 	} else if (Util::equalsIgnoreCase(_operation, "BYTE")) {
 		std::string scannedString = _operand.substr(2, _operand.length() - 3);
 		if (tolower(_operand[0]) == 'c') {
-			for (char ch: scannedString)
-				objectCode << Util::to_hexadecimal(ch);
+			objectCode << stringToHexadecimal(scannedString);
 		} else if (tolower(_operand[0]) == 'x') {
 			objectCode << scannedString;
 		}
@@ -133,7 +132,7 @@ std::string Line::getObjectCode(SymbolTable symbolTable) {
 			throw "Invalid Operand..No Such A Label!";
 		}
 		std::string opCode = Util::to_hexadecimal(OperationTable::getInstance()->getOpCode(_operation));
-		std::string labelCode = Util::to_hexadecimal(symbolTable.getAddress(_operand) + _isIndexed ? 8000 : 0);
+		std::string labelCode = Util::to_hexadecimal(symbolTable.getAddress(_operand) + (_isIndexed ? 0x8000 : 0));
 		objectCode << buildCode(opCode, labelCode);
 	}
 	return objectCode.str();
@@ -147,6 +146,15 @@ std::string Line::buildCode(std::string opCode, std::string labelCode) {
 		labelCode = "0" + labelCode;
 	}
 	std::string ret = opCode + labelCode;
+	std::transform(ret.begin(), ret.end(), ret.begin(), ::toupper);
+	return ret;
+}
+
+std::string Line::stringToHexadecimal(std::string string) {
+	std::string ret;
+	for (char ch: string) {
+		ret.append(Util::to_hexadecimal(ch));
+	}
 	std::transform(ret.begin(), ret.end(), ret.begin(), ::toupper);
 	return ret;
 }

@@ -35,6 +35,7 @@ public:
 	 * with a one space character.
 	 */
 	Line(std::string, int);
+
 	virtual ~Line();
 
 	/**
@@ -47,6 +48,7 @@ public:
 	 * Friend keyword is used to ease using the private data.
 	 */
 	friend std::ostream &operator<<(std::ostream &, const Line &);
+
 	friend std::istream &operator>>(std::istream &is, Line &c);
 
 	/**
@@ -85,9 +87,13 @@ public:
 	 * according to the operation and the label.
 	 */
 	std::string getLabel() const;
+
 	std::string getOperation() const;
+
 	std::string getOperand() const;
+
 	std::string getComment() const;
+
 	std::string getObjectCode(SymbolTable symbolTable);
 
 	/**
@@ -99,6 +105,7 @@ public:
 	 * or valid addresses.
 	 */
 	bool checkIndexed() const;
+
 	std::string getIndexAddress() const;
 
 	/**
@@ -110,7 +117,9 @@ public:
 	 * @return
 	 */
 	int getIntAddress() const;
+
 	std::string getAddress() const;
+
 	std::string getHexAddress() const;
 
 	/**
@@ -125,7 +134,9 @@ public:
 	 * @return
 	 */
 	bool hasLabel() const;
+
 	bool hasOperation() const;
+
 	bool hasOperand() const;
 
 	/**
@@ -138,7 +149,9 @@ public:
 	 * whether it's a dot '.' or not.
 	 */
 	bool isStart() const;
+
 	bool isComment() const;
+
 	bool isEnd() const;
 
 private:
@@ -176,6 +189,8 @@ private:
 	 * @return	string specifying the operation code and label code
 	 */
 	std::string buildCode(std::string opCode, std::string labelCode);
+
+	std::string stringToHexadecimal(std::string);
 };
 
 #endif /* LINE_H_ */
