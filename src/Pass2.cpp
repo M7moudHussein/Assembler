@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "Pass2.hpp"
 
 Pass2::Pass2(SymbolTable *symbolTable, std::string interFile, int programLength) :
@@ -14,10 +15,10 @@ void Pass2::compute(std::string output, std::string listFile) {
 	std::ifstream interStream(_interFile);
 	TextRecord textRecord;
 	std::string startAddress;
-    std::string stringInput;
-    while (!interStream.eof()) {
-        Line line;
-        interStream >> line;
+	std::string stringInput;
+	while (!interStream.eof()) {
+		Line line;
+		interStream >> line;
 		listStream << line;
 		if (line.isStart()) {
 			outputStream << buildHeader(line, startAddress) << std::endl;
@@ -37,7 +38,7 @@ void Pass2::compute(std::string output, std::string listFile) {
 			}
 			textRecord.append(objectCode);
 		}
-	listStream << std::endl;
+		listStream << std::endl;
 	}
 	listStream.close();
 	interStream.close();
@@ -54,7 +55,9 @@ std::string Pass2::buildHeader(Line line, std::string &startAddress) {
 	ret.append(Util::SEPARATOR);
 	ret.append(Util::formalize(startAddress, 6));
 	ret.append(Util::SEPARATOR);
-	ret.append(Util::formalize(Util::to_hexadecimal(_programLength), 6));
+	std::string progLen = Util::to_hexadecimal(_programLength);
+	std::transform(progLen.begin(), progLen.end(), progLen.begin(), ::toupper);
+	ret.append(Util::formalize(progLen, 6));
 	return ret;
 }
 

@@ -24,14 +24,10 @@ public:
 
 	bool empty();
 
-	void setStartingAddress(std::string address);
-
 private:
 	std::vector<std::string> textRecord;
 	int size;
 	std::string startingAddress;
-
-	std::string to_hexadecimal(int size) const;
 };
 
 

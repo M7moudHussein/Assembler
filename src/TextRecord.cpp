@@ -3,6 +3,7 @@
 //
 
 #include <sstream>
+#include <algorithm>
 #include "TextRecord.h"
 #include "Util.hpp"
 
@@ -16,7 +17,9 @@ TextRecord::~TextRecord() {
 }
 
 std::ostream &operator<<(std::ostream &os, const TextRecord &record) {
-	os << 'T' << Util::SEPARATOR << record.startingAddress << Util::SEPARATOR << record.to_hexadecimal(record.size);
+	std::string hexaSize = Util::to_hexadecimal(record.size);
+	std::transform(hexaSize.begin(), hexaSize.end(), hexaSize.begin(), ::toupper);
+	os << 'T' << Util::SEPARATOR << record.startingAddress << Util::SEPARATOR << hexaSize;
 	for (int i = 0; i < (int) record.textRecord.size(); i++) {
 		if (record.textRecord[i].empty()) {
 			continue;
@@ -24,10 +27,6 @@ std::ostream &operator<<(std::ostream &os, const TextRecord &record) {
 		os << Util::SEPARATOR << record.textRecord[i];
 	}
 	return os;
-}
-
-void TextRecord::setStartingAddress(std::string address) {
-	startingAddress = address;
 }
 
 bool TextRecord::fits(std::string objectcode) {
@@ -41,12 +40,6 @@ void TextRecord::append(std::string objectCode) {
 
 bool TextRecord::empty() {
 	textRecord.empty();
-}
-
-std::string TextRecord::to_hexadecimal(int number) const {
-	std::stringstream stream;
-	stream << std::hex << number;
-	return stream.str();
 }
 
 TextRecord::TextRecord() {

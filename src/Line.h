@@ -30,6 +30,7 @@ public:
 	 * and a Location counter to generate the relevant data.
 	 */
 	Line(std::string, int);
+
 	virtual ~Line();
 
 	/**
@@ -38,6 +39,7 @@ public:
 	 * Friend keyword is used to ease using the private data.
 	 */
 	friend std::ostream &operator<<(std::ostream &, const Line &);
+
 	friend std::istream &operator>>(std::istream &is, Line &c);
 
 	/**
@@ -66,9 +68,13 @@ public:
 	 * Comment or Object code of this line of code.
 	 */
 	std::string getLabel() const;
+
 	std::string getOperation() const;
+
 	std::string getOperand() const;
+
 	std::string getComment() const;
+
 	std::string getObjectCode(SymbolTable symbolTable);
 
 	/**
@@ -76,6 +82,7 @@ public:
 	 * Indexed addressing Mode.
 	 */
 	bool checkIndexed() const;
+
 	std::string getIndexAddress() const;
 
 	/**
@@ -85,7 +92,9 @@ public:
 	 * @return
 	 */
 	int getIntAddress() const;
+
 	std::string getAddress() const;
+
 	std::string getHexAddress() const;
 
 	/**
@@ -95,7 +104,9 @@ public:
 	 * @return
 	 */
 	bool hasLabel() const;
+
 	bool hasOperation() const;
+
 	bool hasOperand() const;
 
 	/**
@@ -103,7 +114,9 @@ public:
 	 * End Line or a Comment Line.
 	 */
 	bool isStart() const;
+
 	bool isComment() const;
+
 	bool isEnd() const;
 
 private:
@@ -141,6 +154,8 @@ private:
 	 * @return	string specifying the operation code and label code
 	 */
 	std::string buildCode(std::string opCode, std::string labelCode);
+
+	std::string stringToHexadecimal(std::string);
 };
 
 #endif /* LINE_H_ */
