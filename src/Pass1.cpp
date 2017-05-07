@@ -44,6 +44,10 @@ void Pass1::compute() {
     while (std::getline(inputStream, _stringInput)) {
         Line lineCommand(_stringInput, _locCtr);
         _hasError = handleLine(lineCommand, intermedStream) || _hasError;
+        if(_locCtr > std::stoi(std::string("ffff"), nullptr, 16)){
+            _hasError = true;
+            intermedStream << "Location counter out of bounds\n";
+        }
         if(!lineCommand.isComment())
             intermedStream << lineCommand << std::endl;
         if (lineCommand.isEnd())

@@ -24,14 +24,12 @@ namespace Util {
         if (charSeq[1] != '\'' || charSeq[charSeq.length() - 1] != '\'') return false;
         if (firstChar == 'x') {
             for (int i = 2; i < charSeq.length() - 1; i++) {
-                int value = charSeq[i] - '0';
-                int alphaVal = charSeq[i] - 'a';
-                if ((value >= 0 & value <= 9) || (alphaVal >= 0 && alphaVal <= 5))
+                if (isHexaCharacter(charSeq[i]))
                     continue;
                 return false;
             }
         }
-        if((firstChar == 'c' && charSeq.length() > 15) || (firstChar == 'x' && charSeq.length() > 14))
+        if((firstChar == 'c' && charSeq.length() > 18) || (firstChar == 'x' && charSeq.length() > 17))
             return false;
         return true;
     }
