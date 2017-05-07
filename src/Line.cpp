@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <assert.h>
 #include "Line.h"
 
 void Line::parseLine(std::string line) {
@@ -49,13 +50,30 @@ void Line::checkData() {
 		checkOperand();
 }
 
-bool Line::checkOperand(){
+bool Line::checkOperand() {
 	if (Util::isDirective(_operation))
 		_isDirective = true;
 	if (Util::hasCharacter(_operand, ','))
 		_isIndexed = true;
+<<<<<<< HEAD
 	if(_isDirective && !_isFail) {
 		if(!checkDirectiveOperand()){
+=======
+	if (_isIndexed && (!Util::validIndexed(_operand))) {
+		_isFail = true;
+		_errorMessage = "Wrong Usage of Indexed Mode";
+	} else if (!Util::validOperand(_operand)) {
+		_isFail = true;
+		_errorMessage = "Invalid Operand used";
+	}
+	if (_isIndexed && (!_isFail)) {
+		std::vector<std::string> vec = Util::split(_operand, ',');
+		_operand = vec[0];
+		_extraAddress = vec[1];
+	}
+	if (_isDirective && !_isFail) {
+		if (!checkDirectiveOperand()) {
+>>>>>>> 74eb3dd610d8e8636961f00770f079cfc7dbcd92
 			std::cout << _operation << " " << checkDirectiveOperand() << std::endl;
 			_isFail = true;
 			_errorMessage = "Incompatible Operation and Operand";
@@ -78,16 +96,25 @@ bool Line::checkOperand(){
 
 
 bool Line::checkDirectiveOperand() {
-    if ((Util::equalsIgnoreCase(_operation, "resw") || Util::equalsIgnoreCase(_operation, "resb"))
-	&& ((!hasOperand()) || (!Util::validInteger(_operand))))
+	if ((Util::equalsIgnoreCase(_operation, "resw") || Util::equalsIgnoreCase(_operation, "resb"))
+	    && ((!hasOperand()) || (!Util::validInteger(_operand))))
 		return false;
 	else if (Util::equalsIgnoreCase(_operation, "word") &&
+<<<<<<< HEAD
 			((!hasOperand()) || (!Util::validIntegerArray(_operand))))
         return false;
     else if (Util::equalsIgnoreCase(_operand, "byte") &&
 			((!hasOperand()) || (!Util::validByte(_operand)) || (!Util::getConstSize(_operand))))
         return false;
     return true;
+=======
+	         ((!hasOperand()) || (!Util::validHexa(_operand))))
+		return false;
+	else if (Util::equalsIgnoreCase(_operand, "byte") &&
+	         ((!hasOperand()) || (!Util::validByte(_operand)) || (!Util::getConstSize(_operand))))
+		return false;
+	return true;
+>>>>>>> 74eb3dd610d8e8636961f00770f079cfc7dbcd92
 }
 
 int Line::getNextAddress() {
@@ -141,7 +168,9 @@ std::string Line::getObjectCode(SymbolTable symbolTable) {
 		std::string labelCode = Util::to_hexadecimal(symbolTable.getAddress(_operand) + (_isIndexed ? 0x8000 : 0));
 		objectCode << buildCode(opCode, labelCode);
 	}
-	return objectCode.str();
+	std::string ret = objectCode.str();
+	assert(ret.length() <= 6);
+	return ret;
 }
 
 std::string Line::buildCode(std::string opCode, std::string labelCode) {
