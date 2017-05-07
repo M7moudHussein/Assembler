@@ -16,7 +16,7 @@ void Machine::assemble() {
         Pass2 pass2(pass1.getSymbolTable(), pass1.getInterFile(), pass1.getProgramLength());
         try {
             std::string inputName = inputFile.substr(0, inputFile.length() - 4);
-            pass2.generateObjFile("output/" + inputName + "-objectcode.txt", "output/" + inputName + "-listing_file.txt");
+            pass2.generateObjFile("output/" + inputName + "-objectcode.obj", "output/" + inputName + "-listing_file.txt");
         } catch (const char *message) {
             std::cout << message << std::endl;
         }
