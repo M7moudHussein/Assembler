@@ -102,6 +102,8 @@ std::string Line::getIndexAddress() const{
 }
 
 std::string Line::getComment() const {
+    if(_comment == "")
+        return " ";
     return _comment;
 }
 
