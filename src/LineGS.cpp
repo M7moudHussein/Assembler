@@ -5,6 +5,7 @@ Line::Line(std::string line, int locCtr) : _locCtr(locCtr) {
     _isFail = false;
     _isComment = false;
     _isIndexed = false;
+    _isDirective = false;
     parseLine(line);
     if ((!_isComment)) {
         checkData();
@@ -16,6 +17,7 @@ Line::Line() {
     _isFail = false;
     _isComment = false;
     _isIndexed = false;
+    _isDirective = false;
 }
 
 Line::~Line() {

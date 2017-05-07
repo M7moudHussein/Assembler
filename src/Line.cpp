@@ -45,24 +45,48 @@ void Line::checkData() {
 			_isFail = true;
 			_errorMessage = "No Operand Required here.";
 		}
-	} else {
-		if (Util::isDirective(_operation))
-			_isDirective = true;
-		if (Util::hasCharacter(_operand, ','))
-			_isIndexed = true;
-		if (_isIndexed && (!Util::validIndexed(_operand))) {
+	} else
+		checkOperand();
+}
+
+bool Line::checkOperand(){
+	if (Util::isDirective(_operation))
+		_isDirective = true;
+	if (Util::hasCharacter(_operand, ','))
+		_isIndexed = true;
+	if (_isIndexed && (!Util::validIndexed(_operand))) {
+		_isFail = true;
+		_errorMessage = "Wrong Usage of Indexed Mode";
+	} else if (!Util::validOperand(_operand)) {
+		_isFail = true;
+		_errorMessage = "Invalid Operand used";
+	}
+	if (_isIndexed && (!_isFail)) {
+		std::vector<std::string> vec = Util::split(_operand, ',');
+		_operand = vec[0];
+		_extraAddress = vec[1];
+	}
+	if(_isDirective && !_isFail) {
+		if(!checkDirectiveOperand()){
+			std::cout << _operation << " " << checkDirectiveOperand() << std::endl;
 			_isFail = true;
-			_errorMessage = "Wrong Usage of Indexed Mode";
-		} else if (!Util::validOperand(_operand)) {
-			_isFail = true;
-			_errorMessage = "Invalid Operand used";
-		}
-		if (_isIndexed && (!_isFail)) {
-			std::vector<std::string> vec = Util::split(_operand, ',');
-			_operand = vec[0];
-			_extraAddress = vec[1];
+			_errorMessage = "Incompatible Operation and Operand";
 		}
 	}
+}
+
+
+bool Line::checkDirectiveOperand() {
+    if ((Util::equalsIgnoreCase(_operation, "resw") || Util::equalsIgnoreCase(_operation, "resb"))
+	&& ((!hasOperand()) || (!Util::validInteger(_operand))))
+		return false;
+	else if (Util::equalsIgnoreCase(_operation, "word") &&
+			((!hasOperand()) || (!Util::validHexa(_operand))))
+        return false;
+    else if (Util::equalsIgnoreCase(_operand, "byte") &&
+			((!hasOperand()) || (!Util::validByte(_operand)) || (!Util::getConstSize(_operand))))
+        return false;
+    return true;
 }
 
 int Line::getNextAddress() {
@@ -92,25 +116,6 @@ int Line::getNextAddress() {
 	}
 	return -1;
 }
-
-/**
-bool Line::checkDirective() {
-    if (Util::equalsIgnoreCase(_operation, "start") && hasOperand() && Util::validInteger(_operand))
-        return true;
-    else if (Util::equalsIgnoreCase(_operation, "end") && hasOperand() &&
-             (Util::validInteger(_operand) || validLabel(_operand)))
-        return true;
-    else if ((Util::equalsIgnoreCase(_operation, "resw") || Util::equalsIgnoreCase(_operation, "resb"))
-             && hasOperand() && Util::validInteger(_operand))
-        return true;
-    else if (Util::equalsIgnoreCase(_operation, "word") && hasOperand() && Util::validInteger(_operand))
-        return true;
-    else if (Util::equalsIgnoreCase(_operand, "byte") && hasOperand() &&
-             Util::validByte(_operand) && Util::getConstSize(_operand))
-        return true;
-    return false;
-}
-*/
 
 std::string Line::getObjectCode(SymbolTable symbolTable) {
 	std::stringstream objectCode;

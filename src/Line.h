@@ -180,6 +180,8 @@ private:
 	 * to validate the four of them.
 	 */
 	void checkData();
+	bool checkOperand();
+	bool checkDirectiveOperand();
 
 	/**
 	 * Takes an operation code with label to built the output

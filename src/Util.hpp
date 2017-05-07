@@ -134,7 +134,11 @@ namespace Util {
      */
     bool validHexa(std::string);
 
-    std::string separator();
+    /**
+     * Checks if a given character is a hexadecimal character
+     * or not.
+     */
+    bool isHexaCharacter(char);
 };
 
 #endif //ASSEMBLER_UTIL_HPP

@@ -124,10 +124,7 @@ namespace Util {
     }
 
     bool validOperand(std::string arg1) {
-        if (validLabel(arg1))
-            return true;
-        if ((arg1.size() > 2 && arg1.substr(0, 2) == "0X" && validHexa(arg1.substr(2, arg1.length() - 2)))
-            || ((!isalpha(arg1[0])) && isalnum(arg1[0]) && validHexa(arg1)))
+        if (validLabel(arg1) || validHexa(arg1))
             return true;
         return false;
     }
@@ -142,20 +139,30 @@ namespace Util {
     }
 
     bool validHexa(std::string arg1) {
-        for (int i = 0; i < arg1.length(); i++) {
-            if (!isalnum(arg1[i]))
+        if(arg1.length() > 2 && arg1[0] == '0' && tolower(arg1[1]) == 'x' && isHexaCharacter(arg1[2])){
+            for(int i = 3; i < arg1.length(); i++){
+                if(!isHexaCharacter(arg1[i]))
+                    return false;
+            }
+            return true;
+        }else{
+            if(isalpha(arg1[0]))
                 return false;
-            if (isalpha(arg1[i]) && tolower(arg1[i]) > 'f')
-                return false;
+            for(int i = 0; i < arg1.length(); i++){
+                if(!isHexaCharacter(arg1[i]))
+                    return false;
+            }
         }
         return true;
     }
 
-    inline std::string separator() {
-#ifdef _WIN32
-        return "\\";
-#else
-        return "/";
-#endif
+    bool isHexaCharacter(char arg1){
+        if(!isalnum(arg1))
+            return false;
+        if(isalpha(arg1) && tolower(arg1) <= 'f')
+            return true;
+        if(isalnum(arg1) && !isalpha(arg1))
+            return true;
+        return false;
     }
 };

@@ -1,4 +1,4 @@
-# Install script for directory: E:/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/assembler
+# Install script for directory: C:/Users/Mohamed Ayman/Desktop/assembler
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "E:/Google Drive/Study/Second_Yead/Second_Semester/Systems Programming/assembler/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/Mohamed Ayman/Desktop/assembler/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
