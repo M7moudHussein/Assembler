@@ -75,6 +75,7 @@ public:
 	 * Returns the Index Label or value in case of
 	 * Indexed addressing Mode.
 	 */
+	bool checkIndexed() const;
 	std::string getIndexAddress() const;
 
 	/**

@@ -15,6 +15,7 @@ Line::Line(std::string line, int locCtr) : _locCtr(locCtr) {
 Line::Line() {
     _isFail = false;
     _isComment = false;
+    _isIndexed = false;
 }
 
 Line::~Line() {
@@ -27,7 +28,11 @@ std::ostream &operator<<(std::ostream &os, const Line &line) {
         os << line.getHexAddress() << "\t";
         os << line.getLabel() << '\t'
            << line.getOperation() << '\t'
-           << line.getOperand() << '\t'
+           << line.getOperand();
+        if(line.checkIndexed()) {
+            os << "," << line.getIndexAddress();
+        }
+        os  << '\t'
            << line.getComment();
     }
     return os;
@@ -42,6 +47,7 @@ std::istream &operator>>(std::istream &is, Line &c) {
     c._operation = args[2];
     c._operand = args[3];
     c._comment = args[4];
+    c.checkData();
     return is;
 }
 
@@ -83,6 +89,10 @@ std::string Line::getOperation() const {
 
 std::string Line::getOperand() const {
     return _operand;
+}
+
+bool Line::checkIndexed() const {
+    return _isIndexed;
 }
 
 std::string Line::getIndexAddress() const{
