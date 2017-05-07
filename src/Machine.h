@@ -18,6 +18,9 @@ public:
     /**
      * does the whole process of using the two passes to
      * create the object file data.
+     * In case of failure of the first pass due to a
+     * syntax error or such, then the second pass doesn't
+     * go on.
      */
     void assemble();
 

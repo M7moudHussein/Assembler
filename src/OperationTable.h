@@ -1,10 +1,3 @@
-/*
- * OperationTable.h
- *
- *  Created on: Apr 16, 2017
- *      Author: mahmoud
- */
-
 #ifndef OPERATIONTABLE_H_
 #define OPERATIONTABLE_H_
 
@@ -56,9 +49,10 @@ private:
     std::unordered_map<std::string, OpInfo *> opTable;
     /**
      * The name of the file containing the instructions.
+     * Defines are used to support the cross platform
+     * compatibility because of difference in the separator
+     * in the Windows and Linux directory Paths.
      */
-
-
 #ifdef _WIN32
     const char* INSTRUCTION_FILE = "data/instructions.txt";
 #else

@@ -7,7 +7,10 @@
 
 /**
  * Class which is used to encapsulate the process of
- * Pass1 from the two Pass assembler.
+ * Pass1 from the two Pass assembler. After processing
+ * the First Pass, You must use the fail() to check
+ * whether the process failed or not and whether it's
+ * valid to start pass2 or not.
  */
 class Pass1 {
 public:
