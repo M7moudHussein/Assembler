@@ -22,7 +22,7 @@ void Pass2::compute(std::string output, std::string listFile) {
 		listStream << line;
 		if (line.isStart()) {
 			outputStream << buildHeader(line, startAddress) << std::endl;
-			textRecord = TextRecord(startAddress);
+			textRecord = TextRecord(Util::formalize(startAddress, 6));
 		} else if (line.isEnd()) {
 			if (!textRecord.empty()) {
 				outputStream << textRecord << std::endl;
@@ -50,7 +50,7 @@ std::string Pass2::buildHeader(Line line, std::string &startAddress) {
 	std::string ret;
 	ret.append("H");
 	ret.append(Util::SEPARATOR);
-	ret.append(line.getLabel());
+	ret.append(Util::formalize(line.getLabel(), 6));
 	ret.append("\t");
 	ret.append(Util::SEPARATOR);
 	ret.append(Util::formalize(startAddress, 6));

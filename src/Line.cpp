@@ -38,6 +38,8 @@ void Line::checkData() {
 		_isFail = true;
 		_errorMessage = "Unspecified Operation.";
 	} else if ((!Util::isDirective(_operation)) && (!Util::validOperation(_operation))) {
+		std::cout << (!Util::validOperation(_operation)) << '\t' << "--->" << _label << ' ' << _operation << ' '
+		          << _operand << "<---" << std::endl;
 		_isFail = true;
 		_errorMessage = "The specified operation is invalid";
 	} else if (Util::equalsIgnoreCase(_operation, "rsub")) {
@@ -49,7 +51,7 @@ void Line::checkData() {
 		checkOperand();
 }
 
-bool Line::checkOperand(){
+bool Line::checkOperand() {
 	if (Util::isDirective(_operation))
 		_isDirective = true;
 	if (Util::hasCharacter(_operand, ','))
@@ -66,8 +68,8 @@ bool Line::checkOperand(){
 		_operand = vec[0];
 		_extraAddress = vec[1];
 	}
-	if(_isDirective && !_isFail) {
-		if(!checkDirectiveOperand()){
+	if (_isDirective && !_isFail) {
+		if (!checkDirectiveOperand()) {
 			std::cout << _operation << " " << checkDirectiveOperand() << std::endl;
 			_isFail = true;
 			_errorMessage = "Incompatible Operation and Operand";
@@ -77,16 +79,16 @@ bool Line::checkOperand(){
 
 
 bool Line::checkDirectiveOperand() {
-    if ((Util::equalsIgnoreCase(_operation, "resw") || Util::equalsIgnoreCase(_operation, "resb"))
-	&& ((!hasOperand()) || (!Util::validInteger(_operand))))
+	if ((Util::equalsIgnoreCase(_operation, "resw") || Util::equalsIgnoreCase(_operation, "resb"))
+	    && ((!hasOperand()) || (!Util::validInteger(_operand))))
 		return false;
 	else if (Util::equalsIgnoreCase(_operation, "word") &&
-			((!hasOperand()) || (!Util::validHexa(_operand))))
-        return false;
-    else if (Util::equalsIgnoreCase(_operand, "byte") &&
-			((!hasOperand()) || (!Util::validByte(_operand)) || (!Util::getConstSize(_operand))))
-        return false;
-    return true;
+	         ((!hasOperand()) || (!Util::validHexa(_operand))))
+		return false;
+	else if (Util::equalsIgnoreCase(_operand, "byte") &&
+	         ((!hasOperand()) || (!Util::validByte(_operand)) || (!Util::getConstSize(_operand))))
+		return false;
+	return true;
 }
 
 int Line::getNextAddress() {
