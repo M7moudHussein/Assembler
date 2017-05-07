@@ -107,7 +107,7 @@ int Line::getNextAddress() {
 	}
 	OperationTable *opTable = OperationTable::getInstance();
 	if (opTable->hasOperation(_operation) || Util::equalsIgnoreCase(_operation, "word")) {
-		return 3*(Util::split(_operand, ',').size() + 1) + _locCtr;
+		return 3 + _locCtr;
 	} else if (Util::equalsIgnoreCase(_operation, "resw")) {
 		return 3 * std::stoi(_operand) + _locCtr;
 	} else if (Util::equalsIgnoreCase(_operation, "resb")) {

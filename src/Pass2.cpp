@@ -31,6 +31,7 @@ void Pass2::compute(std::string output, std::string listFile) {
 			break;
 		} else {
 			std::string objectCode = line.getObjectCode(*symbolTable);
+			listStream << "\t\t" << objectCode;
 			if (!textRecord.fits(objectCode)) {
 				outputStream << textRecord << std::endl;
 				textRecord = TextRecord(Util::formalize(Util::to_hexadecimal(line.getAddress()), 6));
