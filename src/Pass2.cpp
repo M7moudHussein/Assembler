@@ -30,7 +30,6 @@ void Pass2::compute(std::string output, std::string listFile) {
 			outputStream << buildEnd(startAddress) << std::endl;
 			break;
 		} else {
-			listStream << "\t" << line.getObjectCode(*symbolTable);
 			std::string objectCode = line.getObjectCode(*symbolTable);
 			if (!textRecord.fits(objectCode)) {
 				outputStream << textRecord << std::endl;
@@ -50,12 +49,12 @@ std::string Pass2::buildHeader(Line line, std::string &startAddress) {
 	std::string ret;
 	ret.append("H");
 	ret.append(Util::SEPARATOR);
-	ret.append(Util::formalize(line.getLabel(), 6));
+	ret.append(line.getLabel());
 	ret.append("\t");
 	ret.append(Util::SEPARATOR);
 	ret.append(Util::formalize(startAddress, 6));
 	ret.append(Util::SEPARATOR);
-	std::string progLen = Util::to_hexadecimal(_programLength);
+	std::string progLen = Util::formalize(Util::to_hexadecimal(_programLength), 6);
 	std::transform(progLen.begin(), progLen.end(), progLen.begin(), ::toupper);
 	ret.append(Util::formalize(progLen, 6));
 	return ret;

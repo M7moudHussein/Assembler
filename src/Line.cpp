@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <assert.h>
 #include "Line.h"
 
 void Line::parseLine(std::string line) {
@@ -38,8 +39,6 @@ void Line::checkData() {
 		_isFail = true;
 		_errorMessage = "Unspecified Operation.";
 	} else if ((!Util::isDirective(_operation)) && (!Util::validOperation(_operation))) {
-		std::cout << (!Util::validOperation(_operation)) << '\t' << "--->" << _label << ' ' << _operation << ' '
-		          << _operand << "<---" << std::endl;
 		_isFail = true;
 		_errorMessage = "The specified operation is invalid";
 	} else if (Util::equalsIgnoreCase(_operation, "rsub")) {
@@ -142,7 +141,9 @@ std::string Line::getObjectCode(SymbolTable symbolTable) {
 		std::string labelCode = Util::to_hexadecimal(symbolTable.getAddress(_operand) + (_isIndexed ? 0x8000 : 0));
 		objectCode << buildCode(opCode, labelCode);
 	}
-	return objectCode.str();
+	std::string ret = objectCode.str();
+	assert(ret.length() <= 6);
+	return ret;
 }
 
 std::string Line::buildCode(std::string opCode, std::string labelCode) {
