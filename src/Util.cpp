@@ -145,7 +145,8 @@ namespace Util {
     }
 
     bool validHexa(std::string arg1) {
-        if(arg1.length() > 2 && arg1[0] == '0' && tolower(arg1[1]) == 'x' && isHexaCharacter(arg1[2])){
+        if(arg1.length() > 2 && arg1[0] == '0' && tolower(arg1[1]) == 'x' &&
+                isHexaCharacter(arg1[2]) && isalpha(arg1[2])){
             for(int i = 3; i < arg1.length(); i++){
                 if(!isHexaCharacter(arg1[i]))
                     return false;
