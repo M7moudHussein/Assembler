@@ -47,13 +47,13 @@ void Pass1::compute() {
         if(_locCtr > std::stoi(std::string("ffff"), nullptr, 16)){
             _hasError = true;
             intermedStream << "Location counter out of bounds\n";
+            std::cout << "Out of Memory bounds of SIC Machine" << std::endl;
         }
         if(!lineCommand.isComment())
             intermedStream << lineCommand << std::endl;
         if (lineCommand.isEnd())
             break;
     }
-    assert(inputStream.eof());
     inputStream.close();
     intermedStream.close();
     _programLength = _locCtr - _startingAddress;

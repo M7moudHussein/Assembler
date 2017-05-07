@@ -3,6 +3,7 @@
 #include "Pass1.hpp"
 
 int main(int argc, char **argv) {
-    Machine("input.txt");
+    if(argc == 2)
+        Machine(std::string(argv[1]));
     return 0;
 }
