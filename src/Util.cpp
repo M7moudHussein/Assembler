@@ -3,11 +3,16 @@
 
 namespace Util {
     bool validInteger(const std::string integer) {
-        for (int i = 0; i < integer.length(); i++) {
+        int shift = 0;
+        if(integer.length() > 1 && integer[0] == '-')
+            shift = 1;
+        for (int i = 0 + shift; i < integer.length(); i++) {
             int curVal = integer[i] - '0';
             if (curVal < 0 || curVal > 9)
                 return false;
         }
+        if(integer.length() - shift > 4 || integer.length() - shift == 0)
+            return false;
         return true;
     }
 
@@ -15,9 +20,9 @@ namespace Util {
     bool validByte(const std::string charSeq) {
         if (charSeq.length() < 3) return false;
         char firstChar = tolower(charSeq[0]);
-        if (firstChar != 'c' && firstChar != 'f') return false;
+        if (firstChar != 'c' && firstChar != 'x') return false;
         if (charSeq[1] != '\'' || charSeq[charSeq.length() - 1] != '\'') return false;
-        if (firstChar == 'f') {
+        if (firstChar == 'x') {
             for (int i = 2; i < charSeq.length() - 1; i++) {
                 int value = charSeq[i] - '0';
                 int alphaVal = charSeq[i] - 'a';
@@ -26,6 +31,9 @@ namespace Util {
                 return false;
             }
         }
+        if((firstChar == 'c' && charSeq.length() > 15) || (firstChar == 'x' && charSeq.length() > 14))
+            return false;
+        return true;
     }
 
     bool equalsIgnoreCase(const std::string &str1, const char *str2) {
@@ -164,5 +172,13 @@ namespace Util {
         if(isalnum(arg1) && !isalpha(arg1))
             return true;
         return false;
+    }
+
+    bool validIntegerArray(std::string _operand){
+        std::vector<std::string> vec = split(_operand, ',');
+        bool goodArray = true;
+        for(int i = 0; i < vec.size(); i++)
+            goodArray = goodArray && validInteger(vec[i]);
+        return goodArray;
     }
 };

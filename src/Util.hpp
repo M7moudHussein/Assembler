@@ -139,6 +139,14 @@ namespace Util {
      * or not.
      */
     bool isHexaCharacter(char);
+
+
+    /**
+     * Checks that an integer array given and separated by
+     * only spaces is valid and all the integers that are
+     * contained with in this array are valid.
+     */
+    bool validIntegerArray(std::string);
 };
 
 #endif //ASSEMBLER_UTIL_HPP

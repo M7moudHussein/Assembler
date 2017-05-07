@@ -54,25 +54,26 @@ bool Line::checkOperand(){
 		_isDirective = true;
 	if (Util::hasCharacter(_operand, ','))
 		_isIndexed = true;
-	if (_isIndexed && (!Util::validIndexed(_operand))) {
-		_isFail = true;
-		_errorMessage = "Wrong Usage of Indexed Mode";
-	} else if (!Util::validOperand(_operand)) {
-		_isFail = true;
-		_errorMessage = "Invalid Operand used";
-	}
-	if (_isIndexed && (!_isFail)) {
-		std::vector<std::string> vec = Util::split(_operand, ',');
-		_operand = vec[0];
-		_extraAddress = vec[1];
-	}
 	if(_isDirective && !_isFail) {
 		if(!checkDirectiveOperand()){
 			std::cout << _operation << " " << checkDirectiveOperand() << std::endl;
 			_isFail = true;
 			_errorMessage = "Incompatible Operation and Operand";
 		}
-	}
+	}else {
+        if (_isIndexed && (!Util::validIndexed(_operand))) {
+            _isFail = true;
+            _errorMessage = "Wrong Usage of Indexed Mode";
+        } else if (!Util::validOperand(_operand)) {
+            _isFail = true;
+            _errorMessage = "Invalid Operand used";
+        }
+        if (_isIndexed && (!_isFail)) {
+            std::vector<std::string> vec = Util::split(_operand, ',');
+            _operand = vec[0];
+            _extraAddress = vec[1];
+        }
+    }
 }
 
 
@@ -81,7 +82,7 @@ bool Line::checkDirectiveOperand() {
 	&& ((!hasOperand()) || (!Util::validInteger(_operand))))
 		return false;
 	else if (Util::equalsIgnoreCase(_operation, "word") &&
-			((!hasOperand()) || (!Util::validHexa(_operand))))
+			((!hasOperand()) || (!Util::validIntegerArray(_operand))))
         return false;
     else if (Util::equalsIgnoreCase(_operand, "byte") &&
 			((!hasOperand()) || (!Util::validByte(_operand)) || (!Util::getConstSize(_operand))))
@@ -106,7 +107,7 @@ int Line::getNextAddress() {
 	}
 	OperationTable *opTable = OperationTable::getInstance();
 	if (opTable->hasOperation(_operation) || Util::equalsIgnoreCase(_operation, "word")) {
-		return 3 + _locCtr;
+		return 3*(Util::split(_operand, ',').size() + 1) + _locCtr;
 	} else if (Util::equalsIgnoreCase(_operation, "resw")) {
 		return 3 * std::stoi(_operand) + _locCtr;
 	} else if (Util::equalsIgnoreCase(_operation, "resb")) {
