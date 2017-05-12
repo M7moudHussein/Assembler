@@ -34,7 +34,7 @@ public:
 	 * by tabs and in case of missing argument it's replaced
 	 * with a one space character.
 	 */
-	Line(std::string, int);
+	Line(std::string, int, SymbolTable*);
 
 	virtual ~Line();
 
@@ -61,7 +61,7 @@ public:
 	 * reserved size.
 	 * @return the address of the next operation.
 	 */
-	int getNextAddress();
+	int getNextAddress(SymbolTable*);
 
 	/**
 	 * Checks if the Line of code fails due to
@@ -154,12 +154,16 @@ public:
 
 	bool isEnd() const;
 
+    bool isEQU() const;
+
+    bool isORG() const;
+
 private:
 	std::string _address, _extraAddress, _label, _operation, _operand, _comment;
 	std::string _errorMessage;
 	int _locCtr;
 
-	bool _isComment, _isFail, _isIndexed, _isDirective;
+	bool _isComment, _isFail, _isIndexed;
 
 	/**
 	 * Parses a line of inputs to generate the data of the
@@ -179,9 +183,11 @@ private:
 	 * As of Label,Operation, Operand and Comment
 	 * to validate the four of them.
 	 */
-	void checkData();
-	bool checkOperand();
-	bool checkDirectiveOperand();
+	bool checkData(SymbolTable*);
+	bool checkLabel();
+	bool checkOperation(SymbolTable*);
+	bool checkDirective(SymbolTable*);
+
 
 	/**
 	 * Takes an operation code with label to built the output

@@ -1,15 +1,14 @@
 #include "Line.h"
 #include <string>
 
-Line::Line(std::string line, int locCtr) : _locCtr(locCtr) {
+Line::Line(std::string line, int locCtr, SymbolTable* symbolTable) : _locCtr(locCtr) {
     _isFail = false;
     _isComment = false;
     _isIndexed = false;
-    _isDirective = false;
     parseLine(line);
     if ((!_isComment)) {
-        checkData();
-        getNextAddress();
+        checkData(symbolTable);
+        getNextAddress(symbolTable);
     }
 }
 
@@ -17,7 +16,6 @@ Line::Line() {
     _isFail = false;
     _isComment = false;
     _isIndexed = false;
-    _isDirective = false;
 }
 
 Line::~Line() {
@@ -49,7 +47,12 @@ std::istream &operator>>(std::istream &is, Line &c) {
     c._operation = args[2];
     c._operand = args[3];
     c._comment = args[4];
-    c.checkData();
+    if(Util::validIndexed(c._operand)){
+        c._isIndexed = true;
+        std::vector<std::string> vec = Util::split(c._operand, ',');
+        c._operand = vec[0];
+        c._extraAddress = vec[1];
+    }
     return is;
 }
 
@@ -127,4 +130,12 @@ bool Line::isComment() const {
 
 bool Line::isEnd() const {
     return Util::equalsIgnoreCase(_operation, "end");
+}
+
+bool Line::isEQU() const {
+    return Util::equalsIgnoreCase(_operation, "equ");
+}
+
+bool Line::isORG() const {
+    return Util::equalsIgnoreCase(_operation, "org");
 }

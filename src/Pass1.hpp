@@ -73,6 +73,14 @@ private:
      */
     bool addLabel(std::string, int);
 
+    /**
+     * The Function checks if a Line isn't needed to be
+     * printed in the intermediate file as in case of
+     * ORG, EQU or comments.
+     * @return true in case of ORG, EQU, comments.
+     */
+    bool isExtraLine(Line);
+
     const std::string INTER_FILE = "inter_file.txt";
     SymbolTable *symbolTable;
     std::string _inputFile;

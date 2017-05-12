@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include "SymbolTable.h"
 
 /**
  * Util is a different namespace used to encapsulate the functions
@@ -17,7 +18,7 @@
 
 namespace Util {
 
-    const static char *DIRECTIVES[] = {"start", "end", "resw", "resb", "word", "byte"};
+    const static char *DIRECTIVES[] = {"start", "end", "resw", "resb", "word", "byte", "equ", "org"};
     const static int DIR_SIZE = 6;
 
     /**
@@ -146,7 +147,26 @@ namespace Util {
      * only spaces is valid and all the integers that are
      * contained with in this array are valid.
      */
-    bool validIntegerArray(std::string);
+    bool validHexaArray(std::string);
+
+    /**
+     * The function takes a Mathematical expressions along
+     * with label as a values in this expression where it
+     * replaces the label using the symbol table.
+     * @return true in case it's a valid mathematical
+     * expression containing only + and -.
+     */
+    bool validMathExpression(std::string, SymbolTable*);
+
+    /**
+     * The function Evaluates the value of a mathematical
+     * expression and returns its value where this expression
+     * may contain only '+' and '-' without the appearance
+     * of any space character and it may contain symbols
+     * but that are only included in the symbolTable
+     * else it'll fail to find the right address.
+     */
+    int evalMathExpression(std::string, SymbolTable*);
 };
 
 #endif //ASSEMBLER_UTIL_HPP

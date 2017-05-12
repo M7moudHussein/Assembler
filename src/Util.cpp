@@ -173,11 +173,56 @@ namespace Util {
         return false;
     }
 
-    bool validIntegerArray(std::string _operand){
+    bool validHexaArray(std::string _operand){
         std::vector<std::string> vec = split(_operand, ',');
         bool goodArray = true;
         for(int i = 0; i < vec.size(); i++)
-            goodArray = goodArray && validInteger(vec[i]);
+            goodArray = goodArray && validHexa(vec[i]);
         return goodArray;
+    }
+
+    bool validMathExpression(std::string data, SymbolTable* symbolTable){
+        std::string val = "";
+        bool opFound = true;
+        for(int i = 0; i < data.length(); i++){
+            if(data[i] == '+' || data[i] == '-'){
+                if(opFound)
+                    return  false;
+                opFound = true;
+                if((!symbolTable->hasLabel(val)) || (!validInteger(val)))
+                    return false;
+                continue;
+            }
+            val += data[i];
+            opFound = false;
+        }
+        if((!symbolTable->hasLabel(val)) || (!validInteger(val)))
+            return false;
+    }
+
+    int evalMathExpression(std::string data, SymbolTable* symbolTable){
+        std::string val = "";
+        bool positive = true;
+        int result = 0;
+        for(int i = 0; i < data.length(); i++){
+            if(data[i] == '+' || data[i] == '-'){
+                if(validInteger(val))
+                    result += (positive ? 1 : -1) * std::stoi(val);
+                else
+                    result += (positive ? 1 : -1) * symbolTable->getAddress(val);
+                val = "";
+                if(data[i] == '+')
+                    positive = true;
+                else
+                    positive = false;
+                continue;
+            }
+            val += data[i];
+        }
+        if(validInteger(val))
+            result += (positive ? 1 : -1) * std::stoi(val);
+        else
+            result += (positive ? 1 : -1) * symbolTable->getAddress(val);
+        return result;
     }
 };

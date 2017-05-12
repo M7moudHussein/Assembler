@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <assert.h>
 #include "Line.h"
 
 void Line::parseLine(std::string line) {
@@ -31,66 +30,122 @@ bool Line::checkComment(std::string line) {
 	return false;
 }
 
-void Line::checkData() {
-	if (hasLabel() && (!Util::validLabel(_label))) {
-		_isFail = true;
-		_errorMessage = "Invalid Label specified";
-	} else if ((!hasOperation())) {
-		_isFail = true;
-		_errorMessage = "Unspecified Operation.";
-	} else if ((!Util::isDirective(_operation)) && (!Util::validOperation(_operation))) {
-		_isFail = true;
-		_errorMessage = "The specified operation is invalid";
-	} else if (Util::equalsIgnoreCase(_operation, "rsub")) {
-		if (hasOperand()) {
-			_isFail = true;
-			_errorMessage = "No Operand Required here.";
-		}
-	} else
-		checkOperand();
+bool Line::checkData(SymbolTable* symbolTable) {
+    return checkLabel() && checkOperation(symbolTable);
 }
 
-bool Line::checkOperand() {
-	if (Util::isDirective(_operation))
-		_isDirective = true;
-	if (Util::hasCharacter(_operand, ','))
-		_isIndexed = true;
-	if (_isDirective && !_isFail) {
-		if (!checkDirectiveOperand()) {
-			_isFail = true;
-			_errorMessage = "Invalid operaand";
-		}
-	}else {
-        if (_isIndexed && (!Util::validIndexed(_operand))) {
-            _isFail = true;
-            _errorMessage = "Wrong Usage of Indexed Mode";
-        } else if (!Util::validOperand(_operand)) {
-            _isFail = true;
-            _errorMessage = "Invalid Operand used";
-        }
-        if (_isIndexed && (!_isFail)) {
-            std::vector<std::string> vec = Util::split(_operand, ',');
-            _operand = vec[0];
-            _extraAddress = vec[1];
-        }
+bool Line::checkLabel(){
+    if(hasLabel() && !Util::validLabel(_label)){
+        _isFail = true;
+        _errorMessage = "Invalid Label name, Please Choose anther one.";
+        return false;
     }
-}
-
-
-bool Line::checkDirectiveOperand() {
-	if ((Util::equalsIgnoreCase(_operation, "resw") || Util::equalsIgnoreCase(_operation, "resb"))
-	    && ((!hasOperand()) || (!Util::validInteger(_operand))))
-		return false;
-	else if (Util::equalsIgnoreCase(_operation, "word") &&
-			((!hasOperand()) || (!Util::validIntegerArray(_operand))))
-        return false;
-    else if (Util::equalsIgnoreCase(_operation, "byte") &&
-			((!hasOperand()) || (!Util::validByte(_operand))))
-        return false;
     return true;
 }
 
-int Line::getNextAddress() {
+bool Line::checkOperation(SymbolTable* symbolTable){
+    if(Util::isDirective(_operation)) {
+        return checkDirective(symbolTable);
+    }
+    else if(OperationTable::getInstance()->hasOperation(_operation)){
+        if(Util::validIndexed(_operand)){
+            _isIndexed = true;
+            std::vector<std::string> vec = Util::split(_operand, ',');
+            _operand = vec[0];
+            _extraAddress = vec[1];
+            return true;
+        }else if(!hasOperand()){
+          if(Util::equalsIgnoreCase(_operation, "rsub"))
+              return true;
+            _isFail = true;
+            _errorMessage = "Missing Operand for this operation.";
+        } else if(hasOperand() && !Util::validOperand(_operand)){
+            _isFail = true;
+            _errorMessage = "Invalid Operand Specified, Please recheck this operand.";
+        }
+        return true;
+    }
+    return false;
+}
+
+bool Line::checkDirective(SymbolTable* symbolTable){
+    if(Util::equalsIgnoreCase(_operation, "start")){
+        if(!hasOperand()){
+            _isFail = true;
+            _errorMessage = "Missing Starting Address.";
+        }else if(!Util::validHexa(_operand)){
+            _isFail = true;
+            _errorMessage = "Invalid Starting Address";
+        }
+        return true;
+    }else if(Util::equalsIgnoreCase(_operation, "end")){
+        if(!hasOperand()){
+            _isFail = true;
+            _errorMessage = "Missing End Address";
+        }else if(!Util::validOperand(_operand)){
+            _isFail = true;
+            _errorMessage = "Invalid Ending Address/Label.";
+        }
+    }else if(Util::equalsIgnoreCase(_operation, "resw")){
+        if(!hasOperand()){
+            _isFail = true;
+            _errorMessage = "Missing word array size";
+        }else if(!Util::validInteger(_operand)){
+            _isFail = true;
+            _errorMessage = "Invalid Size Specified";
+        }
+        return true;
+    }else if(Util::equalsIgnoreCase(_operation, "resb")){
+        if(!hasOperand()){
+            _isFail = true;
+            _errorMessage = "Missing byte array size";
+        }else if(!Util::validInteger(_operand)){
+            _isFail = true;
+            _errorMessage = "Invalid Size Specified";
+        }
+        return true;
+    }else if(Util::equalsIgnoreCase(_operation, "byte")){
+        if(!hasOperand()){
+            _isFail = true;
+            _errorMessage = "Missing Data.";
+        }else if(!Util::validByte(_operand)){
+            _isFail = true;
+            _errorMessage = "Invalid Byte Specified.";
+        }
+        return true;
+    }else if(Util::equalsIgnoreCase(_operation, "word")){
+        if(!hasOperand()){
+            _isFail = true;
+            _errorMessage = "Missing Data";
+        }else if(!Util::validHexaArray(_operand)){
+            _isFail = true;
+            _errorMessage = "Invalid Integer Array defined.";
+        }
+        return true;
+    }else if(Util::equalsIgnoreCase(_operation, "equ")){
+        if(!hasOperand()){
+            _isFail = true;
+            _errorMessage = "Missing Mathematical Expression.";
+        }else if(!Util::validMathExpression(_operand, symbolTable)){
+            _isFail = true;
+            _errorMessage = "Invalid Mathematical Expression.";
+        }
+        return true;
+    }else if(Util::equalsIgnoreCase(_operation, "org")) {
+        if(hasOperand()){
+            _isFail = true;
+            _errorMessage = "Such operatin can't have an operand.";
+        }else if(!Util::validMathExpression(_operand, symbolTable)){
+            _isFail = true;
+            _errorMessage = "Invalid Mathematical Expression.";
+        }
+        return true;
+    }
+    return false;
+}
+
+
+int Line::getNextAddress(SymbolTable* symbolTable) {
 	if (Util::equalsIgnoreCase(_operation, "start")) {
 		if (hasOperand())
 			_address = std::to_string(std::stoi(_operand, nullptr, 16));
@@ -106,14 +161,18 @@ int Line::getNextAddress() {
 		return _locCtr;
 	}
 	OperationTable *opTable = OperationTable::getInstance();
-	if (opTable->hasOperation(_operation) || Util::equalsIgnoreCase(_operation, "word")) {
+	if (opTable->hasOperation(_operation)){
 		return 3 + _locCtr;
+	} else if(Util::equalsIgnoreCase(_operation, "word")){
+		return 3 * (Util::split(_operand, ',').size()) + _locCtr;
 	} else if (Util::equalsIgnoreCase(_operation, "resw")) {
 		return 3 * std::stoi(_operand) + _locCtr;
 	} else if (Util::equalsIgnoreCase(_operation, "resb")) {
 		return std::stoi(_operand) + _locCtr;
 	} else if (Util::equalsIgnoreCase(_operation, "byte")) {
 		return Util::getConstSize(_operand) + _locCtr;
+	}else if(Util::equalsIgnoreCase(_operation, "equ") || Util::equalsIgnoreCase(_operation, "org")){
+        return Util::evalMathExpression(_operand, symbolTable);
 	}
 	return -1;
 }
@@ -123,7 +182,9 @@ std::string Line::getObjectCode(SymbolTable symbolTable) {
 	if (Util::equalsIgnoreCase(_operation, "RSUB")) {
 		objectCode << buildCode("4C", std::string());
 	} else if (Util::equalsIgnoreCase(_operation, "WORD")) {
-		objectCode << buildCode(std::string(), Util::to_hexadecimal(_operand));
+        // TODO
+        // 7sen 3adl dy
+		objectCode << buildCode(std::string(), "NAN");
 	} else if (Util::equalsIgnoreCase(_operation, "BYTE")) {
 		std::string scannedString = _operand.substr(2, _operand.length() - 3);
 		if (tolower(_operand[0]) == 'c') {
@@ -134,11 +195,16 @@ std::string Line::getObjectCode(SymbolTable symbolTable) {
 	} else if (Util::equalsIgnoreCase(_operation, "RESW") || Util::equalsIgnoreCase(_operation, "RESB")) {
 		objectCode << std::string();
 	} else {
-		if (!symbolTable.hasLabel(_operand)) {
+		if ((!Util::validHexa(_operand)) && !symbolTable.hasLabel(_operand)) {
+            std::cout << _operation << " " << _operand << std::endl;
 			throw "Invalid Operand..No Such A Label!";
 		}
 		std::string opCode = Util::to_hexadecimal(OperationTable::getInstance()->getOpCode(_operation));
-		std::string labelCode = Util::to_hexadecimal(symbolTable.getAddress(_operand) + (_isIndexed ? 0x8000 : 0));
+		std::string labelCode;
+        if(!Util::validHexa(_operand))
+            labelCode = Util::to_hexadecimal(symbolTable.getAddress(_operand) + (_isIndexed ? 0x8000 : 0));
+        else
+            labelCode = _operand;
 		objectCode << buildCode(opCode, labelCode);
 	}
 	return objectCode.str();

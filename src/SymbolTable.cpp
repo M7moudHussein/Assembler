@@ -12,8 +12,6 @@ SymbolTable::~SymbolTable() {
 }
 
 bool SymbolTable::hasLabel(std::string label) {
-    if(Util::validHexa(label))
-        return true;
     std::transform(label.begin(), label.end(), label.begin(), ::tolower);
     return table.count(label);
 }
@@ -24,8 +22,6 @@ void SymbolTable::addLabel(std::string label, int address) {
 }
 
 int SymbolTable::getAddress(std::string label){
-    if(Util::validHexa(label))
-        return stoi(label, nullptr, 16);
     std::transform(label.begin(), label.end(), label.begin(), ::tolower);
     return table[label];
 }

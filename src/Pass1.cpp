@@ -42,14 +42,14 @@ void Pass1::compute() {
     std::ifstream inputStream(_inputFile);
     std::ofstream intermedStream(INTER_FILE);
     while (std::getline(inputStream, _stringInput)) {
-        Line lineCommand(_stringInput, _locCtr);
+        Line lineCommand(_stringInput, _locCtr, symbolTable);
         _hasError = handleLine(lineCommand, intermedStream) || _hasError;
-        if(_locCtr > std::stoi(std::string("ffff"), nullptr, 16)){
+        if(_locCtr > std::stoi(std::string("ffff"), nullptr, 16) || _locCtr < 0){
             _hasError = true;
             intermedStream << "Location counter out of bounds\n";
             std::cout << "Out of Memory bounds of SIC Machine" << std::endl;
         }
-        if(!lineCommand.isComment())
+        if(!isExtraLine(lineCommand))
             intermedStream << lineCommand << std::endl;
         if (lineCommand.isEnd())
             break;
@@ -59,19 +59,32 @@ void Pass1::compute() {
     _programLength = _locCtr - _startingAddress;
 }
 
+bool Pass1::isExtraLine(Line line){
+    if(line.isComment() || line.isEQU() || line.isORG())
+        return true;
+    return false;
+}
+
 bool Pass1::handleLine(Line lineCommand, std::ofstream& intermedStream){
     if(!lineCommand.isComment()){
         if (lineCommand.fail()) {
             intermedStream << lineCommand.getError() << "\n";
             return true;
         } else {
-            if ((!lineCommand.isStart()) && lineCommand.hasLabel()) {
+            if ((!lineCommand.isStart()) && (!lineCommand.isEQU()) && lineCommand.hasLabel()) {
                 if (!addLabel(lineCommand.getLabel(), lineCommand.getIntAddress())) {
                     intermedStream << "Duplicate Label has appeared, Error\n" << std::endl;
                     return true;
                 }
             }
-            _locCtr = lineCommand.getNextAddress();
+            if(!lineCommand.isEQU())
+                _locCtr = lineCommand.getNextAddress(symbolTable);
+            else{
+                if (!addLabel(lineCommand.getLabel(), lineCommand.getNextAddress(symbolTable))) {
+                    intermedStream << "Duplicate Label has appeared, Error\n" << std::endl;
+                    return true;
+                }
+            }
             if(lineCommand.isStart())
                 _startingAddress = _locCtr;
         }

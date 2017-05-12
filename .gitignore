@@ -1,7 +1,0 @@
-/Debug/
-.idea
-.settings
-cmake-build-debug/CMakeFiles
-.cproject
-.project
-CMakeLists.txt
