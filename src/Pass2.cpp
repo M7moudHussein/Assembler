@@ -13,16 +13,15 @@ void Pass2::compute(std::string output, std::string listFile) {
 	std::ofstream outputStream(output);
 	std::ofstream listStream(listFile);
 	std::ifstream interStream(_interFile);
-	TextRecord textRecord;
+	TextRecord textRecord = TextRecord();
 	std::string startAddress;
 	std::string stringInput;
 	while (!interStream.eof()) {
 		Line line;
 		interStream >> line;
-		listStream << line;
 		if (line.isStart()) {
 			outputStream << buildHeader(line, startAddress) << std::endl;
-			textRecord = TextRecord(Util::formalize(startAddress, 6));
+			listStream << line << std::endl;
 		} else if (line.isEnd()) {
 			if (!textRecord.empty()) {
 				outputStream << textRecord << std::endl;
@@ -31,14 +30,27 @@ void Pass2::compute(std::string output, std::string listFile) {
 			break;
 		} else {
 			std::string objectCode = line.getObjectCode(*symbolTable);
-			listStream << "\t\t" << objectCode;
-			if (!textRecord.fits(objectCode)) {
-				outputStream << textRecord << std::endl;
-				textRecord = TextRecord(Util::formalize(Util::to_hexadecimal(line.getAddress()), 6));
+			listStream << line << "\t\t" << objectCode << std::endl;
+			if (objectCode.empty()) {
+				if (!textRecord.empty()) {
+					outputStream << textRecord << std::endl;
+					textRecord = TextRecord();
+				}
+				continue;
+			} else {
+				if (textRecord.empty()) {
+					textRecord.setStartingAddress(Util::formalize(Util::to_hexadecimal(line.getAddress()), 6));
+				}
+				if (textRecord.fits(objectCode)) {
+					textRecord.append(objectCode);
+				} else {
+					outputStream << textRecord << std::endl;
+					textRecord = TextRecord();
+					textRecord.setStartingAddress(Util::formalize(Util::to_hexadecimal(line.getAddress()), 6));
+					textRecord.append(objectCode);
+				}
 			}
-			textRecord.append(objectCode);
 		}
-		listStream << std::endl;
 	}
 	listStream.close();
 	interStream.close();
