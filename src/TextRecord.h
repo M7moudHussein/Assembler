@@ -12,17 +12,17 @@ class TextRecord {
 public:
 	TextRecord();
 
-	TextRecord(std::string);
-
 	~TextRecord();
 
 	friend std::ostream &operator<<(std::ostream &, const TextRecord &);
 
-	bool fits(std::string objectcode);
+	bool fits(std::string&);
 
 	void append(std::string objectCode);
 
 	bool empty();
+
+	void setStartingAddress(std::string);
 
 private:
 	std::vector<std::string> textRecord;

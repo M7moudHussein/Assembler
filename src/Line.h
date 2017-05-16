@@ -199,6 +199,8 @@ private:
 	std::string buildCode(std::string opCode, std::string labelCode);
 
 	std::string stringToHexadecimal(std::string);
+
+	std::string handleWordObjectCode(std::string basic_string);
 };
 
 #endif /* LINE_H_ */
