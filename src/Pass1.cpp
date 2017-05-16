@@ -41,22 +41,38 @@ void Pass1::compute() {
     std::string _stringInput;
     std::ifstream inputStream(_inputFile);
     std::ofstream intermedStream(INTER_FILE);
+    std::string intermedData = "";
     while (std::getline(inputStream, _stringInput)) {
         Line lineCommand(_stringInput, _locCtr, symbolTable);
-        _hasError = handleLine(lineCommand, intermedStream) || _hasError;
+        _hasError = handleLine(lineCommand, intermedData) || _hasError;
         if(_locCtr > std::stoi(std::string("ffff"), nullptr, 16) || _locCtr < 0){
             _hasError = true;
-            intermedStream << "Location counter out of bounds\n";
+            intermedData += "Location counter out of bounds\n";
             std::cout << "Out of Memory bounds of SIC Machine" << std::endl;
         }
-        if(!isExtraLine(lineCommand))
-            intermedStream << lineCommand << std::endl;
+        if(!isExtraLine(lineCommand)) {
+            std::stringstream ss;
+            ss << lineCommand << std::endl;
+            intermedData += ss.str();
+        }
         if (lineCommand.isEnd())
             break;
     }
+    printSymbolTable(intermedStream);
+    intermedStream << intermedData;
     inputStream.close();
     intermedStream.close();
     _programLength = _locCtr - _startingAddress;
+}
+
+void Pass1::printSymbolTable(std::ofstream &intermedStream) {
+    std::vector<std::pair<std::string, int> > vec = symbolTable->getData();
+    for(int i = 0; i < vec.size(); i++) {
+        if(i)
+            intermedStream << ",";
+        intermedStream << vec[i].first << "," << vec[i].second;
+    }
+    intermedStream << std::endl;
 }
 
 bool Pass1::isExtraLine(Line line){
@@ -65,15 +81,15 @@ bool Pass1::isExtraLine(Line line){
     return false;
 }
 
-bool Pass1::handleLine(Line lineCommand, std::ofstream& intermedStream){
+bool Pass1::handleLine(Line lineCommand, std::string& intermedData){
     if(!lineCommand.isComment()){
         if (lineCommand.fail()) {
-            intermedStream << lineCommand.getError() << "\n";
+            intermedData += lineCommand.getError() + "\n";
             return true;
         } else {
             if ((!lineCommand.isStart()) && (!lineCommand.isEQU()) && lineCommand.hasLabel()) {
                 if (!addLabel(lineCommand.getLabel(), lineCommand.getIntAddress())) {
-                    intermedStream << "Duplicate Label has appeared, Error\n" << std::endl;
+                    intermedData += "Duplicate Label has appeared, Error\n";
                     return true;
                 }
             }
@@ -81,7 +97,7 @@ bool Pass1::handleLine(Line lineCommand, std::ofstream& intermedStream){
                 _locCtr = lineCommand.getNextAddress(symbolTable);
             else{
                 if (!addLabel(lineCommand.getLabel(), lineCommand.getNextAddress(symbolTable))) {
-                    intermedStream << "Duplicate Label has appeared, Error\n" << std::endl;
+                    intermedData += "Duplicate Label has appeared, Error\n";
                     return true;
                 }
             }

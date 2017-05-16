@@ -1,8 +1,8 @@
 #include <algorithm>
 #include "Pass2.hpp"
 
-Pass2::Pass2(SymbolTable *symbolTable, std::string interFile, int programLength) :
-		symbolTable(symbolTable), _interFile(interFile), _programLength(programLength) {
+Pass2::Pass2(std::string interFile, int programLength) :
+		_interFile(interFile), _programLength(programLength) {
 }
 
 void Pass2::generateObjFile(std::string output, std::string listFile) {
@@ -16,6 +16,9 @@ void Pass2::compute(std::string output, std::string listFile) {
 	TextRecord textRecord;
 	std::string startAddress;
 	std::string stringInput;
+	std::string symbolData;
+	std::getline(interStream, symbolData);
+	initSymbolTable(symbolData);
 	while (!interStream.eof()) {
 		Line line;
 		interStream >> line;
@@ -43,6 +46,14 @@ void Pass2::compute(std::string output, std::string listFile) {
 	listStream.close();
 	interStream.close();
 	outputStream.close();
+}
+
+void Pass2::initSymbolTable(std::string data) {
+	std::vector<std::string> vec = Util::split(data, ',');
+	symbolTable = new SymbolTable();
+	for(int i = 0; i < vec.size(); i += 2){
+		symbolTable->addLabel(vec[i], std::stoi(vec[i + 1]));
+	}
 }
 
 std::string Pass2::buildHeader(Line line, std::string &startAddress) {

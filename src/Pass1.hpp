@@ -63,7 +63,16 @@ private:
      * @return returns false if the Line of code contains
      * any Syntax error
      */
-    bool handleLine(Line, std::ofstream&);
+    bool handleLine(Line, std::string&);
+
+    /**
+     * Used to print the data accompanied in the symbol
+     * table in the intermediate file to save the labels
+     * with their relevant addresses to be used in the
+     * second pass of the two pass assembler where it's
+     * read in the begining of the second pass.
+     */
+    void printSymbolTable(std::ofstream&);
 
     /**
      * Adds a label to the Symbol table along

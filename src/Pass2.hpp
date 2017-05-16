@@ -20,7 +20,7 @@ public:
 	 * and the name of the intermediate file and the
 	 * value that specifies the length of the program.
 	 */
-	Pass2(SymbolTable *, std::string, int);
+	Pass2(std::string, int);
 
 	/**
 	 * Public Linker function to generate the object
@@ -37,6 +37,12 @@ private:
 	 */
 	void compute(std::string, std::string);
 
+	/**
+	 * Initialise the symbol table with the data that had
+	 * been taken from the first pass and sets a new symbol
+	 * table to be used in the second pass.
+	 */
+	void initSymbolTable(std::string);
 	/**
 	 * @return a Header specified by the Line and the Address specified
 	 */
