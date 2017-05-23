@@ -48,6 +48,20 @@ C:/Users/Mohamed Ayman/Desktop/assembler/src/Line.h
 string
 -
 
+C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.cpp
+LiteralTable.h
+C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.h
+
+C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.h
+string
+-
+queue
+-
+unordered_map
+-
+Util.hpp
+C:/Users/Mohamed Ayman/Desktop/assembler/src/Util.hpp
+
 C:/Users/Mohamed Ayman/Desktop/assembler/src/Machine.cpp
 Machine.h
 C:/Users/Mohamed Ayman/Desktop/assembler/src/Machine.h

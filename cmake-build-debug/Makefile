@@ -203,6 +203,33 @@ src/LineGS.cpp.s:
 	$(MAKE) -f CMakeFiles\assembler.dir\build.make CMakeFiles/assembler.dir/src/LineGS.cpp.s
 .PHONY : src/LineGS.cpp.s
 
+src/LiteralTable.obj: src/LiteralTable.cpp.obj
+
+.PHONY : src/LiteralTable.obj
+
+# target to build an object file
+src/LiteralTable.cpp.obj:
+	$(MAKE) -f CMakeFiles\assembler.dir\build.make CMakeFiles/assembler.dir/src/LiteralTable.cpp.obj
+.PHONY : src/LiteralTable.cpp.obj
+
+src/LiteralTable.i: src/LiteralTable.cpp.i
+
+.PHONY : src/LiteralTable.i
+
+# target to preprocess a source file
+src/LiteralTable.cpp.i:
+	$(MAKE) -f CMakeFiles\assembler.dir\build.make CMakeFiles/assembler.dir/src/LiteralTable.cpp.i
+.PHONY : src/LiteralTable.cpp.i
+
+src/LiteralTable.s: src/LiteralTable.cpp.s
+
+.PHONY : src/LiteralTable.s
+
+# target to generate assembly for a file
+src/LiteralTable.cpp.s:
+	$(MAKE) -f CMakeFiles\assembler.dir\build.make CMakeFiles/assembler.dir/src/LiteralTable.cpp.s
+.PHONY : src/LiteralTable.cpp.s
+
 src/Machine.obj: src/Machine.cpp.obj
 
 .PHONY : src/Machine.obj
@@ -437,6 +464,9 @@ help:
 	@echo ... src/LineGS.obj
 	@echo ... src/LineGS.i
 	@echo ... src/LineGS.s
+	@echo ... src/LiteralTable.obj
+	@echo ... src/LiteralTable.i
+	@echo ... src/LiteralTable.s
 	@echo ... src/Machine.obj
 	@echo ... src/Machine.i
 	@echo ... src/Machine.s

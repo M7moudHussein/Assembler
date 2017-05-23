@@ -66,10 +66,18 @@ void Pass2::compute(std::string output, std::string listFile) {
 }
 
 void Pass2::initSymbolTable(std::string data) {
-	std::vector<std::string> vec = Util::split(data, ',');
+	std::vector<std::string> vec = Util::split(data,(char)(31));
 	symbolTable = new SymbolTable();
 	for(int i = 0; i < vec.size(); i += 2){
 		symbolTable->addLabel(vec[i], std::stoi(vec[i + 1]));
+	}
+}
+
+void Pass2::initLiteralTable(std::string data) {
+	std::vector<std::string> vec = Util::split(data, (char)(31));
+	litTable = new LiteralTable();
+	for(int i = 0; i < vec.size(); i += 2){
+		litTable->addLiteral(vec[i], std::stoi(vec[i + 1]));
 	}
 }
 

@@ -92,6 +92,12 @@
 		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/LineGS.cpp">
 			<Option target="assembler"/>
 		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.cpp">
+			<Option target="assembler"/>
+		</Unit>
+		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.h">
+			<Option target="assembler"/>
+		</Unit>
 		<Unit filename="C:/Users/Mohamed Ayman/Desktop/assembler/src/Machine.cpp">
 			<Option target="assembler"/>
 		</Unit>

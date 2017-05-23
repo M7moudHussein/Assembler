@@ -26,6 +26,11 @@ CMakeFiles/assembler.dir/src/LineGS.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/src/OperationTable.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/SymbolTable.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Util.hpp
+CMakeFiles/assembler.dir/src/LiteralTable.cpp.obj
+ C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.cpp
+ C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/src/SymbolTable.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/src/Util.hpp
 CMakeFiles/assembler.dir/src/Machine.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Line.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Machine.cpp

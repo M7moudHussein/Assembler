@@ -2,6 +2,7 @@
 #define ASSEMBLER_PASS2_HPP
 
 #include "SymbolTable.h"
+#include "LiteralTable.h"
 #include <string>
 #include "Line.h"
 #include "Util.hpp"
@@ -43,6 +44,14 @@ private:
 	 * table to be used in the second pass.
 	 */
 	void initSymbolTable(std::string);
+
+	/**
+	 * Initialise the literal table with the data that had
+	 * been taken from the first pass and sets a new literal
+	 * table to be used in the second pass.
+	 */
+	void initLiteralTable(std::string);
+
 	/**
 	 * @return a Header specified by the Line and the Address specified
 	 */
@@ -56,6 +65,7 @@ private:
 	std::string _interFile;
 	int _programLength;
 	SymbolTable *symbolTable;
+	LiteralTable *litTable;
 	std::vector<Line> programCode;
 };
 

@@ -139,6 +139,12 @@ public:
 
 	bool hasOperand() const;
 
+    /**
+     * Checks whether this line has a literal operand or not.
+     * @return true in case this line has a literal operand.
+     */
+    bool hasLiteral() const;
+
 	/**
 	 * Checks whether this Line is the Start line,
 	 * End Line by comparing the Directive keyword
@@ -164,6 +170,7 @@ public:
     bool isORG() const;
 
 	bool isLTORG() const;
+
 
 private:
 	std::string _address, _extraAddress, _label, _operation, _operand, _comment;
@@ -208,8 +215,6 @@ private:
 	std::string stringToHexadecimal(std::string);
 
 	std::string handleWordObjectCode(std::string basic_string);
-
-	bool hasLiteral() const;
 };
 
 #endif /* LINE_H_ */

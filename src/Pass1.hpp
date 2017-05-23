@@ -3,7 +3,9 @@
 
 #include <string>
 #include "SymbolTable.h"
+#include "LiteralTable.h"
 #include "Line.h"
+
 
 /**
  * Class which is used to encapsulate the process of
@@ -74,6 +76,16 @@ private:
      */
     void printSymbolTable(std::ofstream&);
 
+
+    /**
+     * Used to print the data accompanied in the literal
+     * table in the intermediate file to save the literals
+     * with ehir relevant addresses to be used in the second
+     * pass of the two pass assembler where it's read in the
+     * beginning of the second pass.
+     */
+    void printLiteralTable(std::ofstream&);
+
     /**
      * Adds a label to the Symbol table along
      * with its relevant address
@@ -92,6 +104,7 @@ private:
 
     const std::string INTER_FILE = "inter_file.txt";
     SymbolTable *symbolTable;
+    LiteralTable *litTable;
     std::string _inputFile;
     int _programLength, _startingAddress, _locCtr;
 

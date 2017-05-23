@@ -11,6 +11,7 @@
 
 Pass1::Pass1(std::string inputFile): _inputFile(inputFile){
     symbolTable = new SymbolTable;
+    litTable = new LiteralTable;
     _startingAddress = 0;
     _hasError = false;
     compute();
@@ -53,31 +54,19 @@ void Pass1::compute() {
         std::stringstream ss;
         ss << lineCommand << std::endl;
         intermedData += ss.str();
+        if(lineCommand.isLTORG() || lineCommand.isEnd())
+            litTable->arrangeTable(_locCtr);
         if (lineCommand.isEnd())
             break;
     }
     printSymbolTable(intermedStream);
+    printLiteralTable(intermedStream);
     intermedStream << intermedData;
     inputStream.close();
     intermedStream.close();
     _programLength = _locCtr - _startingAddress;
 }
 
-void Pass1::printSymbolTable(std::ofstream &intermedStream) {
-    std::vector<std::pair<std::string, int> > vec = symbolTable->getData();
-    for(int i = 0; i < vec.size(); i++) {
-        if(i)
-            intermedStream << ",";
-        intermedStream << vec[i].first << "," << vec[i].second;
-    }
-    intermedStream << std::endl;
-}
-
-bool Pass1::isExtraLine(Line line){
-    if(line.isComment() || line.isEQU() || line.isORG())
-        return true;
-    return false;
-}
 
 bool Pass1::handleLine(Line lineCommand, std::string& intermedData){
     if(!lineCommand.isComment()){
@@ -104,6 +93,26 @@ bool Pass1::handleLine(Line lineCommand, std::string& intermedData){
         }
     }
     return false;
+}
+
+void Pass1::printSymbolTable(std::ofstream &intermedStream) {
+    std::vector<std::pair<std::string, int> > vec = symbolTable->getData();
+    for(int i = 0; i < vec.size(); i++) {
+        if(i)
+            intermedStream << (char)(31);
+        intermedStream << vec[i].first << (char)(31) << vec[i].second;
+    }
+    intermedStream << std::endl;
+}
+
+void Pass1::printLiteralTable(std::ofstream &intermedStream){
+    std::vector<std::pair<std::string, int> > vec = litTable->getData();
+    for(int i = 0; i < vec.size(); i++) {
+        if(i)
+            intermedStream << (char)(31);
+        intermedStream << vec[i].first << (char)(31) << vec[i].second;
+    }
+    intermedStream << std::endl;
 }
 
 bool Pass1::addLabel(std::string label, int address) {

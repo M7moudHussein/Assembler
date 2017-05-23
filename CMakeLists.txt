@@ -16,6 +16,6 @@ set(SOURCE_FILES
         src/SymbolTable.cpp
         src/SymbolTable.h
         src/TextRecord.cpp
-        src/TextRecord.h src/Util.cpp src/Util.hpp src/Util.hpp src/Pass1.cpp src/Pass1.hpp src/Pass2.cpp src/Pass2.hpp src/LineGS.cpp)
+        src/TextRecord.h src/Util.cpp src/Util.hpp src/Util.hpp src/Pass1.cpp src/Pass1.hpp src/Pass2.cpp src/Pass2.hpp src/LineGS.cpp src/LiteralTable.cpp src/LiteralTable.h)
 
 add_executable(assembler ${SOURCE_FILES})

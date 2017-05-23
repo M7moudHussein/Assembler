@@ -26,6 +26,11 @@ CMakeFiles/assembler.dir/src/LineGS.cpp.obj: ../src/OperationTable.h
 CMakeFiles/assembler.dir/src/LineGS.cpp.obj: ../src/SymbolTable.h
 CMakeFiles/assembler.dir/src/LineGS.cpp.obj: ../src/Util.hpp
 
+CMakeFiles/assembler.dir/src/LiteralTable.cpp.obj: ../src/LiteralTable.cpp
+CMakeFiles/assembler.dir/src/LiteralTable.cpp.obj: ../src/LiteralTable.h
+CMakeFiles/assembler.dir/src/LiteralTable.cpp.obj: ../src/SymbolTable.h
+CMakeFiles/assembler.dir/src/LiteralTable.cpp.obj: ../src/Util.hpp
+
 CMakeFiles/assembler.dir/src/Machine.cpp.obj: ../src/Line.h
 CMakeFiles/assembler.dir/src/Machine.cpp.obj: ../src/Machine.cpp
 CMakeFiles/assembler.dir/src/Machine.cpp.obj: ../src/Machine.h

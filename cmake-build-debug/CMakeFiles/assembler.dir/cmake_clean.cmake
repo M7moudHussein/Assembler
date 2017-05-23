@@ -10,6 +10,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/assembler.dir/src/Pass1.cpp.obj"
   "CMakeFiles/assembler.dir/src/Pass2.cpp.obj"
   "CMakeFiles/assembler.dir/src/LineGS.cpp.obj"
+  "CMakeFiles/assembler.dir/src/LiteralTable.cpp.obj"
   "assembler.pdb"
   "assembler.exe"
   "assembler.exe.manifest"
