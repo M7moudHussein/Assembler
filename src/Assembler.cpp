@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Machine.h"
-#include "Pass1.hpp"
 
 int main(int argc, char **argv) {
     if(argc == 2)

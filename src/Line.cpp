@@ -222,11 +222,10 @@ std::string Line::getObjectCode(SymbolTable &symbolTable, LiteralTable &literalT
 	else {
 		std::string opCode = Util::to_hexadecimal(OperationTable::getInstance()->getOpCode(_operation));
 		std::string labelCode;
-		if ((!Util::validHexa(_operand)) && !symbolTable.hasLabel(_operand)) {
-			std::cout << _operation << " " << _operand << std::endl;
+		if (_hasLiteral) {
+			objectCode << literalTable.getAddress(_operand);
+		}else if ((!Util::validHexa(_operand)) && !symbolTable.hasLabel(_operand)) {
 			throw "Invalid Operand..No Such A Label!";
-		} else if (_hasLiteral) {
-			objectCode << literalTable.getAddress(_operand[1], _operand.substr(3, _operand.length() - 4));
 		} else if (!Util::validHexa(_operand)) {
 			labelCode = Util::to_hexadecimal(symbolTable.getAddress(_operand) + (_isIndexed ? 0x8000 : 0));
 		} else {

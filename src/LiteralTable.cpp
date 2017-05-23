@@ -38,3 +38,7 @@ std::vector<std::pair<std::string, int> > LiteralTable::getData() {
 	}
 	return vec;
 };
+
+int LiteralTable::getAddress(std::string literal) {
+	return _litTable[literal];
+}

@@ -172,6 +172,12 @@ public:
 
 	bool isLTORG() const;
 
+	bool isRESW() const;
+
+	bool isRESB() const;
+
+	bool checkData(SymbolTable *);
+
 
 private:
 	std::string _address, _extraAddress, _label, _operation, _operand, _comment;
@@ -198,7 +204,6 @@ private:
 	 * As of Label,Operation, Operand and Comment
 	 * to validate the four of them.
 	 */
-	bool checkData(SymbolTable *);
 
 	bool checkLabel();
 

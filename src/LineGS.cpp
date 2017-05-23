@@ -145,6 +145,14 @@ bool Line::isLTORG() const{
     return Util::equalsIgnoreCase(_operation, "ltorg");
 }
 
+bool Line::isRESW() const{
+    return Util::equalsIgnoreCase(_operation, "resw");
+}
+
+bool Line::isRESB() const{
+    return Util::equalsIgnoreCase(_operation, "resb");
+}
+
 bool Line::hasLiteral() const{
     return _hasLiteral;
 }

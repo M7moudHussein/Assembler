@@ -16,6 +16,7 @@ public:
     int arrangeTable(int locCtr);
     std::vector<std::pair<std::string, int> > getData();
     void addLiteral(std::string, int);
+    int getAddress(std::string);
 
 private:
     std::queue<std::string> _newLits;
