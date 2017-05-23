@@ -191,6 +191,8 @@ int Line::getNextAddress(SymbolTable *symbolTable) {
 		return _locCtr;
 	}
 	_address = std::to_string(_locCtr);
+    if(Util::equalsIgnoreCase(_operation, "ltorg"))
+        return _locCtr;
 	if (fail()) {
 		return _locCtr;
 	}

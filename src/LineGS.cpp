@@ -139,3 +139,7 @@ bool Line::isEQU() const {
 bool Line::isORG() const {
     return Util::equalsIgnoreCase(_operation, "org");
 }
+
+bool Line::isLTORG() const{
+    return Util::equalsIgnoreCase(_operation, "ltorg");
+}

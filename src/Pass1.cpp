@@ -50,11 +50,9 @@ void Pass1::compute() {
             intermedData += "Location counter out of bounds\n";
             std::cout << "Out of Memory bounds of SIC Machine" << std::endl;
         }
-        if(!isExtraLine(lineCommand)) {
-            std::stringstream ss;
-            ss << lineCommand << std::endl;
-            intermedData += ss.str();
-        }
+        std::stringstream ss;
+        ss << lineCommand << std::endl;
+        intermedData += ss.str();
         if (lineCommand.isEnd())
             break;
     }

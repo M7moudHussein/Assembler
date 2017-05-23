@@ -154,9 +154,16 @@ public:
 
 	bool isEnd() const;
 
+	/**
+	 * Checks whether this line represents a directive
+	 * of the type EQU, ORG or LTORG.
+	 * @return
+	 */
     bool isEQU() const;
 
     bool isORG() const;
+
+	bool isLTORG() const;
 
 private:
 	std::string _address, _extraAddress, _label, _operation, _operand, _comment;

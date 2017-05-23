@@ -22,10 +22,15 @@ void Pass2::compute(std::string output, std::string listFile) {
 	while (!interStream.eof()) {
 		Line line;
 		interStream >> line;
+		if(line.isComment() || line.isEQU() || line.isORG() || line.isLTORG()){
+			listStream << line << std::endl;
+			continue;
+		}
 		if (line.isStart()) {
 			outputStream << buildHeader(line, startAddress) << std::endl;
 			listStream << line << std::endl;
 		} else if (line.isEnd()) {
+			listStream << line << std::endl;
 			if (!textRecord.empty()) {
 				outputStream << textRecord << std::endl;
 			}
