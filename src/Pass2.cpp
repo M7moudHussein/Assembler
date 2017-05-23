@@ -16,9 +16,11 @@ void Pass2::compute(std::string output, std::string listFile) {
 	TextRecord textRecord = TextRecord();
 	std::string startAddress;
 	std::string stringInput;
-	std::string symbolData;
+	std::string symbolData, litData;
 	std::getline(interStream, symbolData);
+	std::getline(interStream, litData);
 	initSymbolTable(symbolData);
+	initLiteralTable(litData);
 	while (!interStream.eof()) {
 		Line line;
 		interStream >> line;
