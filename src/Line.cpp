@@ -53,6 +53,7 @@ bool Line::checkOperation(SymbolTable *symbolTable) {
 				_errorMessage = "Invalid Literal Used";
 				return false;
 			}
+            _hasLiteral = true;
 			return true;
 		} else if (Util::validIndexed(_operand)) {
 			_isIndexed = true;

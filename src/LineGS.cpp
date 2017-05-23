@@ -5,6 +5,7 @@ Line::Line(std::string line, int locCtr, SymbolTable* symbolTable) : _locCtr(loc
     _isFail = false;
     _isComment = false;
     _isIndexed = false;
+    _hasLiteral = false;
     parseLine(line);
     if ((!_isComment)) {
         checkData(symbolTable);
@@ -142,4 +143,8 @@ bool Line::isORG() const {
 
 bool Line::isLTORG() const{
     return Util::equalsIgnoreCase(_operation, "ltorg");
+}
+
+bool Line::hasLiteral() const{
+    return _hasLiteral;
 }

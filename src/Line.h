@@ -170,7 +170,7 @@ private:
 	std::string _errorMessage;
 	int _locCtr;
 
-	bool _isComment, _isFail, _isIndexed;
+	bool _isComment, _isFail, _isIndexed, _hasLiteral;
 
 	/**
 	 * Parses a line of inputs to generate the data of the
@@ -208,6 +208,8 @@ private:
 	std::string stringToHexadecimal(std::string);
 
 	std::string handleWordObjectCode(std::string basic_string);
+
+	bool hasLiteral() const;
 };
 
 #endif /* LINE_H_ */
