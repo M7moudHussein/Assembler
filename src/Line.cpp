@@ -218,9 +218,8 @@ std::string Line::getObjectCode(SymbolTable &symbolTable, LiteralTable &literalT
 		std::string scannedString = _operand.substr(2, _operand.length() - 3);
 		if (Util::equalsIgnoreCase(_operand[0], 'C')) { objectCode << stringToHexadecimal(scannedString); }
 		else if (Util::equalsIgnoreCase(_operand[0], 'X')) { objectCode << scannedString; }
-	} else if (Util::equalsIgnoreCase(_operation, "RESW") || Util::equalsIgnoreCase(_operation, "RESB")) {
-		objectCode << std::string();
-	} else {
+	} else if (isRESW() || isRESB()) { return std::string(); }
+	else {
 		std::string opCode = Util::to_hexadecimal(OperationTable::getInstance()->getOpCode(_operation));
 		std::string labelCode;
 		if ((!Util::validHexa(_operand)) && !symbolTable.hasLabel(_operand)) {
@@ -230,7 +229,9 @@ std::string Line::getObjectCode(SymbolTable &symbolTable, LiteralTable &literalT
 			objectCode << literalTable.getAddress(_operand[1], _operand.substr(3, _operand.length() - 4));
 		} else if (!Util::validHexa(_operand)) {
 			labelCode = Util::to_hexadecimal(symbolTable.getAddress(_operand) + (_isIndexed ? 0x8000 : 0));
-		} else { labelCode = _operand; }
+		} else {
+			labelCode = _operand;
+		}
 		objectCode << buildCode(opCode, labelCode);
 	}
 	return objectCode.str();

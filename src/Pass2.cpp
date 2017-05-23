@@ -10,21 +10,16 @@ void Pass2::generateObjFile(std::string output, std::string listFile) {
 }
 
 void Pass2::compute(std::string output, std::string listFile) {
-	std::ofstream outputStream(output);
-	std::ofstream listStream(listFile);
+	std::ofstream outputStream(output), listStream(listFile);
 	std::ifstream interStream(_interFile);
+	std::string startAddress, stringInput, symbolData, litData;
+	std::getline(interStream, symbolData), std::getline(interStream, litData);
+	initSymbolTable(symbolData), initLiteralTable(litData);
 	TextRecord textRecord = TextRecord();
-	std::string startAddress;
-	std::string stringInput;
-	std::string symbolData, litData;
-	std::getline(interStream, symbolData);
-	std::getline(interStream, litData);
-	initSymbolTable(symbolData);
-	initLiteralTable(litData);
 	while (!interStream.eof()) {
 		Line line;
 		interStream >> line;
-		if (line.isComment() || line.isEQU() || line.isORG() || line.isLTORG()) {
+		if (line.isComment() || line.isEQU() || line.isLTORG()) {
 			listStream << line << std::endl;
 			continue;
 		}
@@ -33,27 +28,24 @@ void Pass2::compute(std::string output, std::string listFile) {
 			listStream << line << std::endl;
 		} else if (line.isEnd()) {
 			listStream << line << std::endl;
-			if (!textRecord.empty()) {
-				outputStream << textRecord << std::endl;
-			}
+			if (!textRecord.empty()) { outputStream << textRecord << std::endl; }
 			outputStream << buildEnd(startAddress) << std::endl;
 			break;
 		} else {
-			std::string objectCode = line.getObjectCode(*symbolTable, *litTable);
-			listStream << line << "\t\t" << objectCode << std::endl;
-			if (objectCode.empty()) {
+			if (line.isRESW() || line.isRESB() || line.isORG()) {
 				if (!textRecord.empty()) {
 					outputStream << textRecord << std::endl;
 					textRecord = TextRecord();
 				}
-				continue;
+				listStream << line << "\t\t" << std::endl;
 			} else {
+				std::string objectCode = line.getObjectCode(*symbolTable, *litTable);
+				listStream << line << "\t\t" << objectCode << std::endl;
 				if (textRecord.empty()) {
 					textRecord.setStartingAddress(Util::formalize(Util::to_hexadecimal(line.getAddress()), 6));
 				}
-				if (textRecord.fits(objectCode)) {
-					textRecord.append(objectCode);
-				} else {
+				if (textRecord.fits(objectCode)) { textRecord.append(objectCode); }
+				else {
 					outputStream << textRecord << std::endl;
 					textRecord = TextRecord();
 					textRecord.setStartingAddress(Util::formalize(Util::to_hexadecimal(line.getAddress()), 6));
