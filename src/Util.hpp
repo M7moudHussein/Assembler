@@ -167,7 +167,7 @@ namespace Util {
      * but that are only included in the symbolTable
      * else it'll fail to find the right address.
      */
-    int evalMathExpression(std::string, SymbolTable*);
+    int evalMathExpression(std::string, SymbolTable*, int);
 
     /**
      * The function checks the literal whether it's a

@@ -3,6 +3,7 @@
 
 CMakeFiles/assembler.dir/src/Assembler.cpp.obj: ../src/Assembler.cpp
 CMakeFiles/assembler.dir/src/Assembler.cpp.obj: ../src/Line.h
+CMakeFiles/assembler.dir/src/Assembler.cpp.obj: ../src/LiteralTable.h
 CMakeFiles/assembler.dir/src/Assembler.cpp.obj: ../src/Machine.h
 CMakeFiles/assembler.dir/src/Assembler.cpp.obj: ../src/OpInfo.h
 CMakeFiles/assembler.dir/src/Assembler.cpp.obj: ../src/OperationTable.h
@@ -32,6 +33,7 @@ CMakeFiles/assembler.dir/src/LiteralTable.cpp.obj: ../src/SymbolTable.h
 CMakeFiles/assembler.dir/src/LiteralTable.cpp.obj: ../src/Util.hpp
 
 CMakeFiles/assembler.dir/src/Machine.cpp.obj: ../src/Line.h
+CMakeFiles/assembler.dir/src/Machine.cpp.obj: ../src/LiteralTable.h
 CMakeFiles/assembler.dir/src/Machine.cpp.obj: ../src/Machine.cpp
 CMakeFiles/assembler.dir/src/Machine.cpp.obj: ../src/Machine.h
 CMakeFiles/assembler.dir/src/Machine.cpp.obj: ../src/OpInfo.h
@@ -52,6 +54,7 @@ CMakeFiles/assembler.dir/src/OperationTable.cpp.obj: ../src/SymbolTable.h
 CMakeFiles/assembler.dir/src/OperationTable.cpp.obj: ../src/Util.hpp
 
 CMakeFiles/assembler.dir/src/Pass1.cpp.obj: ../src/Line.h
+CMakeFiles/assembler.dir/src/Pass1.cpp.obj: ../src/LiteralTable.h
 CMakeFiles/assembler.dir/src/Pass1.cpp.obj: ../src/OpInfo.h
 CMakeFiles/assembler.dir/src/Pass1.cpp.obj: ../src/OperationTable.h
 CMakeFiles/assembler.dir/src/Pass1.cpp.obj: ../src/Pass1.cpp
@@ -60,6 +63,7 @@ CMakeFiles/assembler.dir/src/Pass1.cpp.obj: ../src/SymbolTable.h
 CMakeFiles/assembler.dir/src/Pass1.cpp.obj: ../src/Util.hpp
 
 CMakeFiles/assembler.dir/src/Pass2.cpp.obj: ../src/Line.h
+CMakeFiles/assembler.dir/src/Pass2.cpp.obj: ../src/LiteralTable.h
 CMakeFiles/assembler.dir/src/Pass2.cpp.obj: ../src/OpInfo.h
 CMakeFiles/assembler.dir/src/Pass2.cpp.obj: ../src/OperationTable.h
 CMakeFiles/assembler.dir/src/Pass2.cpp.obj: ../src/Pass2.cpp

@@ -189,24 +189,26 @@ namespace Util {
                 if(opFound)
                     return  false;
                 opFound = true;
-                if((!symbolTable->hasLabel(val)) || (!validInteger(val)))
+                if((val != "*") && (!symbolTable->hasLabel(val)) && (!validInteger(val)))
                     return false;
                 continue;
             }
             val += data[i];
             opFound = false;
         }
-        if((!symbolTable->hasLabel(val)) || (!validInteger(val)))
+        if((val != "*") && (!symbolTable->hasLabel(val)) && (!validInteger(val)))
             return false;
     }
 
-    int evalMathExpression(std::string data, SymbolTable* symbolTable){
+    int evalMathExpression(std::string data, SymbolTable* symbolTable, int locCtr){
         std::string val = "";
         bool positive = true;
         int result = 0;
         for(int i = 0; i < data.length(); i++){
             if(data[i] == '+' || data[i] == '-'){
-                if(validInteger(val))
+                if(val == "*")
+                    result += (positive ? 1 : -1) * locCtr;
+                else if(validInteger(val))
                     result += (positive ? 1 : -1) * std::stoi(val);
                 else
                     result += (positive ? 1 : -1) * symbolTable->getAddress(val);
@@ -219,7 +221,9 @@ namespace Util {
             }
             val += data[i];
         }
-        if(validInteger(val))
+        if(val == "*")
+            return locCtr;
+        else if(validInteger(val))
             result += (positive ? 1 : -1) * std::stoi(val);
         else
             result += (positive ? 1 : -1) * symbolTable->getAddress(val);

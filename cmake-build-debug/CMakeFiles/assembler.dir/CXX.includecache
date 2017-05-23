@@ -129,6 +129,8 @@ string
 -
 SymbolTable.h
 C:/Users/Mohamed Ayman/Desktop/assembler/src/SymbolTable.h
+LiteralTable.h
+C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.h
 Line.h
 C:/Users/Mohamed Ayman/Desktop/assembler/src/Line.h
 
@@ -141,6 +143,8 @@ C:/Users/Mohamed Ayman/Desktop/assembler/src/Pass2.hpp
 C:/Users/Mohamed Ayman/Desktop/assembler/src/Pass2.hpp
 SymbolTable.h
 C:/Users/Mohamed Ayman/Desktop/assembler/src/SymbolTable.h
+LiteralTable.h
+C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.h
 string
 -
 Line.h

@@ -158,11 +158,7 @@ bool Line::checkDirective(SymbolTable *symbolTable) {
 		}
 		return true;
 	} else if (Util::equalsIgnoreCase(_operation, "org")) {
-		if (hasOperand()) {
-			_isFail = true;
-			_errorMessage = "Such operatin can't have an operand.";
-			return false;
-		} else if (!Util::validMathExpression(_operand, symbolTable)) {
+		if (!Util::validMathExpression(_operand, symbolTable)) {
 			_isFail = true;
 			_errorMessage = "Invalid Mathematical Expression.";
 			return false;
@@ -209,7 +205,7 @@ int Line::getNextAddress(SymbolTable *symbolTable) {
 	} else if (Util::equalsIgnoreCase(_operation, "byte")) {
 		return Util::getConstSize(_operand) + _locCtr;
 	} else if (Util::equalsIgnoreCase(_operation, "equ") || Util::equalsIgnoreCase(_operation, "org")) {
-		return Util::evalMathExpression(_operand, symbolTable);
+		return Util::evalMathExpression(_operand, symbolTable, _locCtr);
 	}
 	return -1;
 }

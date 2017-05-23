@@ -44,6 +44,7 @@ void Pass1::compute() {
     std::ofstream intermedStream(INTER_FILE);
     std::string intermedData = "";
     while (std::getline(inputStream, _stringInput)) {
+        std::cout << "HELO\n";
         Line lineCommand(_stringInput, _locCtr, symbolTable);
         _hasError = handleLine(lineCommand, intermedData) || _hasError;
         if(_locCtr > std::stoi(std::string("ffff"), nullptr, 16) || _locCtr < 0){
@@ -54,8 +55,6 @@ void Pass1::compute() {
         std::stringstream ss;
         ss << lineCommand << std::endl;
         intermedData += ss.str();
-        if(lineCommand.isLTORG() || lineCommand.isEnd())
-            litTable->arrangeTable(_locCtr);
         if (lineCommand.isEnd())
             break;
     }
@@ -74,6 +73,10 @@ bool Pass1::handleLine(Line lineCommand, std::string& intermedData){
             intermedData += lineCommand.getError() + "\n";
             return true;
         } else {
+            if(lineCommand.isLTORG() || lineCommand.isEnd())
+                litTable->arrangeTable(_locCtr);
+            if(lineCommand.hasLiteral())
+                litTable->addLiteral(lineCommand.getOperand());
             if ((!lineCommand.isStart()) && (!lineCommand.isEQU()) && lineCommand.hasLabel()) {
                 if (!addLabel(lineCommand.getLabel(), lineCommand.getIntAddress())) {
                     intermedData += "Duplicate Label has appeared, Error\n";
@@ -97,20 +100,18 @@ bool Pass1::handleLine(Line lineCommand, std::string& intermedData){
 
 void Pass1::printSymbolTable(std::ofstream &intermedStream) {
     std::vector<std::pair<std::string, int> > vec = symbolTable->getData();
+    intermedStream << vec.size() << "\n";
     for(int i = 0; i < vec.size(); i++) {
-        if(i)
-            intermedStream << (char)(31);
-        intermedStream << vec[i].first << (char)(31) << vec[i].second;
+        intermedStream << vec[i].first << '\t'<< vec[i].second;
     }
     intermedStream << std::endl;
 }
 
 void Pass1::printLiteralTable(std::ofstream &intermedStream){
     std::vector<std::pair<std::string, int> > vec = litTable->getData();
+    intermedStream << vec.size() << "\n";
     for(int i = 0; i < vec.size(); i++) {
-        if(i)
-            intermedStream << (char)(31);
-        intermedStream << vec[i].first << (char)(31) << vec[i].second;
+        intermedStream << vec[i].first << '\t'<< vec[i].second;
     }
     intermedStream << std::endl;
 }

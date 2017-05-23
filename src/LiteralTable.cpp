@@ -18,6 +18,7 @@ void LiteralTable::addLiteral(std::string literal, int address) {
 int LiteralTable::arrangeTable(int locCtr){
     while(!_newLits.empty()){
         std::string curLit = _newLits.front();
+        _newLits.pop();
         _litTable.insert({curLit, locCtr});
         if(tolower(curLit[1]) == 'w')
             locCtr += 3;

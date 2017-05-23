@@ -4,6 +4,7 @@
 CMakeFiles/assembler.dir/src/Assembler.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Assembler.cpp
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Line.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Machine.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/OpInfo.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/OperationTable.h
@@ -33,6 +34,7 @@ CMakeFiles/assembler.dir/src/LiteralTable.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Util.hpp
 CMakeFiles/assembler.dir/src/Machine.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Line.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Machine.cpp
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Machine.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/OpInfo.h
@@ -53,6 +55,7 @@ CMakeFiles/assembler.dir/src/OperationTable.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Util.hpp
 CMakeFiles/assembler.dir/src/Pass1.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Line.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/OpInfo.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/OperationTable.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Pass1.cpp
@@ -61,6 +64,7 @@ CMakeFiles/assembler.dir/src/Pass1.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Util.hpp
 CMakeFiles/assembler.dir/src/Pass2.cpp.obj
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Line.h
+ C:/Users/Mohamed Ayman/Desktop/assembler/src/LiteralTable.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/OpInfo.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/OperationTable.h
  C:/Users/Mohamed Ayman/Desktop/assembler/src/Pass2.cpp
