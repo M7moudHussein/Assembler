@@ -58,10 +58,13 @@ namespace Util {
 
     std::vector<std::string> split(std::string input, char separator) {
         std::vector<std::string> result;
+        int quotCount = 0;
         std::string curStr;
         for (int i = 0; i < input.length(); i++) {
+            if(input[i] == '\'')
+                quotCount++;
             curStr += input[i];
-            if (i + 1 < input.length() && input[i + 1] == separator) {
+            if (i + 1 < input.length() && input[i + 1] == separator && quotCount % 2 == 0) {
                 result.push_back(curStr);
                 while (i + 1 < input.length() && input[i + 1] == separator) i++;
                 curStr = std::string();
