@@ -80,7 +80,7 @@ bool Pass1::handleLine(Line lineCommand, std::string& intermedData){
                 litTable->addLiteral(lineCommand.getOperand());
             if ((!lineCommand.isStart()) && (!lineCommand.isEQU()) && lineCommand.hasLabel()) {
                 if (!addLabel(lineCommand.getLabel(), lineCommand.getIntAddress())) {
-                    intermedData += "Duplicate Label has appeared, Error\n";
+                    intermedData += "Duplicate Label has appeared,Error\n";
                     return true;
                 }
             }

@@ -205,6 +205,7 @@ namespace Util {
 		}
 		if ((val != "*") && (!symbolTable->hasLabel(val)) && (!validInteger(val)))
 			return false;
+		return true;
 	}
 
 	int evalMathExpression(std::string data, SymbolTable *symbolTable, int locCtr) {

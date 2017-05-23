@@ -17,6 +17,7 @@ Line::Line() {
     _isFail = false;
     _isComment = false;
     _isIndexed = false;
+    _hasLiteral = false;
 }
 
 Line::~Line() {
