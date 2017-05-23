@@ -47,7 +47,14 @@ bool Line::checkOperation(SymbolTable *symbolTable) {
 	if (Util::isDirective(_operation)) {
 		return checkDirective(symbolTable);
 	} else if (OperationTable::getInstance()->hasOperation(_operation)) {
-		if (Util::validIndexed(_operand)) {
+		if(hasOperand() && _operand.length() != 0 && _operand[0] == '='){
+			if(!Util::validLiteral(_operand)){
+				_isFail = true;
+				_errorMessage = "Invalid Literal Used";
+				return false;
+			}
+			return true;
+		} else if (Util::validIndexed(_operand)) {
 			_isIndexed = true;
 			std::vector<std::string> vec = Util::split(_operand, ',');
 			_operand = vec[0];
@@ -72,53 +79,65 @@ bool Line::checkDirective(SymbolTable *symbolTable) {
 		if (!hasOperand()) {
 			_isFail = true;
 			_errorMessage = "Missing Starting Address.";
+			return false;
 		} else if (!Util::validHexa(_operand)) {
 			_isFail = true;
 			_errorMessage = "Invalid Starting Address";
+			return false;
 		}
 		return true;
 	} else if (Util::equalsIgnoreCase(_operation, "end")) {
 		if (!hasOperand()) {
 			_isFail = true;
 			_errorMessage = "Missing End Address";
+			return false;
 		} else if (!Util::validOperand(_operand)) {
 			_isFail = true;
 			_errorMessage = "Invalid Ending Address/Label.";
+			return false;
 		}
 	} else if (Util::equalsIgnoreCase(_operation, "resw")) {
 		if (!hasOperand()) {
 			_isFail = true;
 			_errorMessage = "Missing word array size";
+			return false;
 		} else if (!Util::validInteger(_operand)) {
 			_isFail = true;
 			_errorMessage = "Invalid Size Specified";
+			return false;
 		}
 		return true;
 	} else if (Util::equalsIgnoreCase(_operation, "resb")) {
 		if (!hasOperand()) {
 			_isFail = true;
 			_errorMessage = "Missing byte array size";
+			return false;
 		} else if (!Util::validInteger(_operand)) {
 			_isFail = true;
 			_errorMessage = "Invalid Size Specified";
+			return false;
 		}
 		return true;
 	} else if (Util::equalsIgnoreCase(_operation, "byte")) {
 		if (!hasOperand()) {
 			_isFail = true;
 			_errorMessage = "Missing Data.";
+			return false;
 		} else if (!Util::validByte(_operand)) {
 			_isFail = true;
 			_errorMessage = "Invalid Byte Specified.";
+			return false;
 		}
 		return true;
 	} else if (Util::equalsIgnoreCase(_operation, "word")) {
 		if (!hasOperand()) {
 			_isFail = true;
 			_errorMessage = "Missing Data";
+			return false;
 		} else if (!Util::validHexaArray(_operand)) {
 			_isFail = true;
 			_errorMessage = "Invalid Integer Array defined.";
+			return false;
 		}
 		if (Util::split(_operand, ',').size() > 10) {
 			_isFail = true;
@@ -130,18 +149,29 @@ bool Line::checkDirective(SymbolTable *symbolTable) {
 		if (!hasOperand()) {
 			_isFail = true;
 			_errorMessage = "Missing Mathematical Expression.";
+			return false;
 		} else if (!Util::validMathExpression(_operand, symbolTable)) {
 			_isFail = true;
 			_errorMessage = "Invalid Mathematical Expression.";
+			return false;
 		}
 		return true;
 	} else if (Util::equalsIgnoreCase(_operation, "org")) {
 		if (hasOperand()) {
 			_isFail = true;
 			_errorMessage = "Such operatin can't have an operand.";
+			return false;
 		} else if (!Util::validMathExpression(_operand, symbolTable)) {
 			_isFail = true;
 			_errorMessage = "Invalid Mathematical Expression.";
+			return false;
+		}
+		return true;
+	}else if(Util::equalsIgnoreCase(_operation, "ltorg")){
+		if(hasOperand() || hasLabel()){
+			_isFail = true;
+			_errorMessage = "Such directive can't have a label nor an operand";
+			return false;
 		}
 		return true;
 	}

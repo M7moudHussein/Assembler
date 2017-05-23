@@ -225,4 +225,21 @@ namespace Util {
             result += (positive ? 1 : -1) * symbolTable->getAddress(val);
         return result;
     }
+
+    bool validLiteral(std::string literal){
+        if(literal.length() <= 4 || literal[0] != '=')
+            return false;
+        literal = literal.substr(1,literal.length() - 1);
+        if(validByte(literal) || validLiteralWord(literal))
+            return true;
+        return false;
+    }
+
+    bool validLiteralWord(std::string literalWord){
+        if(tolower(literalWord[0]) == 'w' && literalWord[1] == '\'' && literalWord[literalWord.length() - 1] == '\''){
+            literalWord = literalWord.substr(2, literalWord.length() - 3);
+            return validInteger(literalWord);
+        }
+        return false;
+    }
 };

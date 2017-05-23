@@ -5,6 +5,7 @@
 #include <cstring>
 #include <iostream>
 #include <sstream>
+#include <string>
 #include <vector>
 #include "SymbolTable.h"
 
@@ -18,8 +19,8 @@
 
 namespace Util {
 
-    const static char *DIRECTIVES[] = {"start", "end", "resw", "resb", "word", "byte", "equ", "org"};
-    const static int DIR_SIZE = 6;
+    const static char *DIRECTIVES[] = {"start", "end", "resw", "resb", "word", "byte", "equ", "org", "ltorg"};
+    const static int DIR_SIZE = 9;
 
     /**
      * Separator used to object code to enhance readability.
@@ -167,6 +168,26 @@ namespace Util {
      * else it'll fail to find the right address.
      */
     int evalMathExpression(std::string, SymbolTable*);
+
+    /**
+     * The function checks the literal whether it's a
+     * valid literal or not and the validation check
+     * depends on the type of the literal whether it's
+     * a word or byte.
+     * @return true in case of a valid literal satisfying
+     * the above declared conditions.
+     */
+    bool validLiteral(std::string);
+
+    /**
+     * In case of checking a literal the byte and hexa
+     * can be verified using the validbyte and validhexa
+     * but the literal word needs to be changed to a
+     * normal integer and then is verified using the
+     * validInteger
+     * @return true in case it's a valid literal word.
+     */
+    bool validLiteralWord(std::string);
 };
 
 #endif //ASSEMBLER_UTIL_HPP
