@@ -11,6 +11,7 @@
 #include <fstream>
 #include "Util.hpp"
 #include "SymbolTable.h"
+#include "LiteralTable.h"
 
 /**
  * Class encapsulating the Line of SIC code
@@ -34,7 +35,7 @@ public:
 	 * by tabs and in case of missing argument it's replaced
 	 * with a one space character.
 	 */
-	Line(std::string, int, SymbolTable*);
+	Line(std::string, int, SymbolTable *);
 
 	virtual ~Line();
 
@@ -61,7 +62,7 @@ public:
 	 * reserved size.
 	 * @return the address of the next operation.
 	 */
-	int getNextAddress(SymbolTable*);
+	int getNextAddress(SymbolTable *);
 
 	/**
 	 * Checks if the Line of code fails due to
@@ -94,7 +95,7 @@ public:
 
 	std::string getComment() const;
 
-	std::string getObjectCode(SymbolTable symbolTable);
+	std::string getObjectCode(SymbolTable &symbolTable, LiteralTable &literalTable);
 
 	/**
 	 * Returns the Index Label or value in case of
@@ -139,11 +140,11 @@ public:
 
 	bool hasOperand() const;
 
-    /**
-     * Checks whether this line has a literal operand or not.
-     * @return true in case this line has a literal operand.
-     */
-    bool hasLiteral() const;
+	/**
+	 * Checks whether this line has a literal operand or not.
+	 * @return true in case this line has a literal operand.
+	 */
+	bool hasLiteral() const;
 
 	/**
 	 * Checks whether this Line is the Start line,
@@ -165,9 +166,9 @@ public:
 	 * of the type EQU, ORG or LTORG.
 	 * @return
 	 */
-    bool isEQU() const;
+	bool isEQU() const;
 
-    bool isORG() const;
+	bool isORG() const;
 
 	bool isLTORG() const;
 
@@ -197,10 +198,13 @@ private:
 	 * As of Label,Operation, Operand and Comment
 	 * to validate the four of them.
 	 */
-	bool checkData(SymbolTable*);
+	bool checkData(SymbolTable *);
+
 	bool checkLabel();
-	bool checkOperation(SymbolTable*);
-	bool checkDirective(SymbolTable*);
+
+	bool checkOperation(SymbolTable *);
+
+	bool checkDirective(SymbolTable *);
 
 
 	/**

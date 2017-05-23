@@ -47,13 +47,13 @@ bool Line::checkOperation(SymbolTable *symbolTable) {
 	if (Util::isDirective(_operation)) {
 		return checkDirective(symbolTable);
 	} else if (OperationTable::getInstance()->hasOperation(_operation)) {
-		if(hasOperand() && _operand.length() != 0 && _operand[0] == '='){
-			if(!Util::validLiteral(_operand)){
+		if (hasOperand() && _operand.length() != 0 && _operand[0] == '=') {
+			if (!Util::validLiteral(_operand)) {
 				_isFail = true;
 				_errorMessage = "Invalid Literal Used";
 				return false;
 			}
-            _hasLiteral = true;
+			_hasLiteral = true;
 			return true;
 		} else if (Util::validIndexed(_operand)) {
 			_isIndexed = true;
@@ -164,8 +164,8 @@ bool Line::checkDirective(SymbolTable *symbolTable) {
 			return false;
 		}
 		return true;
-	}else if(Util::equalsIgnoreCase(_operation, "ltorg")){
-		if(hasOperand() || hasLabel()){
+	} else if (Util::equalsIgnoreCase(_operation, "ltorg")) {
+		if (hasOperand() || hasLabel()) {
 			_isFail = true;
 			_errorMessage = "Such directive can't have a label nor an operand";
 			return false;
@@ -188,8 +188,8 @@ int Line::getNextAddress(SymbolTable *symbolTable) {
 		return _locCtr;
 	}
 	_address = std::to_string(_locCtr);
-    if(Util::equalsIgnoreCase(_operation, "ltorg"))
-        return _locCtr;
+	if (Util::equalsIgnoreCase(_operation, "ltorg"))
+		return _locCtr;
 	if (fail()) {
 		return _locCtr;
 	}
@@ -210,32 +210,27 @@ int Line::getNextAddress(SymbolTable *symbolTable) {
 	return -1;
 }
 
-std::string Line::getObjectCode(SymbolTable symbolTable) {
+std::string Line::getObjectCode(SymbolTable &symbolTable, LiteralTable &literalTable) {
 	std::stringstream objectCode;
-	if (Util::equalsIgnoreCase(_operation, "RSUB")) {
-		objectCode << buildCode("4C", std::string());
-	} else if (Util::equalsIgnoreCase(_operation, "WORD")) {
-		return handleWordObjectCode(_operand);
-	} else if (Util::equalsIgnoreCase(_operation, "BYTE")) {
+	if (Util::equalsIgnoreCase(_operation, "RSUB")) objectCode << buildCode("4C", std::string());
+	else if (Util::equalsIgnoreCase(_operation, "WORD")) { return handleWordObjectCode(_operand); }
+	else if (Util::equalsIgnoreCase(_operation, "BYTE")) {
 		std::string scannedString = _operand.substr(2, _operand.length() - 3);
-		if (tolower(_operand[0]) == 'c') {
-			objectCode << stringToHexadecimal(scannedString);
-		} else if (tolower(_operand[0]) == 'x') {
-			objectCode << scannedString;
-		}
+		if (Util::equalsIgnoreCase(_operand[0], 'C')) { objectCode << stringToHexadecimal(scannedString); }
+		else if (Util::equalsIgnoreCase(_operand[0], 'X')) { objectCode << scannedString; }
 	} else if (Util::equalsIgnoreCase(_operation, "RESW") || Util::equalsIgnoreCase(_operation, "RESB")) {
 		objectCode << std::string();
 	} else {
+		std::string opCode = Util::to_hexadecimal(OperationTable::getInstance()->getOpCode(_operation));
+		std::string labelCode;
 		if ((!Util::validHexa(_operand)) && !symbolTable.hasLabel(_operand)) {
 			std::cout << _operation << " " << _operand << std::endl;
 			throw "Invalid Operand..No Such A Label!";
-		}
-		std::string opCode = Util::to_hexadecimal(OperationTable::getInstance()->getOpCode(_operation));
-		std::string labelCode;
-		if (!Util::validHexa(_operand))
+		} else if (_hasLiteral) {
+			objectCode << literalTable.getAddress(_operand[1], _operand.substr(3, _operand.length() - 4));
+		} else if (!Util::validHexa(_operand)) {
 			labelCode = Util::to_hexadecimal(symbolTable.getAddress(_operand) + (_isIndexed ? 0x8000 : 0));
-		else
-			labelCode = _operand;
+		} else { labelCode = _operand; }
 		objectCode << buildCode(opCode, labelCode);
 	}
 	return objectCode.str();

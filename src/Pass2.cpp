@@ -22,7 +22,7 @@ void Pass2::compute(std::string output, std::string listFile) {
 	while (!interStream.eof()) {
 		Line line;
 		interStream >> line;
-		if(line.isComment() || line.isEQU() || line.isORG() || line.isLTORG()){
+		if (line.isComment() || line.isEQU() || line.isORG() || line.isLTORG()) {
 			listStream << line << std::endl;
 			continue;
 		}
@@ -37,7 +37,7 @@ void Pass2::compute(std::string output, std::string listFile) {
 			outputStream << buildEnd(startAddress) << std::endl;
 			break;
 		} else {
-			std::string objectCode = line.getObjectCode(*symbolTable);
+			std::string objectCode = line.getObjectCode(*symbolTable, *litTable);
 			listStream << line << "\t\t" << objectCode << std::endl;
 			if (objectCode.empty()) {
 				if (!textRecord.empty()) {
@@ -66,17 +66,17 @@ void Pass2::compute(std::string output, std::string listFile) {
 }
 
 void Pass2::initSymbolTable(std::string data) {
-	std::vector<std::string> vec = Util::split(data,(char)(31));
+	std::vector<std::string> vec = Util::split(data, (char) (31));
 	symbolTable = new SymbolTable();
-	for(int i = 0; i < vec.size(); i += 2){
+	for (int i = 0; i < vec.size(); i += 2) {
 		symbolTable->addLabel(vec[i], std::stoi(vec[i + 1]));
 	}
 }
 
 void Pass2::initLiteralTable(std::string data) {
-	std::vector<std::string> vec = Util::split(data, (char)(31));
+	std::vector<std::string> vec = Util::split(data, (char) (31));
 	litTable = new LiteralTable();
-	for(int i = 0; i < vec.size(); i += 2){
+	for (int i = 0; i < vec.size(); i += 2) {
 		litTable->addLiteral(vec[i], std::stoi(vec[i + 1]));
 	}
 }
