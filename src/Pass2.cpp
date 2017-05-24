@@ -64,6 +64,8 @@ void Pass2::compute(std::string output, std::string listFile) {
 void Pass2::initSymbolTable(std::string data) {
 	std::vector<std::string> vec = Util::split(data, ',');
 	symbolTable = new SymbolTable();
+	if(vec.size() == 0 || vec.size() == 1)
+		return;
 	for (int i = 0; i < vec.size(); i += 2) {
 		symbolTable->addLabel(vec[i], std::stoi(vec[i + 1]));
 	}
@@ -72,6 +74,8 @@ void Pass2::initSymbolTable(std::string data) {
 void Pass2::initLiteralTable(std::string data) {
 	std::vector<std::string> vec = Util::split(data, ',');
 	litTable = new LiteralTable();
+	if(vec.size() == 0 || vec.size() == 1)
+		return;
 	for (int i = 0; i < vec.size(); i += 2) {
 		litTable->addLiteral(vec[i], std::stoi(vec[i + 1]));
 	}

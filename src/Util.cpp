@@ -198,6 +198,7 @@ namespace Util {
 				opFound = true;
 				if ((val != "*") && (!symbolTable->hasLabel(val)) && (!validInteger(val)))
 					return false;
+				val = "";
 				continue;
 			}
 			val += data[i];

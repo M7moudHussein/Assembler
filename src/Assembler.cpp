@@ -5,6 +5,6 @@ int main(int argc, char **argv) {
     if(argc == 2)
         Machine(std::string(argv[1]));
     else
-        Machine(std::string("input.txt"));
+        Machine(std::string("input.asm"));
     return 0;
 }
