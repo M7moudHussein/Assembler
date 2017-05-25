@@ -80,8 +80,13 @@ namespace Util {
 
 	int getConstSize(std::string data) {
 		char firstChar = tolower(data[0]);
+        int shift = 0;
+        if(data[0] == '=') {
+            firstChar = 'c';
+            shift = -1;
+        }
 		if (firstChar == 'c')
-			return data.length() - 3;
+			return data.length() - 3 + shift;
 		return (data.length() - 3 + 1) / 2;
 	}
 

@@ -223,8 +223,8 @@ std::string Line::getObjectCode(SymbolTable &symbolTable, LiteralTable &literalT
 		std::string opCode = Util::to_hexadecimal(OperationTable::getInstance()->getOpCode(_operation));
 		std::string labelCode;
 		if (_hasLiteral) {
-			objectCode << literalTable.getAddress(_operand);
-		}else if ((!Util::validHexa(_operand)) && !symbolTable.hasLabel(_operand)) {
+			labelCode = Util::to_hexadecimal(literalTable.getAddress(_operand));
+		} else if ((!Util::validHexa(_operand)) && !symbolTable.hasLabel(_operand)) {
 			throw "Invalid Operand..No Such A Label!";
 		} else if (!Util::validHexa(_operand)) {
 			labelCode = Util::to_hexadecimal(symbolTable.getAddress(_operand) + (_isIndexed ? 0x8000 : 0));

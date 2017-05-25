@@ -51,6 +51,10 @@ void Pass1::compute() {
             intermedData += "Location counter out of bounds\n";
             std::cout << "Out of Memory bounds of SIC Machine" << std::endl;
         }
+        if(lineCommand.isEQU() && !symbolTable->hasLabel(lineCommand.getLabel())){
+            _hasError = true;
+            intermedData += "Equ must have a previously defined label\n";
+        }
         std::stringstream ss;
         ss << lineCommand << std::endl;
         intermedData += ss.str();
@@ -74,7 +78,7 @@ bool Pass1::handleLine(Line lineCommand, std::string& intermedData){
         } else {
             if(lineCommand.hasLiteral())
                 litTable->addLiteral(lineCommand.getOperand());
-            if ((!lineCommand.isStart()) && lineCommand.hasLabel()) {
+            if ((!lineCommand.isStart()) && (!lineCommand.isEQU()) && lineCommand.hasLabel()) {
                 if (!addLabel(lineCommand.getLabel(), lineCommand.getIntAddress())) {
                     intermedData += "Duplicate Label has appeared,Error\n";
                     return true;
@@ -84,6 +88,12 @@ bool Pass1::handleLine(Line lineCommand, std::string& intermedData){
                 _locCtr = litTable->arrangeTable(_locCtr);
             else if(!lineCommand.isEQU())
                 _locCtr = lineCommand.getNextAddress(symbolTable);
+            else{
+                if (!addLabel(lineCommand.getLabel(), lineCommand.getNextAddress(symbolTable))) {
+                    intermedData += "Duplicate Label has appeared, Error\n";
+                    return true;
+                }
+            }
             if(lineCommand.isStart())
                 _startingAddress = _locCtr;
         }
